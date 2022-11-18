@@ -1,0 +1,153 @@
+CASTTranslationUnit static void mlxsw_emad_transmit_retry(struct mlxsw_core *mlxsw_core,
+				      struct mlxsw_reg_trans *trans)
+{
+	int err;
+	if (trans->retries < MLXSW_EMAD_MAX_RETRY) {
+		trans->retries++;
+		err = mlxsw_emad_transmit(trans->core, trans);
+		if (err == 0)
+			return;
+
+		if (!atomic_dec_and_test(&trans->active))
+			return;
+	} else {
+		err = -EIO;
+	}
+	mlxsw_emad_trans_finish(trans, err);
+}
+   CASTFunctionDefinition static void mlxsw_emad_transmit_retry(struct mlxsw_core *mlxsw_core,
+				      struct mlxsw_reg_trans *trans)
+{
+	int err;
+	if (trans->retries < MLXSW_EMAD_MAX_RETRY) {
+		trans->retries++;
+		err = mlxsw_emad_transmit(trans->core, trans);
+		if (err == 0)
+			return;
+
+		if (!atomic_dec_and_test(&trans->active))
+			return;
+	} else {
+		err = -EIO;
+	}
+	mlxsw_emad_trans_finish(trans, err);
+}
+      CASTSimpleDeclSpecifier static void
+      CASTFunctionDeclarator mlxsw_emad_transmit_retry(struct mlxsw_core *mlxsw_core,
+				      struct mlxsw_reg_trans *trans)
+         CASTName mlxsw_emad_transmit_retry
+         CASTParameterDeclaration struct mlxsw_core *mlxsw_core
+            CASTElaboratedTypeSpecifier struct mlxsw_core
+               CASTName mlxsw_core
+            CASTDeclarator *mlxsw_core
+               CASTPointer *
+               CASTName mlxsw_core
+         CASTParameterDeclaration struct mlxsw_reg_trans *trans
+            CASTElaboratedTypeSpecifier struct mlxsw_reg_trans
+               CASTName mlxsw_reg_trans
+            CASTDeclarator *trans
+               CASTPointer *
+               CASTName trans
+      CASTCompoundStatement {
+	int err;
+	if (trans->retries < MLXSW_EMAD_MAX_RETRY) {
+		trans->retries++;
+		err = mlxsw_emad_transmit(trans->core, trans);
+		if (err == 0)
+			return;
+
+		if (!atomic_dec_and_test(&trans->active))
+			return;
+	} else {
+		err = -EIO;
+	}
+	mlxsw_emad_trans_finish(trans, err);
+}
+         CASTDeclarationStatement int err;
+            CASTSimpleDeclaration int err;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator err
+                  CASTName err
+         CASTIfStatement if (trans->retries < MLXSW_EMAD_MAX_RETRY) {
+		trans->retries++;
+		err = mlxsw_emad_transmit(trans->core, trans);
+		if (err == 0)
+			return;
+
+		if (!atomic_dec_and_test(&trans->active))
+			return;
+	} else {
+		err = -EIO;
+	}
+            CASTBinaryExpression trans->retries < MLXSW_EMAD_MAX_RETRY
+               CASTFieldReference trans->retries
+                  CASTIdExpression trans
+                     CASTName trans
+                  CASTName retries
+               CASTIdExpression MLXSW_EMAD_MAX_RETRY
+                  CASTName MLXSW_EMAD_MAX_RETRY
+            CASTCompoundStatement {
+		trans->retries++;
+		err = mlxsw_emad_transmit(trans->core, trans);
+		if (err == 0)
+			return;
+
+		if (!atomic_dec_and_test(&trans->active))
+			return;
+	}
+               CASTExpressionStatement trans->retries++;
+                  CASTUnaryExpression trans->retries++
+                     CASTFieldReference trans->retries
+                        CASTIdExpression trans
+                           CASTName trans
+                        CASTName retries
+               CASTExpressionStatement err = mlxsw_emad_transmit(trans->core, trans);
+                  CASTBinaryExpression err = mlxsw_emad_transmit(trans->core, trans)
+                     CASTIdExpression err
+                        CASTName err
+                     CASTFunctionCallExpression mlxsw_emad_transmit(trans->core, trans)
+                        CASTIdExpression mlxsw_emad_transmit
+                           CASTName mlxsw_emad_transmit
+                        CASTFieldReference trans->core
+                           CASTIdExpression trans
+                              CASTName trans
+                           CASTName core
+                        CASTIdExpression trans
+                           CASTName trans
+               CASTIfStatement if (err == 0)
+			return;
+                  CASTBinaryExpression err == 0
+                     CASTIdExpression err
+                        CASTName err
+                     CASTLiteralExpression 0
+                  CASTReturnStatement return;
+               CASTIfStatement if (!atomic_dec_and_test(&trans->active))
+			return;
+                  CASTUnaryExpression !atomic_dec_and_test(&trans->active)
+                     CASTFunctionCallExpression atomic_dec_and_test(&trans->active)
+                        CASTIdExpression atomic_dec_and_test
+                           CASTName atomic_dec_and_test
+                        CASTUnaryExpression &trans->active
+                           CASTFieldReference trans->active
+                              CASTIdExpression trans
+                                 CASTName trans
+                              CASTName active
+                  CASTReturnStatement return;
+            CASTCompoundStatement {
+		err = -EIO;
+	}
+               CASTExpressionStatement err = -EIO;
+                  CASTBinaryExpression err = -EIO
+                     CASTIdExpression err
+                        CASTName err
+                     CASTUnaryExpression -EIO
+                        CASTIdExpression EIO
+                           CASTName EIO
+         CASTExpressionStatement mlxsw_emad_trans_finish(trans, err);
+            CASTFunctionCallExpression mlxsw_emad_trans_finish(trans, err)
+               CASTIdExpression mlxsw_emad_trans_finish
+                  CASTName mlxsw_emad_trans_finish
+               CASTIdExpression trans
+                  CASTName trans
+               CASTIdExpression err
+                  CASTName err

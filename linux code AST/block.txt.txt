@@ -1,0 +1,209 @@
+CASTTranslationUnit void blk_unregister_queue(struct gendisk *disk)
+{
+	struct request_queue *q = disk->queue;
+	if (WARN_ON(!q))
+		return;
+	/* Return early if disk->queue was never registered. */
+	if (!blk_queue_registered(q))
+		return;
+	/*
+	 * Since sysfs_remove_dir() prevents adding new directory entries
+	 * before removal of existing entries starts, protect against
+	 * concurrent elv_iosched_store() calls.
+	 */
+	mutex_lock(&q->sysfs_lock);
+	blk_queue_flag_clear(QUEUE_FLAG_REGISTERED, q);
+	mutex_unlock(&q->sysfs_lock);
+	@@ -1062,12 +1059,10 @@
+	kobject_del(&q->kobj);
+	blk_trace_remove_sysfs(disk_to_dev(disk));
+
+	mutex_lock(&q->sysfs_lock);
+	if (q->elevator)
+		elv_unregister_queue(q);
+	mutex_unlock(&q->sysfs_lock);
+	mutex_unlock(&q->sysfs_dir_lock);
+
+	kobject_put(&disk_to_dev(disk)->kobj);
+}
+   CASTFunctionDefinition void blk_unregister_queue(struct gendisk *disk)
+{
+	struct request_queue *q = disk->queue;
+	if (WARN_ON(!q))
+		return;
+	/* Return early if disk->queue was never registered. */
+	if (!blk_queue_registered(q))
+		return;
+	/*
+	 * Since sysfs_remove_dir() prevents adding new directory entries
+	 * before removal of existing entries starts, protect against
+	 * concurrent elv_iosched_store() calls.
+	 */
+	mutex_lock(&q->sysfs_lock);
+	blk_queue_flag_clear(QUEUE_FLAG_REGISTERED, q);
+	mutex_unlock(&q->sysfs_lock);
+	@@ -1062,12 +1059,10 @@
+	kobject_del(&q->kobj);
+	blk_trace_remove_sysfs(disk_to_dev(disk));
+
+	mutex_lock(&q->sysfs_lock);
+	if (q->elevator)
+		elv_unregister_queue(q);
+	mutex_unlock(&q->sysfs_lock);
+	mutex_unlock(&q->sysfs_dir_lock);
+
+	kobject_put(&disk_to_dev(disk)->kobj);
+}
+      CASTSimpleDeclSpecifier void
+      CASTFunctionDeclarator blk_unregister_queue(struct gendisk *disk)
+         CASTName blk_unregister_queue
+         CASTParameterDeclaration struct gendisk *disk
+            CASTElaboratedTypeSpecifier struct gendisk
+               CASTName gendisk
+            CASTDeclarator *disk
+               CASTPointer *
+               CASTName disk
+      CASTCompoundStatement {
+	struct request_queue *q = disk->queue;
+	if (WARN_ON(!q))
+		return;
+	/* Return early if disk->queue was never registered. */
+	if (!blk_queue_registered(q))
+		return;
+	/*
+	 * Since sysfs_remove_dir() prevents adding new directory entries
+	 * before removal of existing entries starts, protect against
+	 * concurrent elv_iosched_store() calls.
+	 */
+	mutex_lock(&q->sysfs_lock);
+	blk_queue_flag_clear(QUEUE_FLAG_REGISTERED, q);
+	mutex_unlock(&q->sysfs_lock);
+	@@ -1062,12 +1059,10 @@
+	kobject_del(&q->kobj);
+	blk_trace_remove_sysfs(disk_to_dev(disk));
+
+	mutex_lock(&q->sysfs_lock);
+	if (q->elevator)
+		elv_unregister_queue(q);
+	mutex_unlock(&q->sysfs_lock);
+	mutex_unlock(&q->sysfs_dir_lock);
+
+	kobject_put(&disk_to_dev(disk)->kobj);
+}
+         CASTDeclarationStatement struct request_queue *q = disk->queue;
+            CASTSimpleDeclaration struct request_queue *q = disk->queue;
+               CASTElaboratedTypeSpecifier struct request_queue
+                  CASTName request_queue
+               CASTDeclarator *q = disk->queue
+                  CASTPointer *
+                  CASTName q
+                  CASTEqualsInitializer = disk->queue
+                     CASTFieldReference disk->queue
+                        CASTIdExpression disk
+                           CASTName disk
+                        CASTName queue
+         CASTIfStatement if (WARN_ON(!q))
+		return;
+            CASTFunctionCallExpression WARN_ON(!q)
+               CASTIdExpression WARN_ON
+                  CASTName WARN_ON
+               CASTUnaryExpression !q
+                  CASTIdExpression q
+                     CASTName q
+            CASTReturnStatement return;
+         CASTIfStatement if (!blk_queue_registered(q))
+		return;
+            CASTUnaryExpression !blk_queue_registered(q)
+               CASTFunctionCallExpression blk_queue_registered(q)
+                  CASTIdExpression blk_queue_registered
+                     CASTName blk_queue_registered
+                  CASTIdExpression q
+                     CASTName q
+            CASTReturnStatement return;
+         CASTExpressionStatement mutex_lock(&q->sysfs_lock);
+            CASTFunctionCallExpression mutex_lock(&q->sysfs_lock)
+               CASTIdExpression mutex_lock
+                  CASTName mutex_lock
+               CASTUnaryExpression &q->sysfs_lock
+                  CASTFieldReference q->sysfs_lock
+                     CASTIdExpression q
+                        CASTName q
+                     CASTName sysfs_lock
+         CASTExpressionStatement blk_queue_flag_clear(QUEUE_FLAG_REGISTERED, q);
+            CASTFunctionCallExpression blk_queue_flag_clear(QUEUE_FLAG_REGISTERED, q)
+               CASTIdExpression blk_queue_flag_clear
+                  CASTName blk_queue_flag_clear
+               CASTIdExpression QUEUE_FLAG_REGISTERED
+                  CASTName QUEUE_FLAG_REGISTERED
+               CASTIdExpression q
+                  CASTName q
+         CASTExpressionStatement mutex_unlock(&q->sysfs_lock);
+            CASTFunctionCallExpression mutex_unlock(&q->sysfs_lock)
+               CASTIdExpression mutex_unlock
+                  CASTName mutex_unlock
+               CASTUnaryExpression &q->sysfs_lock
+                  CASTFieldReference q->sysfs_lock
+                     CASTIdExpression q
+                        CASTName q
+                     CASTName sysfs_lock
+         CASTExpressionStatement -1062,12 +1059,10
+            CASTExpressionList -1062,12 +1059,10
+               CASTUnaryExpression -1062
+                  CASTLiteralExpression 1062
+               CASTBinaryExpression 12 +1059
+                  CASTLiteralExpression 12
+                  CASTLiteralExpression 1059
+               CASTLiteralExpression 10
+         CASTProblemStatement 0
+            CASTProblem 0
+         CASTExpressionStatement kobject_del(&q->kobj);
+            CASTFunctionCallExpression kobject_del(&q->kobj)
+               CASTIdExpression kobject_del
+                  CASTName kobject_del
+               CASTUnaryExpression &q->kobj
+                  CASTFieldReference q->kobj
+                     CASTIdExpression q
+                        CASTName q
+                     CASTName kobj
+         CASTExpressionStatement blk_trace_remove_sysfs(disk_to_dev(disk));
+            CASTFunctionCallExpression blk_trace_remove_sysfs(disk_to_dev(disk))
+               CASTIdExpression blk_trace_remove_sysfs
+                  CASTName blk_trace_remove_sysfs
+               CASTFunctionCallExpression disk_to_dev(disk)
+                  CASTIdExpression disk_to_dev
+                     CASTName disk_to_dev
+                  CASTIdExpression disk
+                     CASTName disk
+         CASTIfStatement if (q->elevator)
+		elv_unregister_queue(q);
+            CASTFieldReference q->elevator
+               CASTIdExpression q
+                  CASTName q
+               CASTName elevator
+            CASTExpressionStatement elv_unregister_queue(q);
+               CASTFunctionCallExpression elv_unregister_queue(q)
+                  CASTIdExpression elv_unregister_queue
+                     CASTName elv_unregister_queue
+                  CASTIdExpression q
+                     CASTName q
+         CASTExpressionStatement mutex_unlock(&q->sysfs_dir_lock);
+            CASTFunctionCallExpression mutex_unlock(&q->sysfs_dir_lock)
+               CASTIdExpression mutex_unlock
+                  CASTName mutex_unlock
+               CASTUnaryExpression &q->sysfs_dir_lock
+                  CASTFieldReference q->sysfs_dir_lock
+                     CASTIdExpression q
+                        CASTName q
+                     CASTName sysfs_dir_lock
+         CASTExpressionStatement kobject_put(&disk_to_dev(disk)->kobj);
+            CASTFunctionCallExpression kobject_put(&disk_to_dev(disk)->kobj)
+               CASTIdExpression kobject_put
+                  CASTName kobject_put
+               CASTUnaryExpression &disk_to_dev(disk)->kobj
+                  CASTFieldReference disk_to_dev(disk)->kobj
+                     CASTFunctionCallExpression disk_to_dev(disk)
+                        CASTIdExpression disk_to_dev
+                           CASTName disk_to_dev
+                        CASTIdExpression disk
+                           CASTName disk
+                     CASTName kobj

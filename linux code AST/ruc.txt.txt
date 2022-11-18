@@ -1,0 +1,435 @@
+CASTTranslationUnit static int wake_affine(struct sched_domain *sd, struct task_struct *p, int sync)
+{
+	unsigned long this_load, load;
+	int idx, this_cpu, prev_cpu;
+	unsigned long tl_per_task;
+	struct task_group *tg;
+	unsigned long weight;
+	int balanced;
+	idx	  = sd->wake_idx;
+	this_cpu  = smp_processor_id();
+	prev_cpu  = task_cpu(p);
+	load	  = source_load(prev_cpu, idx);
+	this_load = target_load(this_cpu, idx);
+	rcu_read_lock();
+	if (sync) {
+		tg = task_group(current);
+		weight = current->se.load.weight;
+		this_load += effective_load(tg, this_cpu, -weight, -weight);
+		load += effective_load(tg, prev_cpu, 0, -weight);
+	}
+	tg = task_group(p);
+	weight = p->se.load.weight;
+
+	if (this_load) {
+		unsigned long this_eff_load, prev_eff_load;
+		this_eff_load = 100;
+		this_eff_load *= power_of(prev_cpu);
+		this_eff_load *= this_load +
+			effective_load(tg, this_cpu, weight, weight);
+		prev_eff_load = 100 + (sd->imbalance_pct - 100) / 2;
+		prev_eff_load *= power_of(this_cpu);
+		prev_eff_load *= load + effective_load(tg, prev_cpu, 0, weight);
+		balanced = this_eff_load <= prev_eff_load;
+	} else
+		balanced = true;
+	rcu_read_unlock();
+
+	return 0;
+}
+   CASTFunctionDefinition static int wake_affine(struct sched_domain *sd, struct task_struct *p, int sync)
+{
+	unsigned long this_load, load;
+	int idx, this_cpu, prev_cpu;
+	unsigned long tl_per_task;
+	struct task_group *tg;
+	unsigned long weight;
+	int balanced;
+	idx	  = sd->wake_idx;
+	this_cpu  = smp_processor_id();
+	prev_cpu  = task_cpu(p);
+	load	  = source_load(prev_cpu, idx);
+	this_load = target_load(this_cpu, idx);
+	rcu_read_lock();
+	if (sync) {
+		tg = task_group(current);
+		weight = current->se.load.weight;
+		this_load += effective_load(tg, this_cpu, -weight, -weight);
+		load += effective_load(tg, prev_cpu, 0, -weight);
+	}
+	tg = task_group(p);
+	weight = p->se.load.weight;
+
+	if (this_load) {
+		unsigned long this_eff_load, prev_eff_load;
+		this_eff_load = 100;
+		this_eff_load *= power_of(prev_cpu);
+		this_eff_load *= this_load +
+			effective_load(tg, this_cpu, weight, weight);
+		prev_eff_load = 100 + (sd->imbalance_pct - 100) / 2;
+		prev_eff_load *= power_of(this_cpu);
+		prev_eff_load *= load + effective_load(tg, prev_cpu, 0, weight);
+		balanced = this_eff_load <= prev_eff_load;
+	} else
+		balanced = true;
+	rcu_read_unlock();
+
+	return 0;
+}
+      CASTSimpleDeclSpecifier static int
+      CASTFunctionDeclarator wake_affine(struct sched_domain *sd, struct task_struct *p, int sync)
+         CASTName wake_affine
+         CASTParameterDeclaration struct sched_domain *sd
+            CASTElaboratedTypeSpecifier struct sched_domain
+               CASTName sched_domain
+            CASTDeclarator *sd
+               CASTPointer *
+               CASTName sd
+         CASTParameterDeclaration struct task_struct *p
+            CASTElaboratedTypeSpecifier struct task_struct
+               CASTName task_struct
+            CASTDeclarator *p
+               CASTPointer *
+               CASTName p
+         CASTParameterDeclaration int sync
+            CASTSimpleDeclSpecifier int
+            CASTDeclarator sync
+               CASTName sync
+      CASTCompoundStatement {
+	unsigned long this_load, load;
+	int idx, this_cpu, prev_cpu;
+	unsigned long tl_per_task;
+	struct task_group *tg;
+	unsigned long weight;
+	int balanced;
+	idx	  = sd->wake_idx;
+	this_cpu  = smp_processor_id();
+	prev_cpu  = task_cpu(p);
+	load	  = source_load(prev_cpu, idx);
+	this_load = target_load(this_cpu, idx);
+	rcu_read_lock();
+	if (sync) {
+		tg = task_group(current);
+		weight = current->se.load.weight;
+		this_load += effective_load(tg, this_cpu, -weight, -weight);
+		load += effective_load(tg, prev_cpu, 0, -weight);
+	}
+	tg = task_group(p);
+	weight = p->se.load.weight;
+
+	if (this_load) {
+		unsigned long this_eff_load, prev_eff_load;
+		this_eff_load = 100;
+		this_eff_load *= power_of(prev_cpu);
+		this_eff_load *= this_load +
+			effective_load(tg, this_cpu, weight, weight);
+		prev_eff_load = 100 + (sd->imbalance_pct - 100) / 2;
+		prev_eff_load *= power_of(this_cpu);
+		prev_eff_load *= load + effective_load(tg, prev_cpu, 0, weight);
+		balanced = this_eff_load <= prev_eff_load;
+	} else
+		balanced = true;
+	rcu_read_unlock();
+
+	return 0;
+}
+         CASTDeclarationStatement unsigned long this_load, load;
+            CASTSimpleDeclaration unsigned long this_load, load;
+               CASTSimpleDeclSpecifier unsigned long
+               CASTDeclarator this_load
+                  CASTName this_load
+               CASTDeclarator load
+                  CASTName load
+         CASTDeclarationStatement int idx, this_cpu, prev_cpu;
+            CASTSimpleDeclaration int idx, this_cpu, prev_cpu;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator idx
+                  CASTName idx
+               CASTDeclarator this_cpu
+                  CASTName this_cpu
+               CASTDeclarator prev_cpu
+                  CASTName prev_cpu
+         CASTDeclarationStatement unsigned long tl_per_task;
+            CASTSimpleDeclaration unsigned long tl_per_task;
+               CASTSimpleDeclSpecifier unsigned long
+               CASTDeclarator tl_per_task
+                  CASTName tl_per_task
+         CASTDeclarationStatement struct task_group *tg;
+            CASTSimpleDeclaration struct task_group *tg;
+               CASTElaboratedTypeSpecifier struct task_group
+                  CASTName task_group
+               CASTDeclarator *tg
+                  CASTPointer *
+                  CASTName tg
+         CASTDeclarationStatement unsigned long weight;
+            CASTSimpleDeclaration unsigned long weight;
+               CASTSimpleDeclSpecifier unsigned long
+               CASTDeclarator weight
+                  CASTName weight
+         CASTDeclarationStatement int balanced;
+            CASTSimpleDeclaration int balanced;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator balanced
+                  CASTName balanced
+         CASTExpressionStatement idx	  = sd->wake_idx;
+            CASTBinaryExpression idx	  = sd->wake_idx
+               CASTIdExpression idx
+                  CASTName idx
+               CASTFieldReference sd->wake_idx
+                  CASTIdExpression sd
+                     CASTName sd
+                  CASTName wake_idx
+         CASTExpressionStatement this_cpu  = smp_processor_id();
+            CASTBinaryExpression this_cpu  = smp_processor_id()
+               CASTIdExpression this_cpu
+                  CASTName this_cpu
+               CASTFunctionCallExpression smp_processor_id()
+                  CASTIdExpression smp_processor_id
+                     CASTName smp_processor_id
+         CASTExpressionStatement prev_cpu  = task_cpu(p);
+            CASTBinaryExpression prev_cpu  = task_cpu(p)
+               CASTIdExpression prev_cpu
+                  CASTName prev_cpu
+               CASTFunctionCallExpression task_cpu(p)
+                  CASTIdExpression task_cpu
+                     CASTName task_cpu
+                  CASTIdExpression p
+                     CASTName p
+         CASTExpressionStatement load	  = source_load(prev_cpu, idx);
+            CASTBinaryExpression load	  = source_load(prev_cpu, idx)
+               CASTIdExpression load
+                  CASTName load
+               CASTFunctionCallExpression source_load(prev_cpu, idx)
+                  CASTIdExpression source_load
+                     CASTName source_load
+                  CASTIdExpression prev_cpu
+                     CASTName prev_cpu
+                  CASTIdExpression idx
+                     CASTName idx
+         CASTExpressionStatement this_load = target_load(this_cpu, idx);
+            CASTBinaryExpression this_load = target_load(this_cpu, idx)
+               CASTIdExpression this_load
+                  CASTName this_load
+               CASTFunctionCallExpression target_load(this_cpu, idx)
+                  CASTIdExpression target_load
+                     CASTName target_load
+                  CASTIdExpression this_cpu
+                     CASTName this_cpu
+                  CASTIdExpression idx
+                     CASTName idx
+         CASTExpressionStatement rcu_read_lock();
+            CASTFunctionCallExpression rcu_read_lock()
+               CASTIdExpression rcu_read_lock
+                  CASTName rcu_read_lock
+         CASTIfStatement if (sync) {
+		tg = task_group(current);
+		weight = current->se.load.weight;
+		this_load += effective_load(tg, this_cpu, -weight, -weight);
+		load += effective_load(tg, prev_cpu, 0, -weight);
+	}
+            CASTIdExpression sync
+               CASTName sync
+            CASTCompoundStatement {
+		tg = task_group(current);
+		weight = current->se.load.weight;
+		this_load += effective_load(tg, this_cpu, -weight, -weight);
+		load += effective_load(tg, prev_cpu, 0, -weight);
+	}
+               CASTExpressionStatement tg = task_group(current);
+                  CASTBinaryExpression tg = task_group(current)
+                     CASTIdExpression tg
+                        CASTName tg
+                     CASTFunctionCallExpression task_group(current)
+                        CASTIdExpression task_group
+                           CASTName task_group
+                        CASTIdExpression current
+                           CASTName current
+               CASTExpressionStatement weight = current->se.load.weight;
+                  CASTBinaryExpression weight = current->se.load.weight
+                     CASTIdExpression weight
+                        CASTName weight
+                     CASTFieldReference current->se.load.weight
+                        CASTFieldReference current->se.load
+                           CASTFieldReference current->se
+                              CASTIdExpression current
+                                 CASTName current
+                              CASTName se
+                           CASTName load
+                        CASTName weight
+               CASTExpressionStatement this_load += effective_load(tg, this_cpu, -weight, -weight);
+                  CASTBinaryExpression this_load += effective_load(tg, this_cpu, -weight, -weight)
+                     CASTIdExpression this_load
+                        CASTName this_load
+                     CASTFunctionCallExpression effective_load(tg, this_cpu, -weight, -weight)
+                        CASTIdExpression effective_load
+                           CASTName effective_load
+                        CASTIdExpression tg
+                           CASTName tg
+                        CASTIdExpression this_cpu
+                           CASTName this_cpu
+                        CASTUnaryExpression -weight
+                           CASTIdExpression weight
+                              CASTName weight
+               CASTExpressionStatement load += effective_load(tg, prev_cpu, 0, -weight);
+                  CASTBinaryExpression load += effective_load(tg, prev_cpu, 0, -weight)
+                     CASTIdExpression load
+                        CASTName load
+                     CASTFunctionCallExpression effective_load(tg, prev_cpu, 0, -weight)
+                        CASTIdExpression effective_load
+                           CASTName effective_load
+                        CASTIdExpression tg
+                           CASTName tg
+                        CASTIdExpression prev_cpu
+                           CASTName prev_cpu
+                        CASTLiteralExpression 0
+                        CASTUnaryExpression -weight
+                           CASTIdExpression weight
+                              CASTName weight
+         CASTExpressionStatement tg = task_group(p);
+            CASTBinaryExpression tg = task_group(p)
+               CASTIdExpression tg
+                  CASTName tg
+               CASTFunctionCallExpression task_group(p)
+                  CASTIdExpression task_group
+                     CASTName task_group
+                  CASTIdExpression p
+                     CASTName p
+         CASTExpressionStatement weight = p->se.load.weight;
+            CASTBinaryExpression weight = p->se.load.weight
+               CASTIdExpression weight
+                  CASTName weight
+               CASTFieldReference p->se.load.weight
+                  CASTFieldReference p->se.load
+                     CASTFieldReference p->se
+                        CASTIdExpression p
+                           CASTName p
+                        CASTName se
+                     CASTName load
+                  CASTName weight
+         CASTIfStatement if (this_load) {
+		unsigned long this_eff_load, prev_eff_load;
+		this_eff_load = 100;
+		this_eff_load *= power_of(prev_cpu);
+		this_eff_load *= this_load +
+			effective_load(tg, this_cpu, weight, weight);
+		prev_eff_load = 100 + (sd->imbalance_pct - 100) / 2;
+		prev_eff_load *= power_of(this_cpu);
+		prev_eff_load *= load + effective_load(tg, prev_cpu, 0, weight);
+		balanced = this_eff_load <= prev_eff_load;
+	} else
+		balanced = true;
+            CASTIdExpression this_load
+               CASTName this_load
+            CASTCompoundStatement {
+		unsigned long this_eff_load, prev_eff_load;
+		this_eff_load = 100;
+		this_eff_load *= power_of(prev_cpu);
+		this_eff_load *= this_load +
+			effective_load(tg, this_cpu, weight, weight);
+		prev_eff_load = 100 + (sd->imbalance_pct - 100) / 2;
+		prev_eff_load *= power_of(this_cpu);
+		prev_eff_load *= load + effective_load(tg, prev_cpu, 0, weight);
+		balanced = this_eff_load <= prev_eff_load;
+	}
+               CASTDeclarationStatement unsigned long this_eff_load, prev_eff_load;
+                  CASTSimpleDeclaration unsigned long this_eff_load, prev_eff_load;
+                     CASTSimpleDeclSpecifier unsigned long
+                     CASTDeclarator this_eff_load
+                        CASTName this_eff_load
+                     CASTDeclarator prev_eff_load
+                        CASTName prev_eff_load
+               CASTExpressionStatement this_eff_load = 100;
+                  CASTBinaryExpression this_eff_load = 100
+                     CASTIdExpression this_eff_load
+                        CASTName this_eff_load
+                     CASTLiteralExpression 100
+               CASTExpressionStatement this_eff_load *= power_of(prev_cpu);
+                  CASTBinaryExpression this_eff_load *= power_of(prev_cpu)
+                     CASTIdExpression this_eff_load
+                        CASTName this_eff_load
+                     CASTFunctionCallExpression power_of(prev_cpu)
+                        CASTIdExpression power_of
+                           CASTName power_of
+                        CASTIdExpression prev_cpu
+                           CASTName prev_cpu
+               CASTExpressionStatement this_eff_load *= this_load +
+			effective_load(tg, this_cpu, weight, weight);
+                  CASTBinaryExpression this_eff_load *= this_load +
+			effective_load(tg, this_cpu, weight, weight)
+                     CASTIdExpression this_eff_load
+                        CASTName this_eff_load
+                     CASTBinaryExpression this_load +
+			effective_load(tg, this_cpu, weight, weight)
+                        CASTIdExpression this_load
+                           CASTName this_load
+                        CASTFunctionCallExpression effective_load(tg, this_cpu, weight, weight)
+                           CASTIdExpression effective_load
+                              CASTName effective_load
+                           CASTIdExpression tg
+                              CASTName tg
+                           CASTIdExpression this_cpu
+                              CASTName this_cpu
+                           CASTIdExpression weight
+                              CASTName weight
+               CASTExpressionStatement prev_eff_load = 100 + (sd->imbalance_pct - 100) / 2;
+                  CASTBinaryExpression prev_eff_load = 100 + (sd->imbalance_pct - 100) / 2
+                     CASTIdExpression prev_eff_load
+                        CASTName prev_eff_load
+                     CASTBinaryExpression 100 + (sd->imbalance_pct - 100) / 2
+                        CASTLiteralExpression 100
+                        CASTBinaryExpression (sd->imbalance_pct - 100) / 2
+                           CASTUnaryExpression (sd->imbalance_pct - 100)
+                              CASTBinaryExpression sd->imbalance_pct - 100
+                                 CASTFieldReference sd->imbalance_pct
+                                    CASTIdExpression sd
+                                       CASTName sd
+                                    CASTName imbalance_pct
+                                 CASTLiteralExpression 100
+                           CASTLiteralExpression 2
+               CASTExpressionStatement prev_eff_load *= power_of(this_cpu);
+                  CASTBinaryExpression prev_eff_load *= power_of(this_cpu)
+                     CASTIdExpression prev_eff_load
+                        CASTName prev_eff_load
+                     CASTFunctionCallExpression power_of(this_cpu)
+                        CASTIdExpression power_of
+                           CASTName power_of
+                        CASTIdExpression this_cpu
+                           CASTName this_cpu
+               CASTExpressionStatement prev_eff_load *= load + effective_load(tg, prev_cpu, 0, weight);
+                  CASTBinaryExpression prev_eff_load *= load + effective_load(tg, prev_cpu, 0, weight)
+                     CASTIdExpression prev_eff_load
+                        CASTName prev_eff_load
+                     CASTBinaryExpression load + effective_load(tg, prev_cpu, 0, weight)
+                        CASTIdExpression load
+                           CASTName load
+                        CASTFunctionCallExpression effective_load(tg, prev_cpu, 0, weight)
+                           CASTIdExpression effective_load
+                              CASTName effective_load
+                           CASTIdExpression tg
+                              CASTName tg
+                           CASTIdExpression prev_cpu
+                              CASTName prev_cpu
+                           CASTLiteralExpression 0
+                           CASTIdExpression weight
+                              CASTName weight
+               CASTExpressionStatement balanced = this_eff_load <= prev_eff_load;
+                  CASTBinaryExpression balanced = this_eff_load <= prev_eff_load
+                     CASTIdExpression balanced
+                        CASTName balanced
+                     CASTBinaryExpression this_eff_load <= prev_eff_load
+                        CASTIdExpression this_eff_load
+                           CASTName this_eff_load
+                        CASTIdExpression prev_eff_load
+                           CASTName prev_eff_load
+            CASTExpressionStatement balanced = true;
+               CASTBinaryExpression balanced = true
+                  CASTIdExpression balanced
+                     CASTName balanced
+                  CASTIdExpression true
+                     CASTName true
+         CASTExpressionStatement rcu_read_unlock();
+            CASTFunctionCallExpression rcu_read_unlock()
+               CASTIdExpression rcu_read_unlock
+                  CASTName rcu_read_unlock
+         CASTReturnStatement return 0;
+            CASTLiteralExpression 0

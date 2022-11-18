@@ -1,0 +1,304 @@
+CASTTranslationUnit static void qcom_glink_channel_release(struct kref *ref)
+{
+	struct glink_channel *channel = container_of(ref, struct glink_channel,
+						     refcount);
+	struct glink_core_rx_intent *intent;
+	struct glink_core_rx_intent *tmp;
+	unsigned long flags;
+	int iid;
+
+	/* cancel pending rx_done work */
+	cancel_work_sync(&channel->intent_work);
+
+	spin_lock_irqsave(&channel->intent_lock, flags);
+	/* Free all non-reuse intents pending rx_done work */
+	list_for_each_entry_safe(intent, tmp, &channel->done_intents, node) {
+		if (!intent->reuse) {
+			kfree(intent->data);
+			kfree(intent);
+		}
+	}
+
+	idr_for_each_entry(&channel->liids, tmp, iid) {
+		kfree(tmp->data);
+		kfree(tmp);
+	}
+	idr_destroy(&channel->liids);
+	idr_for_each_entry(&channel->riids, tmp, iid)
+		kfree(tmp);
+	idr_destroy(&channel->riids);
+	spin_unlock_irqrestore(&channel->intent_lock, flags);
+	kfree(channel->name);
+	kfree(channel);
+}
+   CASTFunctionDefinition static void qcom_glink_channel_release(struct kref *ref)
+{
+	struct glink_channel *channel = container_of(ref, struct glink_channel,
+						     refcount);
+	struct glink_core_rx_intent *intent;
+	struct glink_core_rx_intent *tmp;
+	unsigned long flags;
+	int iid;
+
+	/* cancel pending rx_done work */
+	cancel_work_sync(&channel->intent_work);
+
+	spin_lock_irqsave(&channel->intent_lock, flags);
+	/* Free all non-reuse intents pending rx_done work */
+	list_for_each_entry_safe(intent, tmp, &channel->done_intents, node) {
+		if (!intent->reuse) {
+			kfree(intent->data);
+			kfree(intent);
+		}
+	}
+
+	idr_for_each_entry(&channel->liids, tmp, iid) {
+		kfree(tmp->data);
+		kfree(tmp);
+	}
+	idr_destroy(&channel->liids);
+	idr_for_each_entry(&channel->riids, tmp, iid)
+		kfree(tmp);
+	idr_destroy(&channel->riids);
+	spin_unlock_irqrestore(&channel->intent_lock, flags);
+	kfree(channel->name);
+	kfree(channel);
+}
+      CASTSimpleDeclSpecifier static void
+      CASTFunctionDeclarator qcom_glink_channel_release(struct kref *ref)
+         CASTName qcom_glink_channel_release
+         CASTParameterDeclaration struct kref *ref
+            CASTElaboratedTypeSpecifier struct kref
+               CASTName kref
+            CASTDeclarator *ref
+               CASTPointer *
+               CASTName ref
+      CASTCompoundStatement {
+	struct glink_channel *channel = container_of(ref, struct glink_channel,
+						     refcount);
+	struct glink_core_rx_intent *intent;
+	struct glink_core_rx_intent *tmp;
+	unsigned long flags;
+	int iid;
+
+	/* cancel pending rx_done work */
+	cancel_work_sync(&channel->intent_work);
+
+	spin_lock_irqsave(&channel->intent_lock, flags);
+	/* Free all non-reuse intents pending rx_done work */
+	list_for_each_entry_safe(intent, tmp, &channel->done_intents, node) {
+		if (!intent->reuse) {
+			kfree(intent->data);
+			kfree(intent);
+		}
+	}
+
+	idr_for_each_entry(&channel->liids, tmp, iid) {
+		kfree(tmp->data);
+		kfree(tmp);
+	}
+	idr_destroy(&channel->liids);
+	idr_for_each_entry(&channel->riids, tmp, iid)
+		kfree(tmp);
+	idr_destroy(&channel->riids);
+	spin_unlock_irqrestore(&channel->intent_lock, flags);
+	kfree(channel->name);
+	kfree(channel);
+}
+         CASTDeclarationStatement struct glink_channel
+            CASTSimpleDeclaration struct glink_channel
+               CASTElaboratedTypeSpecifier struct glink_channel
+                  CASTName glink_channel
+         CASTProblemStatement l
+            CASTProblem l
+         CASTProblemStatement *channel = container_of(ref, struct glink_channel,
+						     refcount);
+            CASTProblem *channel = container_of(ref, struct glink_channel,
+						     refcount);
+         CASTDeclarationStatement struct glink_core_rx_intent *intent;
+            CASTSimpleDeclaration struct glink_core_rx_intent *intent;
+               CASTElaboratedTypeSpecifier struct glink_core_rx_intent
+                  CASTName glink_core_rx_intent
+               CASTDeclarator *intent
+                  CASTPointer *
+                  CASTName intent
+         CASTDeclarationStatement struct glink_core_rx_intent *tmp;
+            CASTSimpleDeclaration struct glink_core_rx_intent *tmp;
+               CASTElaboratedTypeSpecifier struct glink_core_rx_intent
+                  CASTName glink_core_rx_intent
+               CASTDeclarator *tmp
+                  CASTPointer *
+                  CASTName tmp
+         CASTDeclarationStatement unsigned long flags;
+            CASTSimpleDeclaration unsigned long flags;
+               CASTSimpleDeclSpecifier unsigned long
+               CASTDeclarator flags
+                  CASTName flags
+         CASTDeclarationStatement int iid;
+            CASTSimpleDeclaration int iid;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator iid
+                  CASTName iid
+         CASTExpressionStatement cancel_work_sync(&channel->intent_work);
+            CASTFunctionCallExpression cancel_work_sync(&channel->intent_work)
+               CASTIdExpression cancel_work_sync
+                  CASTName cancel_work_sync
+               CASTUnaryExpression &channel->intent_work
+                  CASTFieldReference channel->intent_work
+                     CASTIdExpression channel
+                        CASTName channel
+                     CASTName intent_work
+         CASTExpressionStatement spin_lock_irqsave(&channel->intent_lock, flags);
+            CASTFunctionCallExpression spin_lock_irqsave(&channel->intent_lock, flags)
+               CASTIdExpression spin_lock_irqsave
+                  CASTName spin_lock_irqsave
+               CASTUnaryExpression &channel->intent_lock
+                  CASTFieldReference channel->intent_lock
+                     CASTIdExpression channel
+                        CASTName channel
+                     CASTName intent_lock
+               CASTIdExpression flags
+                  CASTName flags
+         CASTExpressionStatement list_for_each_entry_safe(intent, tmp, &channel->done_intents, node)
+            CASTFunctionCallExpression list_for_each_entry_safe(intent, tmp, &channel->done_intents, node)
+               CASTIdExpression list_for_each_entry_safe
+                  CASTName list_for_each_entry_safe
+               CASTIdExpression intent
+                  CASTName intent
+               CASTIdExpression tmp
+                  CASTName tmp
+               CASTUnaryExpression &channel->done_intents
+                  CASTFieldReference channel->done_intents
+                     CASTIdExpression channel
+                        CASTName channel
+                     CASTName done_intents
+               CASTIdExpression node
+                  CASTName node
+         CASTProblemStatement )
+            CASTProblem )
+         CASTCompoundStatement {
+		if (!intent->reuse) {
+			kfree(intent->data);
+			kfree(intent);
+		}
+	}
+            CASTIfStatement if (!intent->reuse) {
+			kfree(intent->data);
+			kfree(intent);
+		}
+               CASTUnaryExpression !intent->reuse
+                  CASTFieldReference intent->reuse
+                     CASTIdExpression intent
+                        CASTName intent
+                     CASTName reuse
+               CASTCompoundStatement {
+			kfree(intent->data);
+			kfree(intent);
+		}
+                  CASTExpressionStatement kfree(intent->data);
+                     CASTFunctionCallExpression kfree(intent->data)
+                        CASTIdExpression kfree
+                           CASTName kfree
+                        CASTFieldReference intent->data
+                           CASTIdExpression intent
+                              CASTName intent
+                           CASTName data
+                  CASTExpressionStatement kfree(intent);
+                     CASTFunctionCallExpression kfree(intent)
+                        CASTIdExpression kfree
+                           CASTName kfree
+                        CASTIdExpression intent
+                           CASTName intent
+         CASTExpressionStatement idr_for_each_entry(&channel->liids, tmp, iid)
+            CASTFunctionCallExpression idr_for_each_entry(&channel->liids, tmp, iid)
+               CASTIdExpression idr_for_each_entry
+                  CASTName idr_for_each_entry
+               CASTUnaryExpression &channel->liids
+                  CASTFieldReference channel->liids
+                     CASTIdExpression channel
+                        CASTName channel
+                     CASTName liids
+               CASTIdExpression tmp
+                  CASTName tmp
+               CASTIdExpression iid
+                  CASTName iid
+         CASTCompoundStatement {
+		kfree(tmp->data);
+		kfree(tmp);
+	}
+            CASTExpressionStatement kfree(tmp->data);
+               CASTFunctionCallExpression kfree(tmp->data)
+                  CASTIdExpression kfree
+                     CASTName kfree
+                  CASTFieldReference tmp->data
+                     CASTIdExpression tmp
+                        CASTName tmp
+                     CASTName data
+            CASTExpressionStatement kfree(tmp);
+               CASTFunctionCallExpression kfree(tmp)
+                  CASTIdExpression kfree
+                     CASTName kfree
+                  CASTIdExpression tmp
+                     CASTName tmp
+         CASTExpressionStatement idr_destroy(&channel->liids);
+            CASTFunctionCallExpression idr_destroy(&channel->liids)
+               CASTIdExpression idr_destroy
+                  CASTName idr_destroy
+               CASTUnaryExpression &channel->liids
+                  CASTFieldReference channel->liids
+                     CASTIdExpression channel
+                        CASTName channel
+                     CASTName liids
+         CASTExpressionStatement idr_for_each_entry(&channel->riids, tmp, iid)
+            CASTFunctionCallExpression idr_for_each_entry(&channel->riids, tmp, iid)
+               CASTIdExpression idr_for_each_entry
+                  CASTName idr_for_each_entry
+               CASTUnaryExpression &channel->riids
+                  CASTFieldReference channel->riids
+                     CASTIdExpression channel
+                        CASTName channel
+                     CASTName riids
+               CASTIdExpression tmp
+                  CASTName tmp
+               CASTIdExpression iid
+                  CASTName iid
+         CASTExpressionStatement kfree(tmp);
+            CASTFunctionCallExpression kfree(tmp)
+               CASTIdExpression kfree
+                  CASTName kfree
+               CASTIdExpression tmp
+                  CASTName tmp
+         CASTExpressionStatement idr_destroy(&channel->riids);
+            CASTFunctionCallExpression idr_destroy(&channel->riids)
+               CASTIdExpression idr_destroy
+                  CASTName idr_destroy
+               CASTUnaryExpression &channel->riids
+                  CASTFieldReference channel->riids
+                     CASTIdExpression channel
+                        CASTName channel
+                     CASTName riids
+         CASTExpressionStatement spin_unlock_irqrestore(&channel->intent_lock, flags);
+            CASTFunctionCallExpression spin_unlock_irqrestore(&channel->intent_lock, flags)
+               CASTIdExpression spin_unlock_irqrestore
+                  CASTName spin_unlock_irqrestore
+               CASTUnaryExpression &channel->intent_lock
+                  CASTFieldReference channel->intent_lock
+                     CASTIdExpression channel
+                        CASTName channel
+                     CASTName intent_lock
+               CASTIdExpression flags
+                  CASTName flags
+         CASTExpressionStatement kfree(channel->name);
+            CASTFunctionCallExpression kfree(channel->name)
+               CASTIdExpression kfree
+                  CASTName kfree
+               CASTFieldReference channel->name
+                  CASTIdExpression channel
+                     CASTName channel
+                  CASTName name
+         CASTExpressionStatement kfree(channel);
+            CASTFunctionCallExpression kfree(channel)
+               CASTIdExpression kfree
+                  CASTName kfree
+               CASTIdExpression channel
+                  CASTName channel

@@ -1,0 +1,318 @@
+CASTTranslationUnit static void nsim_dev_port_del_all(struct nsim_dev *nsim_dev)
+{
+	struct nsim_dev_port *nsim_dev_port, *tmp;
+
+	mutex_lock(&nsim_dev->port_list_lock);
+	list_for_each_entry_safe(nsim_dev_port, tmp,
+				 &nsim_dev->port_list, list)
+		__nsim_dev_port_del(nsim_dev_port);
+	mutex_unlock(&nsim_dev->port_list_lock);
+}
+
+int nsim_dev_probe(struct nsim_bus_dev *nsim_bus_dev)
+{
+	struct nsim_dev *nsim_dev;
+	int i;
+	int err;
+	nsim_dev = nsim_dev_create(nsim_bus_dev, nsim_bus_dev->port_count);
+	if (IS_ERR(nsim_dev))
+		return PTR_ERR(nsim_dev);
+	dev_set_drvdata(&nsim_bus_dev->dev, nsim_dev);
+
+	mutex_lock(&nsim_dev->port_list_lock);
+	for (i = 0; i < nsim_bus_dev->port_count; i++) {
+		err = __nsim_dev_port_add(nsim_dev, i);
+		if (err)
+			goto err_port_del_all;
+	}
+	mutex_unlock(&nsim_dev->port_list_lock);
+	return 0;
+
+err_port_del_all:
+	mutex_unlock(&nsim_dev->port_list_lock);
+	nsim_dev_port_del_all(nsim_dev);
+	nsim_dev_destroy(nsim_dev);
+	return err;
+}
+   CASTFunctionDefinition static void nsim_dev_port_del_all(struct nsim_dev *nsim_dev)
+{
+	struct nsim_dev_port *nsim_dev_port, *tmp;
+
+	mutex_lock(&nsim_dev->port_list_lock);
+	list_for_each_entry_safe(nsim_dev_port, tmp,
+				 &nsim_dev->port_list, list)
+		__nsim_dev_port_del(nsim_dev_port);
+	mutex_unlock(&nsim_dev->port_list_lock);
+}
+      CASTSimpleDeclSpecifier static void
+      CASTFunctionDeclarator nsim_dev_port_del_all(struct nsim_dev *nsim_dev)
+         CASTName nsim_dev_port_del_all
+         CASTParameterDeclaration struct nsim_dev *nsim_dev
+            CASTElaboratedTypeSpecifier struct nsim_dev
+               CASTName nsim_dev
+            CASTDeclarator *nsim_dev
+               CASTPointer *
+               CASTName nsim_dev
+      CASTCompoundStatement {
+	struct nsim_dev_port *nsim_dev_port, *tmp;
+
+	mutex_lock(&nsim_dev->port_list_lock);
+	list_for_each_entry_safe(nsim_dev_port, tmp,
+				 &nsim_dev->port_list, list)
+		__nsim_dev_port_del(nsim_dev_port);
+	mutex_unlock(&nsim_dev->port_list_lock);
+}
+         CASTDeclarationStatement struct nsim_dev_port *nsim_dev_port, *tmp;
+            CASTSimpleDeclaration struct nsim_dev_port *nsim_dev_port, *tmp;
+               CASTElaboratedTypeSpecifier struct nsim_dev_port
+                  CASTName nsim_dev_port
+               CASTDeclarator *nsim_dev_port
+                  CASTPointer *
+                  CASTName nsim_dev_port
+               CASTDeclarator *tmp
+                  CASTPointer *
+                  CASTName tmp
+         CASTExpressionStatement mutex_lock(&nsim_dev->port_list_lock);
+            CASTFunctionCallExpression mutex_lock(&nsim_dev->port_list_lock)
+               CASTIdExpression mutex_lock
+                  CASTName mutex_lock
+               CASTUnaryExpression &nsim_dev->port_list_lock
+                  CASTFieldReference nsim_dev->port_list_lock
+                     CASTIdExpression nsim_dev
+                        CASTName nsim_dev
+                     CASTName port_list_lock
+         CASTExpressionStatement list_for_each_entry_safe(nsim_dev_port, tmp,
+				 &nsim_dev->port_list, list)
+            CASTFunctionCallExpression list_for_each_entry_safe(nsim_dev_port, tmp,
+				 &nsim_dev->port_list, list)
+               CASTIdExpression list_for_each_entry_safe
+                  CASTName list_for_each_entry_safe
+               CASTIdExpression nsim_dev_port
+                  CASTName nsim_dev_port
+               CASTIdExpression tmp
+                  CASTName tmp
+               CASTUnaryExpression &nsim_dev->port_list
+                  CASTFieldReference nsim_dev->port_list
+                     CASTIdExpression nsim_dev
+                        CASTName nsim_dev
+                     CASTName port_list
+               CASTIdExpression list
+                  CASTName list
+         CASTProblemStatement )
+            CASTProblem )
+         CASTExpressionStatement __nsim_dev_port_del(nsim_dev_port);
+            CASTFunctionCallExpression __nsim_dev_port_del(nsim_dev_port)
+               CASTIdExpression __nsim_dev_port_del
+                  CASTName __nsim_dev_port_del
+               CASTIdExpression nsim_dev_port
+                  CASTName nsim_dev_port
+         CASTExpressionStatement mutex_unlock(&nsim_dev->port_list_lock);
+            CASTFunctionCallExpression mutex_unlock(&nsim_dev->port_list_lock)
+               CASTIdExpression mutex_unlock
+                  CASTName mutex_unlock
+               CASTUnaryExpression &nsim_dev->port_list_lock
+                  CASTFieldReference nsim_dev->port_list_lock
+                     CASTIdExpression nsim_dev
+                        CASTName nsim_dev
+                     CASTName port_list_lock
+   CASTFunctionDefinition int nsim_dev_probe(struct nsim_bus_dev *nsim_bus_dev)
+{
+	struct nsim_dev *nsim_dev;
+	int i;
+	int err;
+	nsim_dev = nsim_dev_create(nsim_bus_dev, nsim_bus_dev->port_count);
+	if (IS_ERR(nsim_dev))
+		return PTR_ERR(nsim_dev);
+	dev_set_drvdata(&nsim_bus_dev->dev, nsim_dev);
+
+	mutex_lock(&nsim_dev->port_list_lock);
+	for (i = 0; i < nsim_bus_dev->port_count; i++) {
+		err = __nsim_dev_port_add(nsim_dev, i);
+		if (err)
+			goto err_port_del_all;
+	}
+	mutex_unlock(&nsim_dev->port_list_lock);
+	return 0;
+
+err_port_del_all:
+	mutex_unlock(&nsim_dev->port_list_lock);
+	nsim_dev_port_del_all(nsim_dev);
+	nsim_dev_destroy(nsim_dev);
+	return err;
+}
+      CASTSimpleDeclSpecifier int
+      CASTFunctionDeclarator nsim_dev_probe(struct nsim_bus_dev *nsim_bus_dev)
+         CASTName nsim_dev_probe
+         CASTParameterDeclaration struct nsim_bus_dev *nsim_bus_dev
+            CASTElaboratedTypeSpecifier struct nsim_bus_dev
+               CASTName nsim_bus_dev
+            CASTDeclarator *nsim_bus_dev
+               CASTPointer *
+               CASTName nsim_bus_dev
+      CASTCompoundStatement {
+	struct nsim_dev *nsim_dev;
+	int i;
+	int err;
+	nsim_dev = nsim_dev_create(nsim_bus_dev, nsim_bus_dev->port_count);
+	if (IS_ERR(nsim_dev))
+		return PTR_ERR(nsim_dev);
+	dev_set_drvdata(&nsim_bus_dev->dev, nsim_dev);
+
+	mutex_lock(&nsim_dev->port_list_lock);
+	for (i = 0; i < nsim_bus_dev->port_count; i++) {
+		err = __nsim_dev_port_add(nsim_dev, i);
+		if (err)
+			goto err_port_del_all;
+	}
+	mutex_unlock(&nsim_dev->port_list_lock);
+	return 0;
+
+err_port_del_all:
+	mutex_unlock(&nsim_dev->port_list_lock);
+	nsim_dev_port_del_all(nsim_dev);
+	nsim_dev_destroy(nsim_dev);
+	return err;
+}
+         CASTDeclarationStatement struct nsim_dev *nsim_dev;
+            CASTSimpleDeclaration struct nsim_dev *nsim_dev;
+               CASTElaboratedTypeSpecifier struct nsim_dev
+                  CASTName nsim_dev
+               CASTDeclarator *nsim_dev
+                  CASTPointer *
+                  CASTName nsim_dev
+         CASTDeclarationStatement int i;
+            CASTSimpleDeclaration int i;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator i
+                  CASTName i
+         CASTDeclarationStatement int err;
+            CASTSimpleDeclaration int err;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator err
+                  CASTName err
+         CASTExpressionStatement nsim_dev = nsim_dev_create(nsim_bus_dev, nsim_bus_dev->port_count);
+            CASTBinaryExpression nsim_dev = nsim_dev_create(nsim_bus_dev, nsim_bus_dev->port_count)
+               CASTIdExpression nsim_dev
+                  CASTName nsim_dev
+               CASTFunctionCallExpression nsim_dev_create(nsim_bus_dev, nsim_bus_dev->port_count)
+                  CASTIdExpression nsim_dev_create
+                     CASTName nsim_dev_create
+                  CASTIdExpression nsim_bus_dev
+                     CASTName nsim_bus_dev
+                  CASTFieldReference nsim_bus_dev->port_count
+                     CASTIdExpression nsim_bus_dev
+                        CASTName nsim_bus_dev
+                     CASTName port_count
+         CASTIfStatement if (IS_ERR(nsim_dev))
+		return PTR_ERR(nsim_dev);
+            CASTFunctionCallExpression IS_ERR(nsim_dev)
+               CASTIdExpression IS_ERR
+                  CASTName IS_ERR
+               CASTIdExpression nsim_dev
+                  CASTName nsim_dev
+            CASTReturnStatement return PTR_ERR(nsim_dev);
+               CASTFunctionCallExpression PTR_ERR(nsim_dev)
+                  CASTIdExpression PTR_ERR
+                     CASTName PTR_ERR
+                  CASTIdExpression nsim_dev
+                     CASTName nsim_dev
+         CASTExpressionStatement dev_set_drvdata(&nsim_bus_dev->dev, nsim_dev);
+            CASTFunctionCallExpression dev_set_drvdata(&nsim_bus_dev->dev, nsim_dev)
+               CASTIdExpression dev_set_drvdata
+                  CASTName dev_set_drvdata
+               CASTUnaryExpression &nsim_bus_dev->dev
+                  CASTFieldReference nsim_bus_dev->dev
+                     CASTIdExpression nsim_bus_dev
+                        CASTName nsim_bus_dev
+                     CASTName dev
+               CASTIdExpression nsim_dev
+                  CASTName nsim_dev
+         CASTExpressionStatement mutex_lock(&nsim_dev->port_list_lock);
+            CASTFunctionCallExpression mutex_lock(&nsim_dev->port_list_lock)
+               CASTIdExpression mutex_lock
+                  CASTName mutex_lock
+               CASTUnaryExpression &nsim_dev->port_list_lock
+                  CASTFieldReference nsim_dev->port_list_lock
+                     CASTIdExpression nsim_dev
+                        CASTName nsim_dev
+                     CASTName port_list_lock
+         CASTForStatement for (i = 0; i < nsim_bus_dev->port_count; i++) {
+		err = __nsim_dev_port_add(nsim_dev, i);
+		if (err)
+			goto err_port_del_all;
+	}
+            CASTExpressionStatement i = 0;
+               CASTBinaryExpression i = 0
+                  CASTIdExpression i
+                     CASTName i
+                  CASTLiteralExpression 0
+            CASTBinaryExpression i < nsim_bus_dev->port_count
+               CASTIdExpression i
+                  CASTName i
+               CASTFieldReference nsim_bus_dev->port_count
+                  CASTIdExpression nsim_bus_dev
+                     CASTName nsim_bus_dev
+                  CASTName port_count
+            CASTUnaryExpression i++
+               CASTIdExpression i
+                  CASTName i
+            CASTCompoundStatement {
+		err = __nsim_dev_port_add(nsim_dev, i);
+		if (err)
+			goto err_port_del_all;
+	}
+               CASTExpressionStatement err = __nsim_dev_port_add(nsim_dev, i);
+                  CASTBinaryExpression err = __nsim_dev_port_add(nsim_dev, i)
+                     CASTIdExpression err
+                        CASTName err
+                     CASTFunctionCallExpression __nsim_dev_port_add(nsim_dev, i)
+                        CASTIdExpression __nsim_dev_port_add
+                           CASTName __nsim_dev_port_add
+                        CASTIdExpression nsim_dev
+                           CASTName nsim_dev
+                        CASTIdExpression i
+                           CASTName i
+               CASTIfStatement if (err)
+			goto err_port_del_all;
+                  CASTIdExpression err
+                     CASTName err
+                  CASTGotoStatement goto err_port_del_all;
+                     CASTName err_port_del_all
+         CASTExpressionStatement mutex_unlock(&nsim_dev->port_list_lock);
+            CASTFunctionCallExpression mutex_unlock(&nsim_dev->port_list_lock)
+               CASTIdExpression mutex_unlock
+                  CASTName mutex_unlock
+               CASTUnaryExpression &nsim_dev->port_list_lock
+                  CASTFieldReference nsim_dev->port_list_lock
+                     CASTIdExpression nsim_dev
+                        CASTName nsim_dev
+                     CASTName port_list_lock
+         CASTReturnStatement return 0;
+            CASTLiteralExpression 0
+         CASTLabelStatement err_port_del_all:
+	mutex_unlock(&nsim_dev->port_list_lock);
+            CASTName err_port_del_all
+            CASTExpressionStatement mutex_unlock(&nsim_dev->port_list_lock);
+               CASTFunctionCallExpression mutex_unlock(&nsim_dev->port_list_lock)
+                  CASTIdExpression mutex_unlock
+                     CASTName mutex_unlock
+                  CASTUnaryExpression &nsim_dev->port_list_lock
+                     CASTFieldReference nsim_dev->port_list_lock
+                        CASTIdExpression nsim_dev
+                           CASTName nsim_dev
+                        CASTName port_list_lock
+         CASTExpressionStatement nsim_dev_port_del_all(nsim_dev);
+            CASTFunctionCallExpression nsim_dev_port_del_all(nsim_dev)
+               CASTIdExpression nsim_dev_port_del_all
+                  CASTName nsim_dev_port_del_all
+               CASTIdExpression nsim_dev
+                  CASTName nsim_dev
+         CASTExpressionStatement nsim_dev_destroy(nsim_dev);
+            CASTFunctionCallExpression nsim_dev_destroy(nsim_dev)
+               CASTIdExpression nsim_dev_destroy
+                  CASTName nsim_dev_destroy
+               CASTIdExpression nsim_dev
+                  CASTName nsim_dev
+         CASTReturnStatement return err;
+            CASTIdExpression err
+               CASTName err

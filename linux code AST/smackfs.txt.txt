@@ -1,0 +1,310 @@
+CASTTranslationUnit static void smk_set_cipso()
+{
+	struct netlbl_lsm_catmap *old_cat;
+	struct smack_known *skp;
+	struct netlbl_lsm_secattr ncats;
+	char mapcatset[SMK_CIPSOLEN];
+	int maplevel;
+	unsigned int cat;
+	int catlen;
+	ssize_t rc = -EINVAL;
+	char *data = NULL;
+	char *rule;
+	int ret;
+	int i;
+	/*
+	 * Must have privilege.
+	 * No partial writes.
+	 * Enough data must be present.
+	 */
+	
+
+	rc = smk_netlbl_mls(maplevel, mapcatset, &ncats, SMK_CIPSOLEN);
+	if (rc >= 0) {
+		old_cat = skp->smk_netlabel.attr.mls.cat;
+		skp->smk_netlabel.attr.mls.cat = ncats.attr.mls.cat;
+		skp->smk_netlabel.attr.mls.lvl = ncats.attr.mls.lvl;
+		synchronize_rcu();
+		netlbl_catmap_free(old_cat);
+		rc = count;
+	}
+
+	mutex_unlock(&smack_cipso_lock);
+
+	kfree(data);
+	return rc;
+}
+   CASTFunctionDefinition static void smk_set_cipso()
+{
+	struct netlbl_lsm_catmap *old_cat;
+	struct smack_known *skp;
+	struct netlbl_lsm_secattr ncats;
+	char mapcatset[SMK_CIPSOLEN];
+	int maplevel;
+	unsigned int cat;
+	int catlen;
+	ssize_t rc = -EINVAL;
+	char *data = NULL;
+	char *rule;
+	int ret;
+	int i;
+	/*
+	 * Must have privilege.
+	 * No partial writes.
+	 * Enough data must be present.
+	 */
+	
+
+	rc = smk_netlbl_mls(maplevel, mapcatset, &ncats, SMK_CIPSOLEN);
+	if (rc >= 0) {
+		old_cat = skp->smk_netlabel.attr.mls.cat;
+		skp->smk_netlabel.attr.mls.cat = ncats.attr.mls.cat;
+		skp->smk_netlabel.attr.mls.lvl = ncats.attr.mls.lvl;
+		synchronize_rcu();
+		netlbl_catmap_free(old_cat);
+		rc = count;
+	}
+
+	mutex_unlock(&smack_cipso_lock);
+
+	kfree(data);
+	return rc;
+}
+      CASTSimpleDeclSpecifier static void
+      CASTFunctionDeclarator smk_set_cipso()
+         CASTName smk_set_cipso
+      CASTCompoundStatement {
+	struct netlbl_lsm_catmap *old_cat;
+	struct smack_known *skp;
+	struct netlbl_lsm_secattr ncats;
+	char mapcatset[SMK_CIPSOLEN];
+	int maplevel;
+	unsigned int cat;
+	int catlen;
+	ssize_t rc = -EINVAL;
+	char *data = NULL;
+	char *rule;
+	int ret;
+	int i;
+	/*
+	 * Must have privilege.
+	 * No partial writes.
+	 * Enough data must be present.
+	 */
+	
+
+	rc = smk_netlbl_mls(maplevel, mapcatset, &ncats, SMK_CIPSOLEN);
+	if (rc >= 0) {
+		old_cat = skp->smk_netlabel.attr.mls.cat;
+		skp->smk_netlabel.attr.mls.cat = ncats.attr.mls.cat;
+		skp->smk_netlabel.attr.mls.lvl = ncats.attr.mls.lvl;
+		synchronize_rcu();
+		netlbl_catmap_free(old_cat);
+		rc = count;
+	}
+
+	mutex_unlock(&smack_cipso_lock);
+
+	kfree(data);
+	return rc;
+}
+         CASTDeclarationStatement struct netlbl_lsm_catmap *old_cat;
+            CASTSimpleDeclaration struct netlbl_lsm_catmap *old_cat;
+               CASTElaboratedTypeSpecifier struct netlbl_lsm_catmap
+                  CASTName netlbl_lsm_catmap
+               CASTDeclarator *old_cat
+                  CASTPointer *
+                  CASTName old_cat
+         CASTDeclarationStatement struct smack_known *skp;
+            CASTSimpleDeclaration struct smack_known *skp;
+               CASTElaboratedTypeSpecifier struct smack_known
+                  CASTName smack_known
+               CASTDeclarator *skp
+                  CASTPointer *
+                  CASTName skp
+         CASTDeclarationStatement struct netlbl_lsm_secattr ncats;
+            CASTSimpleDeclaration struct netlbl_lsm_secattr ncats;
+               CASTElaboratedTypeSpecifier struct netlbl_lsm_secattr
+                  CASTName netlbl_lsm_secattr
+               CASTDeclarator ncats
+                  CASTName ncats
+         CASTDeclarationStatement char mapcatset[SMK_CIPSOLEN];
+            CASTSimpleDeclaration char mapcatset[SMK_CIPSOLEN];
+               CASTSimpleDeclSpecifier char
+               CASTArrayDeclarator mapcatset[SMK_CIPSOLEN]
+                  CASTName mapcatset
+                  CASTArrayModifier [SMK_CIPSOLEN]
+                     CASTIdExpression SMK_CIPSOLEN
+                        CASTName SMK_CIPSOLEN
+         CASTDeclarationStatement int maplevel;
+            CASTSimpleDeclaration int maplevel;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator maplevel
+                  CASTName maplevel
+         CASTDeclarationStatement unsigned int cat;
+            CASTSimpleDeclaration unsigned int cat;
+               CASTSimpleDeclSpecifier unsigned int
+               CASTDeclarator cat
+                  CASTName cat
+         CASTDeclarationStatement int catlen;
+            CASTSimpleDeclaration int catlen;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator catlen
+                  CASTName catlen
+         CASTDeclarationStatement ssize_t rc = -EINVAL;
+            CASTSimpleDeclaration ssize_t rc = -EINVAL;
+               CASTTypedefNameSpecifier ssize_t
+                  CASTName ssize_t
+               CASTDeclarator rc = -EINVAL
+                  CASTName rc
+                  CASTEqualsInitializer = -EINVAL
+                     CASTUnaryExpression -EINVAL
+                        CASTIdExpression EINVAL
+                           CASTName EINVAL
+         CASTDeclarationStatement char *data = NULL;
+            CASTSimpleDeclaration char *data = NULL;
+               CASTSimpleDeclSpecifier char
+               CASTDeclarator *data = NULL
+                  CASTPointer *
+                  CASTName data
+                  CASTEqualsInitializer = NULL
+                     CASTIdExpression NULL
+                        CASTName NULL
+         CASTDeclarationStatement char *rule;
+            CASTSimpleDeclaration char *rule;
+               CASTSimpleDeclSpecifier char
+               CASTDeclarator *rule
+                  CASTPointer *
+                  CASTName rule
+         CASTDeclarationStatement int ret;
+            CASTSimpleDeclaration int ret;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator ret
+                  CASTName ret
+         CASTDeclarationStatement int i;
+            CASTSimpleDeclaration int i;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator i
+                  CASTName i
+         CASTExpressionStatement rc = smk_netlbl_mls(maplevel, mapcatset, &ncats, SMK_CIPSOLEN);
+            CASTBinaryExpression rc = smk_netlbl_mls(maplevel, mapcatset, &ncats, SMK_CIPSOLEN)
+               CASTIdExpression rc
+                  CASTName rc
+               CASTFunctionCallExpression smk_netlbl_mls(maplevel, mapcatset, &ncats, SMK_CIPSOLEN)
+                  CASTIdExpression smk_netlbl_mls
+                     CASTName smk_netlbl_mls
+                  CASTIdExpression maplevel
+                     CASTName maplevel
+                  CASTIdExpression mapcatset
+                     CASTName mapcatset
+                  CASTUnaryExpression &ncats
+                     CASTIdExpression ncats
+                        CASTName ncats
+                  CASTIdExpression SMK_CIPSOLEN
+                     CASTName SMK_CIPSOLEN
+         CASTIfStatement if (rc >= 0) {
+		old_cat = skp->smk_netlabel.attr.mls.cat;
+		skp->smk_netlabel.attr.mls.cat = ncats.attr.mls.cat;
+		skp->smk_netlabel.attr.mls.lvl = ncats.attr.mls.lvl;
+		synchronize_rcu();
+		netlbl_catmap_free(old_cat);
+		rc = count;
+	}
+            CASTBinaryExpression rc >= 0
+               CASTIdExpression rc
+                  CASTName rc
+               CASTLiteralExpression 0
+            CASTCompoundStatement {
+		old_cat = skp->smk_netlabel.attr.mls.cat;
+		skp->smk_netlabel.attr.mls.cat = ncats.attr.mls.cat;
+		skp->smk_netlabel.attr.mls.lvl = ncats.attr.mls.lvl;
+		synchronize_rcu();
+		netlbl_catmap_free(old_cat);
+		rc = count;
+	}
+               CASTExpressionStatement old_cat = skp->smk_netlabel.attr.mls.cat;
+                  CASTBinaryExpression old_cat = skp->smk_netlabel.attr.mls.cat
+                     CASTIdExpression old_cat
+                        CASTName old_cat
+                     CASTFieldReference skp->smk_netlabel.attr.mls.cat
+                        CASTFieldReference skp->smk_netlabel.attr.mls
+                           CASTFieldReference skp->smk_netlabel.attr
+                              CASTFieldReference skp->smk_netlabel
+                                 CASTIdExpression skp
+                                    CASTName skp
+                                 CASTName smk_netlabel
+                              CASTName attr
+                           CASTName mls
+                        CASTName cat
+               CASTExpressionStatement skp->smk_netlabel.attr.mls.cat = ncats.attr.mls.cat;
+                  CASTBinaryExpression skp->smk_netlabel.attr.mls.cat = ncats.attr.mls.cat
+                     CASTFieldReference skp->smk_netlabel.attr.mls.cat
+                        CASTFieldReference skp->smk_netlabel.attr.mls
+                           CASTFieldReference skp->smk_netlabel.attr
+                              CASTFieldReference skp->smk_netlabel
+                                 CASTIdExpression skp
+                                    CASTName skp
+                                 CASTName smk_netlabel
+                              CASTName attr
+                           CASTName mls
+                        CASTName cat
+                     CASTFieldReference ncats.attr.mls.cat
+                        CASTFieldReference ncats.attr.mls
+                           CASTFieldReference ncats.attr
+                              CASTIdExpression ncats
+                                 CASTName ncats
+                              CASTName attr
+                           CASTName mls
+                        CASTName cat
+               CASTExpressionStatement skp->smk_netlabel.attr.mls.lvl = ncats.attr.mls.lvl;
+                  CASTBinaryExpression skp->smk_netlabel.attr.mls.lvl = ncats.attr.mls.lvl
+                     CASTFieldReference skp->smk_netlabel.attr.mls.lvl
+                        CASTFieldReference skp->smk_netlabel.attr.mls
+                           CASTFieldReference skp->smk_netlabel.attr
+                              CASTFieldReference skp->smk_netlabel
+                                 CASTIdExpression skp
+                                    CASTName skp
+                                 CASTName smk_netlabel
+                              CASTName attr
+                           CASTName mls
+                        CASTName lvl
+                     CASTFieldReference ncats.attr.mls.lvl
+                        CASTFieldReference ncats.attr.mls
+                           CASTFieldReference ncats.attr
+                              CASTIdExpression ncats
+                                 CASTName ncats
+                              CASTName attr
+                           CASTName mls
+                        CASTName lvl
+               CASTExpressionStatement synchronize_rcu();
+                  CASTFunctionCallExpression synchronize_rcu()
+                     CASTIdExpression synchronize_rcu
+                        CASTName synchronize_rcu
+               CASTExpressionStatement netlbl_catmap_free(old_cat);
+                  CASTFunctionCallExpression netlbl_catmap_free(old_cat)
+                     CASTIdExpression netlbl_catmap_free
+                        CASTName netlbl_catmap_free
+                     CASTIdExpression old_cat
+                        CASTName old_cat
+               CASTExpressionStatement rc = count;
+                  CASTBinaryExpression rc = count
+                     CASTIdExpression rc
+                        CASTName rc
+                     CASTIdExpression count
+                        CASTName count
+         CASTExpressionStatement mutex_unlock(&smack_cipso_lock);
+            CASTFunctionCallExpression mutex_unlock(&smack_cipso_lock)
+               CASTIdExpression mutex_unlock
+                  CASTName mutex_unlock
+               CASTUnaryExpression &smack_cipso_lock
+                  CASTIdExpression smack_cipso_lock
+                     CASTName smack_cipso_lock
+         CASTExpressionStatement kfree(data);
+            CASTFunctionCallExpression kfree(data)
+               CASTIdExpression kfree
+                  CASTName kfree
+               CASTIdExpression data
+                  CASTName data
+         CASTReturnStatement return rc;
+            CASTIdExpression rc
+               CASTName rc

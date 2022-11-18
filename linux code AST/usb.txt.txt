@@ -1,0 +1,331 @@
+CASTTranslationUnit static void r8a66597_endpoint_disable(struct usb_hcd *hcd,
+				      struct usb_host_endpoint *hep)
+{
+	struct r8a66597 *r8a66597 = hcd_to_r8a66597(hcd);
+	struct r8a66597_pipe *pipe = (struct r8a66597_pipe *)hep->hcpriv;
+	struct r8a66597_td *td;
+	struct urb *urb = NULL;
+	u16 pipenum;
+	unsigned long flags;
+	if (pipe == NULL)
+		return;
+	pipenum = pipe->info.pipenum;
+
+	spin_lock_irqsave(&r8a66597->lock, flags);
+	if (pipenum == 0) {
+		kfree(hep->hcpriv);
+		hep->hcpriv = NULL;
+		spin_unlock_irqrestore(&r8a66597->lock, flags);
+		return;
+	}
+
+	pipe_stop(r8a66597, pipe);
+	pipe_irq_disable(r8a66597, pipenum);
+	disable_irq_empty(r8a66597, pipenum);
+	td = r8a66597_get_td(r8a66597, pipenum);
+	if (td)
+		urb = td->urb;
+	finish_request(r8a66597, td, pipenum, urb, -ESHUTDOWN);
+	kfree(hep->hcpriv);
+	hep->hcpriv = NULL;
+	spin_unlock_irqrestore(&r8a66597->lock, flags);
+}
+   CASTFunctionDefinition static void r8a66597_endpoint_disable(struct usb_hcd *hcd,
+				      struct usb_host_endpoint *hep)
+{
+	struct r8a66597 *r8a66597 = hcd_to_r8a66597(hcd);
+	struct r8a66597_pipe *pipe = (struct r8a66597_pipe *)hep->hcpriv;
+	struct r8a66597_td *td;
+	struct urb *urb = NULL;
+	u16 pipenum;
+	unsigned long flags;
+	if (pipe == NULL)
+		return;
+	pipenum = pipe->info.pipenum;
+
+	spin_lock_irqsave(&r8a66597->lock, flags);
+	if (pipenum == 0) {
+		kfree(hep->hcpriv);
+		hep->hcpriv = NULL;
+		spin_unlock_irqrestore(&r8a66597->lock, flags);
+		return;
+	}
+
+	pipe_stop(r8a66597, pipe);
+	pipe_irq_disable(r8a66597, pipenum);
+	disable_irq_empty(r8a66597, pipenum);
+	td = r8a66597_get_td(r8a66597, pipenum);
+	if (td)
+		urb = td->urb;
+	finish_request(r8a66597, td, pipenum, urb, -ESHUTDOWN);
+	kfree(hep->hcpriv);
+	hep->hcpriv = NULL;
+	spin_unlock_irqrestore(&r8a66597->lock, flags);
+}
+      CASTSimpleDeclSpecifier static void
+      CASTFunctionDeclarator r8a66597_endpoint_disable(struct usb_hcd *hcd,
+				      struct usb_host_endpoint *hep)
+         CASTName r8a66597_endpoint_disable
+         CASTParameterDeclaration struct usb_hcd *hcd
+            CASTElaboratedTypeSpecifier struct usb_hcd
+               CASTName usb_hcd
+            CASTDeclarator *hcd
+               CASTPointer *
+               CASTName hcd
+         CASTParameterDeclaration struct usb_host_endpoint *hep
+            CASTElaboratedTypeSpecifier struct usb_host_endpoint
+               CASTName usb_host_endpoint
+            CASTDeclarator *hep
+               CASTPointer *
+               CASTName hep
+      CASTCompoundStatement {
+	struct r8a66597 *r8a66597 = hcd_to_r8a66597(hcd);
+	struct r8a66597_pipe *pipe = (struct r8a66597_pipe *)hep->hcpriv;
+	struct r8a66597_td *td;
+	struct urb *urb = NULL;
+	u16 pipenum;
+	unsigned long flags;
+	if (pipe == NULL)
+		return;
+	pipenum = pipe->info.pipenum;
+
+	spin_lock_irqsave(&r8a66597->lock, flags);
+	if (pipenum == 0) {
+		kfree(hep->hcpriv);
+		hep->hcpriv = NULL;
+		spin_unlock_irqrestore(&r8a66597->lock, flags);
+		return;
+	}
+
+	pipe_stop(r8a66597, pipe);
+	pipe_irq_disable(r8a66597, pipenum);
+	disable_irq_empty(r8a66597, pipenum);
+	td = r8a66597_get_td(r8a66597, pipenum);
+	if (td)
+		urb = td->urb;
+	finish_request(r8a66597, td, pipenum, urb, -ESHUTDOWN);
+	kfree(hep->hcpriv);
+	hep->hcpriv = NULL;
+	spin_unlock_irqrestore(&r8a66597->lock, flags);
+}
+         CASTDeclarationStatement struct r8a66597 *r8a66597 = hcd_to_r8a66597(hcd);
+            CASTSimpleDeclaration struct r8a66597 *r8a66597 = hcd_to_r8a66597(hcd);
+               CASTElaboratedTypeSpecifier struct r8a66597
+                  CASTName r8a66597
+               CASTDeclarator *r8a66597 = hcd_to_r8a66597(hcd)
+                  CASTPointer *
+                  CASTName r8a66597
+                  CASTEqualsInitializer = hcd_to_r8a66597(hcd)
+                     CASTFunctionCallExpression hcd_to_r8a66597(hcd)
+                        CASTIdExpression hcd_to_r8a66597
+                           CASTName hcd_to_r8a66597
+                        CASTIdExpression hcd
+                           CASTName hcd
+         CASTDeclarationStatement struct r8a66597_pipe *pipe = (struct r8a66597_pipe *)hep->hcpriv;
+            CASTSimpleDeclaration struct r8a66597_pipe *pipe = (struct r8a66597_pipe *)hep->hcpriv;
+               CASTElaboratedTypeSpecifier struct r8a66597_pipe
+                  CASTName r8a66597_pipe
+               CASTDeclarator *pipe = (struct r8a66597_pipe *)hep->hcpriv
+                  CASTPointer *
+                  CASTName pipe
+                  CASTEqualsInitializer = (struct r8a66597_pipe *)hep->hcpriv
+                     CASTCastExpression (struct r8a66597_pipe *)hep->hcpriv
+                        CASTTypeId struct r8a66597_pipe *
+                           CASTElaboratedTypeSpecifier struct r8a66597_pipe
+                              CASTName r8a66597_pipe
+                           CASTDeclarator *
+                              CASTPointer *
+                        CASTFieldReference hep->hcpriv
+                           CASTIdExpression hep
+                              CASTName hep
+                           CASTName hcpriv
+         CASTDeclarationStatement struct r8a66597_td *td;
+            CASTSimpleDeclaration struct r8a66597_td *td;
+               CASTElaboratedTypeSpecifier struct r8a66597_td
+                  CASTName r8a66597_td
+               CASTDeclarator *td
+                  CASTPointer *
+                  CASTName td
+         CASTDeclarationStatement struct urb *urb = NULL;
+            CASTSimpleDeclaration struct urb *urb = NULL;
+               CASTElaboratedTypeSpecifier struct urb
+                  CASTName urb
+               CASTDeclarator *urb = NULL
+                  CASTPointer *
+                  CASTName urb
+                  CASTEqualsInitializer = NULL
+                     CASTIdExpression NULL
+                        CASTName NULL
+         CASTDeclarationStatement u16 pipenum;
+            CASTSimpleDeclaration u16 pipenum;
+               CASTTypedefNameSpecifier u16
+                  CASTName u16
+               CASTDeclarator pipenum
+                  CASTName pipenum
+         CASTDeclarationStatement unsigned long flags;
+            CASTSimpleDeclaration unsigned long flags;
+               CASTSimpleDeclSpecifier unsigned long
+               CASTDeclarator flags
+                  CASTName flags
+         CASTIfStatement if (pipe == NULL)
+		return;
+            CASTBinaryExpression pipe == NULL
+               CASTIdExpression pipe
+                  CASTName pipe
+               CASTIdExpression NULL
+                  CASTName NULL
+            CASTReturnStatement return;
+         CASTExpressionStatement pipenum = pipe->info.pipenum;
+            CASTBinaryExpression pipenum = pipe->info.pipenum
+               CASTIdExpression pipenum
+                  CASTName pipenum
+               CASTFieldReference pipe->info.pipenum
+                  CASTFieldReference pipe->info
+                     CASTIdExpression pipe
+                        CASTName pipe
+                     CASTName info
+                  CASTName pipenum
+         CASTExpressionStatement spin_lock_irqsave(&r8a66597->lock, flags);
+            CASTFunctionCallExpression spin_lock_irqsave(&r8a66597->lock, flags)
+               CASTIdExpression spin_lock_irqsave
+                  CASTName spin_lock_irqsave
+               CASTUnaryExpression &r8a66597->lock
+                  CASTFieldReference r8a66597->lock
+                     CASTIdExpression r8a66597
+                        CASTName r8a66597
+                     CASTName lock
+               CASTIdExpression flags
+                  CASTName flags
+         CASTIfStatement if (pipenum == 0) {
+		kfree(hep->hcpriv);
+		hep->hcpriv = NULL;
+		spin_unlock_irqrestore(&r8a66597->lock, flags);
+		return;
+	}
+            CASTBinaryExpression pipenum == 0
+               CASTIdExpression pipenum
+                  CASTName pipenum
+               CASTLiteralExpression 0
+            CASTCompoundStatement {
+		kfree(hep->hcpriv);
+		hep->hcpriv = NULL;
+		spin_unlock_irqrestore(&r8a66597->lock, flags);
+		return;
+	}
+               CASTExpressionStatement kfree(hep->hcpriv);
+                  CASTFunctionCallExpression kfree(hep->hcpriv)
+                     CASTIdExpression kfree
+                        CASTName kfree
+                     CASTFieldReference hep->hcpriv
+                        CASTIdExpression hep
+                           CASTName hep
+                        CASTName hcpriv
+               CASTExpressionStatement hep->hcpriv = NULL;
+                  CASTBinaryExpression hep->hcpriv = NULL
+                     CASTFieldReference hep->hcpriv
+                        CASTIdExpression hep
+                           CASTName hep
+                        CASTName hcpriv
+                     CASTIdExpression NULL
+                        CASTName NULL
+               CASTExpressionStatement spin_unlock_irqrestore(&r8a66597->lock, flags);
+                  CASTFunctionCallExpression spin_unlock_irqrestore(&r8a66597->lock, flags)
+                     CASTIdExpression spin_unlock_irqrestore
+                        CASTName spin_unlock_irqrestore
+                     CASTUnaryExpression &r8a66597->lock
+                        CASTFieldReference r8a66597->lock
+                           CASTIdExpression r8a66597
+                              CASTName r8a66597
+                           CASTName lock
+                     CASTIdExpression flags
+                        CASTName flags
+               CASTReturnStatement return;
+         CASTExpressionStatement pipe_stop(r8a66597, pipe);
+            CASTFunctionCallExpression pipe_stop(r8a66597, pipe)
+               CASTIdExpression pipe_stop
+                  CASTName pipe_stop
+               CASTIdExpression r8a66597
+                  CASTName r8a66597
+               CASTIdExpression pipe
+                  CASTName pipe
+         CASTExpressionStatement pipe_irq_disable(r8a66597, pipenum);
+            CASTFunctionCallExpression pipe_irq_disable(r8a66597, pipenum)
+               CASTIdExpression pipe_irq_disable
+                  CASTName pipe_irq_disable
+               CASTIdExpression r8a66597
+                  CASTName r8a66597
+               CASTIdExpression pipenum
+                  CASTName pipenum
+         CASTExpressionStatement disable_irq_empty(r8a66597, pipenum);
+            CASTFunctionCallExpression disable_irq_empty(r8a66597, pipenum)
+               CASTIdExpression disable_irq_empty
+                  CASTName disable_irq_empty
+               CASTIdExpression r8a66597
+                  CASTName r8a66597
+               CASTIdExpression pipenum
+                  CASTName pipenum
+         CASTExpressionStatement td = r8a66597_get_td(r8a66597, pipenum);
+            CASTBinaryExpression td = r8a66597_get_td(r8a66597, pipenum)
+               CASTIdExpression td
+                  CASTName td
+               CASTFunctionCallExpression r8a66597_get_td(r8a66597, pipenum)
+                  CASTIdExpression r8a66597_get_td
+                     CASTName r8a66597_get_td
+                  CASTIdExpression r8a66597
+                     CASTName r8a66597
+                  CASTIdExpression pipenum
+                     CASTName pipenum
+         CASTIfStatement if (td)
+		urb = td->urb;
+            CASTIdExpression td
+               CASTName td
+            CASTExpressionStatement urb = td->urb;
+               CASTBinaryExpression urb = td->urb
+                  CASTIdExpression urb
+                     CASTName urb
+                  CASTFieldReference td->urb
+                     CASTIdExpression td
+                        CASTName td
+                     CASTName urb
+         CASTExpressionStatement finish_request(r8a66597, td, pipenum, urb, -ESHUTDOWN);
+            CASTFunctionCallExpression finish_request(r8a66597, td, pipenum, urb, -ESHUTDOWN)
+               CASTIdExpression finish_request
+                  CASTName finish_request
+               CASTIdExpression r8a66597
+                  CASTName r8a66597
+               CASTIdExpression td
+                  CASTName td
+               CASTIdExpression pipenum
+                  CASTName pipenum
+               CASTIdExpression urb
+                  CASTName urb
+               CASTUnaryExpression -ESHUTDOWN
+                  CASTIdExpression ESHUTDOWN
+                     CASTName ESHUTDOWN
+         CASTExpressionStatement kfree(hep->hcpriv);
+            CASTFunctionCallExpression kfree(hep->hcpriv)
+               CASTIdExpression kfree
+                  CASTName kfree
+               CASTFieldReference hep->hcpriv
+                  CASTIdExpression hep
+                     CASTName hep
+                  CASTName hcpriv
+         CASTExpressionStatement hep->hcpriv = NULL;
+            CASTBinaryExpression hep->hcpriv = NULL
+               CASTFieldReference hep->hcpriv
+                  CASTIdExpression hep
+                     CASTName hep
+                  CASTName hcpriv
+               CASTIdExpression NULL
+                  CASTName NULL
+         CASTExpressionStatement spin_unlock_irqrestore(&r8a66597->lock, flags);
+            CASTFunctionCallExpression spin_unlock_irqrestore(&r8a66597->lock, flags)
+               CASTIdExpression spin_unlock_irqrestore
+                  CASTName spin_unlock_irqrestore
+               CASTUnaryExpression &r8a66597->lock
+                  CASTFieldReference r8a66597->lock
+                     CASTIdExpression r8a66597
+                        CASTName r8a66597
+                     CASTName lock
+               CASTIdExpression flags
+                  CASTName flags

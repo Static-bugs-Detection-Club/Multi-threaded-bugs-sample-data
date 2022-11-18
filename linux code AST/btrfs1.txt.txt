@@ -1,0 +1,549 @@
+CASTTranslationUnit static inline struct extent_buffer *
+get_old_root(struct btrfs_root *root, u64 time_seq)
+{
+	struct btrfs_fs_info *fs_info = root->fs_info;
+	struct tree_mod_elem *tm;
+	struct extent_buffer *eb = NULL;
+	struct extent_buffer *eb_root;
+	u64 eb_root_owner = 0;
+	struct extent_buffer *old;
+	struct tree_mod_root *old_root = NULL;
+	u64 old_generation = 0;
+	u64 logical;
+	int level;
+	eb_root = btrfs_read_lock_root_node(root);
+	tm = __tree_mod_log_oldest_root(eb_root, time_seq);
+	tm = tree_mod_log_search(fs_info, logical, time_seq);
+	if (old_root && tm && tm->op != MOD_LOG_KEY_REMOVE_WHILE_FREEING) {
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+		old = read_tree_block(fs_info, logical, root->root_key.objectid,
+				      0, level, NULL);
+		if (WARN_ON(IS_ERR(old) || !extent_buffer_uptodate(old))) {
+			if (!IS_ERR(old))
+				free_extent_buffer(old);
+			btrfs_warn(fs_info,
+				   "failed to read tree block %llu from get_old_root",
+				   logical);
+		} else {
+			btrfs_tree_read_lock(old);
+			eb = btrfs_clone_extent_buffer(old);
+			btrfs_tree_read_unlock(old);
+			free_extent_buffer(old);
+		}
+	} else if (old_root) {
+		eb_root_owner = btrfs_header_owner(eb_root);
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+		eb = alloc_dummy_extent_buffer(fs_info, logical);
+	} else {
+		eb = btrfs_clone_extent_buffer(eb_root);
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+	}
+	WARN_ON(btrfs_header_nritems(eb) > BTRFS_NODEPTRS_PER_BLOCK(fs_info));
+	return eb;
+}
+   CASTFunctionDefinition static inline struct extent_buffer *
+get_old_root(struct btrfs_root *root, u64 time_seq)
+{
+	struct btrfs_fs_info *fs_info = root->fs_info;
+	struct tree_mod_elem *tm;
+	struct extent_buffer *eb = NULL;
+	struct extent_buffer *eb_root;
+	u64 eb_root_owner = 0;
+	struct extent_buffer *old;
+	struct tree_mod_root *old_root = NULL;
+	u64 old_generation = 0;
+	u64 logical;
+	int level;
+	eb_root = btrfs_read_lock_root_node(root);
+	tm = __tree_mod_log_oldest_root(eb_root, time_seq);
+	tm = tree_mod_log_search(fs_info, logical, time_seq);
+	if (old_root && tm && tm->op != MOD_LOG_KEY_REMOVE_WHILE_FREEING) {
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+		old = read_tree_block(fs_info, logical, root->root_key.objectid,
+				      0, level, NULL);
+		if (WARN_ON(IS_ERR(old) || !extent_buffer_uptodate(old))) {
+			if (!IS_ERR(old))
+				free_extent_buffer(old);
+			btrfs_warn(fs_info,
+				   "failed to read tree block %llu from get_old_root",
+				   logical);
+		} else {
+			btrfs_tree_read_lock(old);
+			eb = btrfs_clone_extent_buffer(old);
+			btrfs_tree_read_unlock(old);
+			free_extent_buffer(old);
+		}
+	} else if (old_root) {
+		eb_root_owner = btrfs_header_owner(eb_root);
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+		eb = alloc_dummy_extent_buffer(fs_info, logical);
+	} else {
+		eb = btrfs_clone_extent_buffer(eb_root);
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+	}
+	WARN_ON(btrfs_header_nritems(eb) > BTRFS_NODEPTRS_PER_BLOCK(fs_info));
+	return eb;
+}
+      CASTElaboratedTypeSpecifier static inline struct extent_buffer
+         CASTName extent_buffer
+      CASTFunctionDeclarator *
+get_old_root(struct btrfs_root *root, u64 time_seq)
+         CASTPointer *
+         CASTName get_old_root
+         CASTParameterDeclaration struct btrfs_root *root
+            CASTElaboratedTypeSpecifier struct btrfs_root
+               CASTName btrfs_root
+            CASTDeclarator *root
+               CASTPointer *
+               CASTName root
+         CASTParameterDeclaration u64 time_seq
+            CASTTypedefNameSpecifier u64
+               CASTName u64
+            CASTDeclarator time_seq
+               CASTName time_seq
+      CASTCompoundStatement {
+	struct btrfs_fs_info *fs_info = root->fs_info;
+	struct tree_mod_elem *tm;
+	struct extent_buffer *eb = NULL;
+	struct extent_buffer *eb_root;
+	u64 eb_root_owner = 0;
+	struct extent_buffer *old;
+	struct tree_mod_root *old_root = NULL;
+	u64 old_generation = 0;
+	u64 logical;
+	int level;
+	eb_root = btrfs_read_lock_root_node(root);
+	tm = __tree_mod_log_oldest_root(eb_root, time_seq);
+	tm = tree_mod_log_search(fs_info, logical, time_seq);
+	if (old_root && tm && tm->op != MOD_LOG_KEY_REMOVE_WHILE_FREEING) {
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+		old = read_tree_block(fs_info, logical, root->root_key.objectid,
+				      0, level, NULL);
+		if (WARN_ON(IS_ERR(old) || !extent_buffer_uptodate(old))) {
+			if (!IS_ERR(old))
+				free_extent_buffer(old);
+			btrfs_warn(fs_info,
+				   "failed to read tree block %llu from get_old_root",
+				   logical);
+		} else {
+			btrfs_tree_read_lock(old);
+			eb = btrfs_clone_extent_buffer(old);
+			btrfs_tree_read_unlock(old);
+			free_extent_buffer(old);
+		}
+	} else if (old_root) {
+		eb_root_owner = btrfs_header_owner(eb_root);
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+		eb = alloc_dummy_extent_buffer(fs_info, logical);
+	} else {
+		eb = btrfs_clone_extent_buffer(eb_root);
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+	}
+	WARN_ON(btrfs_header_nritems(eb) > BTRFS_NODEPTRS_PER_BLOCK(fs_info));
+	return eb;
+}
+         CASTDeclarationStatement struct btrfs_fs_info *fs_info = root->fs_info;
+            CASTSimpleDeclaration struct btrfs_fs_info *fs_info = root->fs_info;
+               CASTElaboratedTypeSpecifier struct btrfs_fs_info
+                  CASTName btrfs_fs_info
+               CASTDeclarator *fs_info = root->fs_info
+                  CASTPointer *
+                  CASTName fs_info
+                  CASTEqualsInitializer = root->fs_info
+                     CASTFieldReference root->fs_info
+                        CASTIdExpression root
+                           CASTName root
+                        CASTName fs_info
+         CASTDeclarationStatement struct tree_mod_elem *tm;
+            CASTSimpleDeclaration struct tree_mod_elem *tm;
+               CASTElaboratedTypeSpecifier struct tree_mod_elem
+                  CASTName tree_mod_elem
+               CASTDeclarator *tm
+                  CASTPointer *
+                  CASTName tm
+         CASTDeclarationStatement struct extent_buffer *eb = NULL;
+            CASTSimpleDeclaration struct extent_buffer *eb = NULL;
+               CASTElaboratedTypeSpecifier struct extent_buffer
+                  CASTName extent_buffer
+               CASTDeclarator *eb = NULL
+                  CASTPointer *
+                  CASTName eb
+                  CASTEqualsInitializer = NULL
+                     CASTIdExpression NULL
+                        CASTName NULL
+         CASTDeclarationStatement struct extent_buffer *eb_root;
+            CASTSimpleDeclaration struct extent_buffer *eb_root;
+               CASTElaboratedTypeSpecifier struct extent_buffer
+                  CASTName extent_buffer
+               CASTDeclarator *eb_root
+                  CASTPointer *
+                  CASTName eb_root
+         CASTDeclarationStatement u64 eb_root_owner = 0;
+            CASTSimpleDeclaration u64 eb_root_owner = 0;
+               CASTTypedefNameSpecifier u64
+                  CASTName u64
+               CASTDeclarator eb_root_owner = 0
+                  CASTName eb_root_owner
+                  CASTEqualsInitializer = 0
+                     CASTLiteralExpression 0
+         CASTDeclarationStatement struct extent_buffer *old;
+            CASTSimpleDeclaration struct extent_buffer *old;
+               CASTElaboratedTypeSpecifier struct extent_buffer
+                  CASTName extent_buffer
+               CASTDeclarator *old
+                  CASTPointer *
+                  CASTName old
+         CASTDeclarationStatement struct tree_mod_root *old_root = NULL;
+            CASTSimpleDeclaration struct tree_mod_root *old_root = NULL;
+               CASTElaboratedTypeSpecifier struct tree_mod_root
+                  CASTName tree_mod_root
+               CASTDeclarator *old_root = NULL
+                  CASTPointer *
+                  CASTName old_root
+                  CASTEqualsInitializer = NULL
+                     CASTIdExpression NULL
+                        CASTName NULL
+         CASTDeclarationStatement u64 old_generation = 0;
+            CASTSimpleDeclaration u64 old_generation = 0;
+               CASTTypedefNameSpecifier u64
+                  CASTName u64
+               CASTDeclarator old_generation = 0
+                  CASTName old_generation
+                  CASTEqualsInitializer = 0
+                     CASTLiteralExpression 0
+         CASTDeclarationStatement u64 logical;
+            CASTSimpleDeclaration u64 logical;
+               CASTTypedefNameSpecifier u64
+                  CASTName u64
+               CASTDeclarator logical
+                  CASTName logical
+         CASTDeclarationStatement int level;
+            CASTSimpleDeclaration int level;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator level
+                  CASTName level
+         CASTExpressionStatement eb_root = btrfs_read_lock_root_node(root);
+            CASTBinaryExpression eb_root = btrfs_read_lock_root_node(root)
+               CASTIdExpression eb_root
+                  CASTName eb_root
+               CASTFunctionCallExpression btrfs_read_lock_root_node(root)
+                  CASTIdExpression btrfs_read_lock_root_node
+                     CASTName btrfs_read_lock_root_node
+                  CASTIdExpression root
+                     CASTName root
+         CASTExpressionStatement tm = __tree_mod_log_oldest_root(eb_root, time_seq);
+            CASTBinaryExpression tm = __tree_mod_log_oldest_root(eb_root, time_seq)
+               CASTIdExpression tm
+                  CASTName tm
+               CASTFunctionCallExpression __tree_mod_log_oldest_root(eb_root, time_seq)
+                  CASTIdExpression __tree_mod_log_oldest_root
+                     CASTName __tree_mod_log_oldest_root
+                  CASTIdExpression eb_root
+                     CASTName eb_root
+                  CASTIdExpression time_seq
+                     CASTName time_seq
+         CASTExpressionStatement tm = tree_mod_log_search(fs_info, logical, time_seq);
+            CASTBinaryExpression tm = tree_mod_log_search(fs_info, logical, time_seq)
+               CASTIdExpression tm
+                  CASTName tm
+               CASTFunctionCallExpression tree_mod_log_search(fs_info, logical, time_seq)
+                  CASTIdExpression tree_mod_log_search
+                     CASTName tree_mod_log_search
+                  CASTIdExpression fs_info
+                     CASTName fs_info
+                  CASTIdExpression logical
+                     CASTName logical
+                  CASTIdExpression time_seq
+                     CASTName time_seq
+         CASTIfStatement if (old_root && tm && tm->op != MOD_LOG_KEY_REMOVE_WHILE_FREEING) {
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+		old = read_tree_block(fs_info, logical, root->root_key.objectid,
+				      0, level, NULL);
+		if (WARN_ON(IS_ERR(old) || !extent_buffer_uptodate(old))) {
+			if (!IS_ERR(old))
+				free_extent_buffer(old);
+			btrfs_warn(fs_info,
+				   "failed to read tree block %llu from get_old_root",
+				   logical);
+		} else {
+			btrfs_tree_read_lock(old);
+			eb = btrfs_clone_extent_buffer(old);
+			btrfs_tree_read_unlock(old);
+			free_extent_buffer(old);
+		}
+	} else if (old_root) {
+		eb_root_owner = btrfs_header_owner(eb_root);
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+		eb = alloc_dummy_extent_buffer(fs_info, logical);
+	} else {
+		eb = btrfs_clone_extent_buffer(eb_root);
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+	}
+            CASTBinaryExpression old_root && tm && tm->op != MOD_LOG_KEY_REMOVE_WHILE_FREEING
+               CASTBinaryExpression old_root && tm
+                  CASTIdExpression old_root
+                     CASTName old_root
+                  CASTIdExpression tm
+                     CASTName tm
+               CASTBinaryExpression tm->op != MOD_LOG_KEY_REMOVE_WHILE_FREEING
+                  CASTFieldReference tm->op
+                     CASTIdExpression tm
+                        CASTName tm
+                     CASTName op
+                  CASTIdExpression MOD_LOG_KEY_REMOVE_WHILE_FREEING
+                     CASTName MOD_LOG_KEY_REMOVE_WHILE_FREEING
+            CASTCompoundStatement {
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+		old = read_tree_block(fs_info, logical, root->root_key.objectid,
+				      0, level, NULL);
+		if (WARN_ON(IS_ERR(old) || !extent_buffer_uptodate(old))) {
+			if (!IS_ERR(old))
+				free_extent_buffer(old);
+			btrfs_warn(fs_info,
+				   "failed to read tree block %llu from get_old_root",
+				   logical);
+		} else {
+			btrfs_tree_read_lock(old);
+			eb = btrfs_clone_extent_buffer(old);
+			btrfs_tree_read_unlock(old);
+			free_extent_buffer(old);
+		}
+	}
+               CASTExpressionStatement btrfs_tree_read_unlock(eb_root);
+                  CASTFunctionCallExpression btrfs_tree_read_unlock(eb_root)
+                     CASTIdExpression btrfs_tree_read_unlock
+                        CASTName btrfs_tree_read_unlock
+                     CASTIdExpression eb_root
+                        CASTName eb_root
+               CASTExpressionStatement free_extent_buffer(eb_root);
+                  CASTFunctionCallExpression free_extent_buffer(eb_root)
+                     CASTIdExpression free_extent_buffer
+                        CASTName free_extent_buffer
+                     CASTIdExpression eb_root
+                        CASTName eb_root
+               CASTExpressionStatement old = read_tree_block(fs_info, logical, root->root_key.objectid,
+				      0, level, NULL);
+                  CASTBinaryExpression old = read_tree_block(fs_info, logical, root->root_key.objectid,
+				      0, level, NULL)
+                     CASTIdExpression old
+                        CASTName old
+                     CASTFunctionCallExpression read_tree_block(fs_info, logical, root->root_key.objectid,
+				      0, level, NULL)
+                        CASTIdExpression read_tree_block
+                           CASTName read_tree_block
+                        CASTIdExpression fs_info
+                           CASTName fs_info
+                        CASTIdExpression logical
+                           CASTName logical
+                        CASTFieldReference root->root_key.objectid
+                           CASTFieldReference root->root_key
+                              CASTIdExpression root
+                                 CASTName root
+                              CASTName root_key
+                           CASTName objectid
+                        CASTLiteralExpression 0
+                        CASTIdExpression level
+                           CASTName level
+                        CASTIdExpression NULL
+                           CASTName NULL
+               CASTIfStatement if (WARN_ON(IS_ERR(old) || !extent_buffer_uptodate(old))) {
+			if (!IS_ERR(old))
+				free_extent_buffer(old);
+			btrfs_warn(fs_info,
+				   "failed to read tree block %llu from get_old_root",
+				   logical);
+		} else {
+			btrfs_tree_read_lock(old);
+			eb = btrfs_clone_extent_buffer(old);
+			btrfs_tree_read_unlock(old);
+			free_extent_buffer(old);
+		}
+                  CASTFunctionCallExpression WARN_ON(IS_ERR(old) || !extent_buffer_uptodate(old))
+                     CASTIdExpression WARN_ON
+                        CASTName WARN_ON
+                     CASTBinaryExpression IS_ERR(old) || !extent_buffer_uptodate(old)
+                        CASTFunctionCallExpression IS_ERR(old)
+                           CASTIdExpression IS_ERR
+                              CASTName IS_ERR
+                           CASTIdExpression old
+                              CASTName old
+                        CASTUnaryExpression !extent_buffer_uptodate(old)
+                           CASTFunctionCallExpression extent_buffer_uptodate(old)
+                              CASTIdExpression extent_buffer_uptodate
+                                 CASTName extent_buffer_uptodate
+                              CASTIdExpression old
+                                 CASTName old
+                  CASTCompoundStatement {
+			if (!IS_ERR(old))
+				free_extent_buffer(old);
+			btrfs_warn(fs_info,
+				   "failed to read tree block %llu from get_old_root",
+				   logical);
+		}
+                     CASTIfStatement if (!IS_ERR(old))
+				free_extent_buffer(old);
+                        CASTUnaryExpression !IS_ERR(old)
+                           CASTFunctionCallExpression IS_ERR(old)
+                              CASTIdExpression IS_ERR
+                                 CASTName IS_ERR
+                              CASTIdExpression old
+                                 CASTName old
+                        CASTExpressionStatement free_extent_buffer(old);
+                           CASTFunctionCallExpression free_extent_buffer(old)
+                              CASTIdExpression free_extent_buffer
+                                 CASTName free_extent_buffer
+                              CASTIdExpression old
+                                 CASTName old
+                     CASTExpressionStatement btrfs_warn(fs_info,
+				   "failed to read tree block %llu from get_old_root",
+				   logical);
+                        CASTFunctionCallExpression btrfs_warn(fs_info,
+				   "failed to read tree block %llu from get_old_root",
+				   logical)
+                           CASTIdExpression btrfs_warn
+                              CASTName btrfs_warn
+                           CASTIdExpression fs_info
+                              CASTName fs_info
+                           CASTLiteralExpression "failed to read tree block %llu from get_old_root"
+                           CASTIdExpression logical
+                              CASTName logical
+                  CASTCompoundStatement {
+			btrfs_tree_read_lock(old);
+			eb = btrfs_clone_extent_buffer(old);
+			btrfs_tree_read_unlock(old);
+			free_extent_buffer(old);
+		}
+                     CASTExpressionStatement btrfs_tree_read_lock(old);
+                        CASTFunctionCallExpression btrfs_tree_read_lock(old)
+                           CASTIdExpression btrfs_tree_read_lock
+                              CASTName btrfs_tree_read_lock
+                           CASTIdExpression old
+                              CASTName old
+                     CASTExpressionStatement eb = btrfs_clone_extent_buffer(old);
+                        CASTBinaryExpression eb = btrfs_clone_extent_buffer(old)
+                           CASTIdExpression eb
+                              CASTName eb
+                           CASTFunctionCallExpression btrfs_clone_extent_buffer(old)
+                              CASTIdExpression btrfs_clone_extent_buffer
+                                 CASTName btrfs_clone_extent_buffer
+                              CASTIdExpression old
+                                 CASTName old
+                     CASTExpressionStatement btrfs_tree_read_unlock(old);
+                        CASTFunctionCallExpression btrfs_tree_read_unlock(old)
+                           CASTIdExpression btrfs_tree_read_unlock
+                              CASTName btrfs_tree_read_unlock
+                           CASTIdExpression old
+                              CASTName old
+                     CASTExpressionStatement free_extent_buffer(old);
+                        CASTFunctionCallExpression free_extent_buffer(old)
+                           CASTIdExpression free_extent_buffer
+                              CASTName free_extent_buffer
+                           CASTIdExpression old
+                              CASTName old
+            CASTIfStatement if (old_root) {
+		eb_root_owner = btrfs_header_owner(eb_root);
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+		eb = alloc_dummy_extent_buffer(fs_info, logical);
+	} else {
+		eb = btrfs_clone_extent_buffer(eb_root);
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+	}
+               CASTIdExpression old_root
+                  CASTName old_root
+               CASTCompoundStatement {
+		eb_root_owner = btrfs_header_owner(eb_root);
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+		eb = alloc_dummy_extent_buffer(fs_info, logical);
+	}
+                  CASTExpressionStatement eb_root_owner = btrfs_header_owner(eb_root);
+                     CASTBinaryExpression eb_root_owner = btrfs_header_owner(eb_root)
+                        CASTIdExpression eb_root_owner
+                           CASTName eb_root_owner
+                        CASTFunctionCallExpression btrfs_header_owner(eb_root)
+                           CASTIdExpression btrfs_header_owner
+                              CASTName btrfs_header_owner
+                           CASTIdExpression eb_root
+                              CASTName eb_root
+                  CASTExpressionStatement btrfs_tree_read_unlock(eb_root);
+                     CASTFunctionCallExpression btrfs_tree_read_unlock(eb_root)
+                        CASTIdExpression btrfs_tree_read_unlock
+                           CASTName btrfs_tree_read_unlock
+                        CASTIdExpression eb_root
+                           CASTName eb_root
+                  CASTExpressionStatement free_extent_buffer(eb_root);
+                     CASTFunctionCallExpression free_extent_buffer(eb_root)
+                        CASTIdExpression free_extent_buffer
+                           CASTName free_extent_buffer
+                        CASTIdExpression eb_root
+                           CASTName eb_root
+                  CASTExpressionStatement eb = alloc_dummy_extent_buffer(fs_info, logical);
+                     CASTBinaryExpression eb = alloc_dummy_extent_buffer(fs_info, logical)
+                        CASTIdExpression eb
+                           CASTName eb
+                        CASTFunctionCallExpression alloc_dummy_extent_buffer(fs_info, logical)
+                           CASTIdExpression alloc_dummy_extent_buffer
+                              CASTName alloc_dummy_extent_buffer
+                           CASTIdExpression fs_info
+                              CASTName fs_info
+                           CASTIdExpression logical
+                              CASTName logical
+               CASTCompoundStatement {
+		eb = btrfs_clone_extent_buffer(eb_root);
+		btrfs_tree_read_unlock(eb_root);
+		free_extent_buffer(eb_root);
+	}
+                  CASTExpressionStatement eb = btrfs_clone_extent_buffer(eb_root);
+                     CASTBinaryExpression eb = btrfs_clone_extent_buffer(eb_root)
+                        CASTIdExpression eb
+                           CASTName eb
+                        CASTFunctionCallExpression btrfs_clone_extent_buffer(eb_root)
+                           CASTIdExpression btrfs_clone_extent_buffer
+                              CASTName btrfs_clone_extent_buffer
+                           CASTIdExpression eb_root
+                              CASTName eb_root
+                  CASTExpressionStatement btrfs_tree_read_unlock(eb_root);
+                     CASTFunctionCallExpression btrfs_tree_read_unlock(eb_root)
+                        CASTIdExpression btrfs_tree_read_unlock
+                           CASTName btrfs_tree_read_unlock
+                        CASTIdExpression eb_root
+                           CASTName eb_root
+                  CASTExpressionStatement free_extent_buffer(eb_root);
+                     CASTFunctionCallExpression free_extent_buffer(eb_root)
+                        CASTIdExpression free_extent_buffer
+                           CASTName free_extent_buffer
+                        CASTIdExpression eb_root
+                           CASTName eb_root
+         CASTExpressionStatement WARN_ON(btrfs_header_nritems(eb) > BTRFS_NODEPTRS_PER_BLOCK(fs_info));
+            CASTFunctionCallExpression WARN_ON(btrfs_header_nritems(eb) > BTRFS_NODEPTRS_PER_BLOCK(fs_info))
+               CASTIdExpression WARN_ON
+                  CASTName WARN_ON
+               CASTBinaryExpression btrfs_header_nritems(eb) > BTRFS_NODEPTRS_PER_BLOCK(fs_info)
+                  CASTFunctionCallExpression btrfs_header_nritems(eb)
+                     CASTIdExpression btrfs_header_nritems
+                        CASTName btrfs_header_nritems
+                     CASTIdExpression eb
+                        CASTName eb
+                  CASTFunctionCallExpression BTRFS_NODEPTRS_PER_BLOCK(fs_info)
+                     CASTIdExpression BTRFS_NODEPTRS_PER_BLOCK
+                        CASTName BTRFS_NODEPTRS_PER_BLOCK
+                     CASTIdExpression fs_info
+                        CASTName fs_info
+         CASTReturnStatement return eb;
+            CASTIdExpression eb
+               CASTName eb

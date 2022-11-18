@@ -1,0 +1,304 @@
+CASTTranslationUnit static struct inet_frag_queue *inet_frag_intern(struct netns_frags *nf,
+		struct inet_frag_queue *qp_in, struct inet_frags *f,
+		void *arg)
+{
+	struct inet_frag_bucket *hb;
+	struct inet_frag_queue *qp;
+	unsigned int hash;
+	read_lock(&f->lock); /* Protects against hash rebuild */
+	/*
+	 * While we stayed w/o the lock other CPU could update
+	 * the rnd seed, so we need to re-calculate the hash
+	 * chain. Fortunatelly the qp_in can be used to get one.
+	 */
+	hash = f->hashfn(qp_in);
+	hb = &f->hash[hash];
+	spin_lock(&hb->chain_lock);
+#ifdef CONFIG_SMP
+	/* With SMP race we have to recheck hash table, because
+	 * such entry could be created on other cpu, while we
+	 * released the hash bucket lock.
+	 */
+	hlist_for_each_entry(qp, &hb->chain, list) {
+		if (qp->net == nf && f->match(qp, arg)) {
+			atomic_inc(&qp->refcnt);
+			spin_unlock(&hb->chain_lock);
+			read_unlock(&f->lock);
+			qp_in->last_in |= INET_FRAG_COMPLETE;
+			inet_frag_put(qp_in, f);
+			return qp;
+		}
+	}
+#endif
+	qp = qp_in;
+	if (!mod_timer(&qp->timer, jiffies + nf->timeout))
+		atomic_inc(&qp->refcnt);
+
+	atomic_inc(&qp->refcnt);
+	hlist_add_head(&qp->list, &hb->chain);
+	inet_frag_lru_add(nf, qp);
+	spin_unlock(&hb->chain_lock);
+	read_unlock(&f->lock);
+
+	return qp;
+}
+   CASTFunctionDefinition static struct inet_frag_queue *inet_frag_intern(struct netns_frags *nf,
+		struct inet_frag_queue *qp_in, struct inet_frags *f,
+		void *arg)
+{
+	struct inet_frag_bucket *hb;
+	struct inet_frag_queue *qp;
+	unsigned int hash;
+	read_lock(&f->lock); /* Protects against hash rebuild */
+	/*
+	 * While we stayed w/o the lock other CPU could update
+	 * the rnd seed, so we need to re-calculate the hash
+	 * chain. Fortunatelly the qp_in can be used to get one.
+	 */
+	hash = f->hashfn(qp_in);
+	hb = &f->hash[hash];
+	spin_lock(&hb->chain_lock);
+#ifdef CONFIG_SMP
+	/* With SMP race we have to recheck hash table, because
+	 * such entry could be created on other cpu, while we
+	 * released the hash bucket lock.
+	 */
+	hlist_for_each_entry(qp, &hb->chain, list) {
+		if (qp->net == nf && f->match(qp, arg)) {
+			atomic_inc(&qp->refcnt);
+			spin_unlock(&hb->chain_lock);
+			read_unlock(&f->lock);
+			qp_in->last_in |= INET_FRAG_COMPLETE;
+			inet_frag_put(qp_in, f);
+			return qp;
+		}
+	}
+#endif
+	qp = qp_in;
+	if (!mod_timer(&qp->timer, jiffies + nf->timeout))
+		atomic_inc(&qp->refcnt);
+
+	atomic_inc(&qp->refcnt);
+	hlist_add_head(&qp->list, &hb->chain);
+	inet_frag_lru_add(nf, qp);
+	spin_unlock(&hb->chain_lock);
+	read_unlock(&f->lock);
+
+	return qp;
+}
+      CASTElaboratedTypeSpecifier static struct inet_frag_queue
+         CASTName inet_frag_queue
+      CASTFunctionDeclarator *inet_frag_intern(struct netns_frags *nf,
+		struct inet_frag_queue *qp_in, struct inet_frags *f,
+		void *arg)
+         CASTPointer *
+         CASTName inet_frag_intern
+         CASTParameterDeclaration struct netns_frags *nf
+            CASTElaboratedTypeSpecifier struct netns_frags
+               CASTName netns_frags
+            CASTDeclarator *nf
+               CASTPointer *
+               CASTName nf
+         CASTParameterDeclaration struct inet_frag_queue *qp_in
+            CASTElaboratedTypeSpecifier struct inet_frag_queue
+               CASTName inet_frag_queue
+            CASTDeclarator *qp_in
+               CASTPointer *
+               CASTName qp_in
+         CASTParameterDeclaration struct inet_frags *f
+            CASTElaboratedTypeSpecifier struct inet_frags
+               CASTName inet_frags
+            CASTDeclarator *f
+               CASTPointer *
+               CASTName f
+         CASTParameterDeclaration void *arg
+            CASTSimpleDeclSpecifier void
+            CASTDeclarator *arg
+               CASTPointer *
+               CASTName arg
+      CASTCompoundStatement {
+	struct inet_frag_bucket *hb;
+	struct inet_frag_queue *qp;
+	unsigned int hash;
+	read_lock(&f->lock); /* Protects against hash rebuild */
+	/*
+	 * While we stayed w/o the lock other CPU could update
+	 * the rnd seed, so we need to re-calculate the hash
+	 * chain. Fortunatelly the qp_in can be used to get one.
+	 */
+	hash = f->hashfn(qp_in);
+	hb = &f->hash[hash];
+	spin_lock(&hb->chain_lock);
+#ifdef CONFIG_SMP
+	/* With SMP race we have to recheck hash table, because
+	 * such entry could be created on other cpu, while we
+	 * released the hash bucket lock.
+	 */
+	hlist_for_each_entry(qp, &hb->chain, list) {
+		if (qp->net == nf && f->match(qp, arg)) {
+			atomic_inc(&qp->refcnt);
+			spin_unlock(&hb->chain_lock);
+			read_unlock(&f->lock);
+			qp_in->last_in |= INET_FRAG_COMPLETE;
+			inet_frag_put(qp_in, f);
+			return qp;
+		}
+	}
+#endif
+	qp = qp_in;
+	if (!mod_timer(&qp->timer, jiffies + nf->timeout))
+		atomic_inc(&qp->refcnt);
+
+	atomic_inc(&qp->refcnt);
+	hlist_add_head(&qp->list, &hb->chain);
+	inet_frag_lru_add(nf, qp);
+	spin_unlock(&hb->chain_lock);
+	read_unlock(&f->lock);
+
+	return qp;
+}
+         CASTDeclarationStatement struct inet_frag_bucket *hb;
+            CASTSimpleDeclaration struct inet_frag_bucket *hb;
+               CASTElaboratedTypeSpecifier struct inet_frag_bucket
+                  CASTName inet_frag_bucket
+               CASTDeclarator *hb
+                  CASTPointer *
+                  CASTName hb
+         CASTDeclarationStatement struct inet_frag_queue *qp;
+            CASTSimpleDeclaration struct inet_frag_queue *qp;
+               CASTElaboratedTypeSpecifier struct inet_frag_queue
+                  CASTName inet_frag_queue
+               CASTDeclarator *qp
+                  CASTPointer *
+                  CASTName qp
+         CASTDeclarationStatement unsigned int hash;
+            CASTSimpleDeclaration unsigned int hash;
+               CASTSimpleDeclSpecifier unsigned int
+               CASTDeclarator hash
+                  CASTName hash
+         CASTExpressionStatement read_lock(&f->lock);
+            CASTFunctionCallExpression read_lock(&f->lock)
+               CASTIdExpression read_lock
+                  CASTName read_lock
+               CASTUnaryExpression &f->lock
+                  CASTFieldReference f->lock
+                     CASTIdExpression f
+                        CASTName f
+                     CASTName lock
+         CASTExpressionStatement hash = f->hashfn(qp_in);
+            CASTBinaryExpression hash = f->hashfn(qp_in)
+               CASTIdExpression hash
+                  CASTName hash
+               CASTFunctionCallExpression f->hashfn(qp_in)
+                  CASTFieldReference f->hashfn
+                     CASTIdExpression f
+                        CASTName f
+                     CASTName hashfn
+                  CASTIdExpression qp_in
+                     CASTName qp_in
+         CASTExpressionStatement hb = &f->hash[hash];
+            CASTBinaryExpression hb = &f->hash[hash]
+               CASTIdExpression hb
+                  CASTName hb
+               CASTUnaryExpression &f->hash[hash]
+                  CASTArraySubscriptExpression f->hash[hash]
+                     CASTFieldReference f->hash
+                        CASTIdExpression f
+                           CASTName f
+                        CASTName hash
+                     CASTIdExpression hash
+                        CASTName hash
+         CASTExpressionStatement spin_lock(&hb->chain_lock);
+            CASTFunctionCallExpression spin_lock(&hb->chain_lock)
+               CASTIdExpression spin_lock
+                  CASTName spin_lock
+               CASTUnaryExpression &hb->chain_lock
+                  CASTFieldReference hb->chain_lock
+                     CASTIdExpression hb
+                        CASTName hb
+                     CASTName chain_lock
+         CASTExpressionStatement qp = qp_in;
+            CASTBinaryExpression qp = qp_in
+               CASTIdExpression qp
+                  CASTName qp
+               CASTIdExpression qp_in
+                  CASTName qp_in
+         CASTIfStatement if (!mod_timer(&qp->timer, jiffies + nf->timeout))
+		atomic_inc(&qp->refcnt);
+            CASTUnaryExpression !mod_timer(&qp->timer, jiffies + nf->timeout)
+               CASTFunctionCallExpression mod_timer(&qp->timer, jiffies + nf->timeout)
+                  CASTIdExpression mod_timer
+                     CASTName mod_timer
+                  CASTUnaryExpression &qp->timer
+                     CASTFieldReference qp->timer
+                        CASTIdExpression qp
+                           CASTName qp
+                        CASTName timer
+                  CASTBinaryExpression jiffies + nf->timeout
+                     CASTIdExpression jiffies
+                        CASTName jiffies
+                     CASTFieldReference nf->timeout
+                        CASTIdExpression nf
+                           CASTName nf
+                        CASTName timeout
+            CASTExpressionStatement atomic_inc(&qp->refcnt);
+               CASTFunctionCallExpression atomic_inc(&qp->refcnt)
+                  CASTIdExpression atomic_inc
+                     CASTName atomic_inc
+                  CASTUnaryExpression &qp->refcnt
+                     CASTFieldReference qp->refcnt
+                        CASTIdExpression qp
+                           CASTName qp
+                        CASTName refcnt
+         CASTExpressionStatement atomic_inc(&qp->refcnt);
+            CASTFunctionCallExpression atomic_inc(&qp->refcnt)
+               CASTIdExpression atomic_inc
+                  CASTName atomic_inc
+               CASTUnaryExpression &qp->refcnt
+                  CASTFieldReference qp->refcnt
+                     CASTIdExpression qp
+                        CASTName qp
+                     CASTName refcnt
+         CASTExpressionStatement hlist_add_head(&qp->list, &hb->chain);
+            CASTFunctionCallExpression hlist_add_head(&qp->list, &hb->chain)
+               CASTIdExpression hlist_add_head
+                  CASTName hlist_add_head
+               CASTUnaryExpression &qp->list
+                  CASTFieldReference qp->list
+                     CASTIdExpression qp
+                        CASTName qp
+                     CASTName list
+               CASTUnaryExpression &hb->chain
+                  CASTFieldReference hb->chain
+                     CASTIdExpression hb
+                        CASTName hb
+                     CASTName chain
+         CASTExpressionStatement inet_frag_lru_add(nf, qp);
+            CASTFunctionCallExpression inet_frag_lru_add(nf, qp)
+               CASTIdExpression inet_frag_lru_add
+                  CASTName inet_frag_lru_add
+               CASTIdExpression nf
+                  CASTName nf
+               CASTIdExpression qp
+                  CASTName qp
+         CASTExpressionStatement spin_unlock(&hb->chain_lock);
+            CASTFunctionCallExpression spin_unlock(&hb->chain_lock)
+               CASTIdExpression spin_unlock
+                  CASTName spin_unlock
+               CASTUnaryExpression &hb->chain_lock
+                  CASTFieldReference hb->chain_lock
+                     CASTIdExpression hb
+                        CASTName hb
+                     CASTName chain_lock
+         CASTExpressionStatement read_unlock(&f->lock);
+            CASTFunctionCallExpression read_unlock(&f->lock)
+               CASTIdExpression read_unlock
+                  CASTName read_unlock
+               CASTUnaryExpression &f->lock
+                  CASTFieldReference f->lock
+                     CASTIdExpression f
+                        CASTName f
+                     CASTName lock
+         CASTReturnStatement return qp;
+            CASTIdExpression qp
+               CASTName qp

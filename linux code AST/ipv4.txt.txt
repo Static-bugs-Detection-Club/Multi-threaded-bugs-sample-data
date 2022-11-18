@@ -1,0 +1,307 @@
+CASTTranslationUnit void ip4_datagram_release_cb(struct sock *sk)
+{
+	const struct inet_sock *inet = inet_sk(sk);
+	const struct ip_options_rcu *inet_opt;
+	__be32 daddr = inet->inet_daddr;
+	struct dst_entry *dst;
+	struct flowi4 fl4;
+	struct rtable *rt;
+
+	rcu_read_lock();
+
+	dst = __sk_dst_get(sk);
+	if (!dst || !dst->obsolete || dst->ops->check(dst, 0)) {
+		rcu_read_unlock();
+		return;
+	}
+	inet_opt = rcu_dereference(inet->inet_opt);
+	if (inet_opt && inet_opt->opt.srr)
+		daddr = inet_opt->opt.faddr;
+	rt = ip_route_output_ports(sock_net(sk), &fl4, sk, daddr,
+				   inet->inet_saddr, inet->inet_dport,
+				   inet->inet_sport, sk->sk_protocol,
+				   RT_CONN_FLAGS(sk), sk->sk_bound_dev_if);
+
+	dst = !IS_ERR(rt) ? &rt->dst : NULL;
+	sk_dst_set(sk, dst);
+
+	rcu_read_unlock();
+}
+   CASTFunctionDefinition void ip4_datagram_release_cb(struct sock *sk)
+{
+	const struct inet_sock *inet = inet_sk(sk);
+	const struct ip_options_rcu *inet_opt;
+	__be32 daddr = inet->inet_daddr;
+	struct dst_entry *dst;
+	struct flowi4 fl4;
+	struct rtable *rt;
+
+	rcu_read_lock();
+
+	dst = __sk_dst_get(sk);
+	if (!dst || !dst->obsolete || dst->ops->check(dst, 0)) {
+		rcu_read_unlock();
+		return;
+	}
+	inet_opt = rcu_dereference(inet->inet_opt);
+	if (inet_opt && inet_opt->opt.srr)
+		daddr = inet_opt->opt.faddr;
+	rt = ip_route_output_ports(sock_net(sk), &fl4, sk, daddr,
+				   inet->inet_saddr, inet->inet_dport,
+				   inet->inet_sport, sk->sk_protocol,
+				   RT_CONN_FLAGS(sk), sk->sk_bound_dev_if);
+
+	dst = !IS_ERR(rt) ? &rt->dst : NULL;
+	sk_dst_set(sk, dst);
+
+	rcu_read_unlock();
+}
+      CASTSimpleDeclSpecifier void
+      CASTFunctionDeclarator ip4_datagram_release_cb(struct sock *sk)
+         CASTName ip4_datagram_release_cb
+         CASTParameterDeclaration struct sock *sk
+            CASTElaboratedTypeSpecifier struct sock
+               CASTName sock
+            CASTDeclarator *sk
+               CASTPointer *
+               CASTName sk
+      CASTCompoundStatement {
+	const struct inet_sock *inet = inet_sk(sk);
+	const struct ip_options_rcu *inet_opt;
+	__be32 daddr = inet->inet_daddr;
+	struct dst_entry *dst;
+	struct flowi4 fl4;
+	struct rtable *rt;
+
+	rcu_read_lock();
+
+	dst = __sk_dst_get(sk);
+	if (!dst || !dst->obsolete || dst->ops->check(dst, 0)) {
+		rcu_read_unlock();
+		return;
+	}
+	inet_opt = rcu_dereference(inet->inet_opt);
+	if (inet_opt && inet_opt->opt.srr)
+		daddr = inet_opt->opt.faddr;
+	rt = ip_route_output_ports(sock_net(sk), &fl4, sk, daddr,
+				   inet->inet_saddr, inet->inet_dport,
+				   inet->inet_sport, sk->sk_protocol,
+				   RT_CONN_FLAGS(sk), sk->sk_bound_dev_if);
+
+	dst = !IS_ERR(rt) ? &rt->dst : NULL;
+	sk_dst_set(sk, dst);
+
+	rcu_read_unlock();
+}
+         CASTDeclarationStatement const struct inet_sock *inet = inet_sk(sk);
+            CASTSimpleDeclaration const struct inet_sock *inet = inet_sk(sk);
+               CASTElaboratedTypeSpecifier const struct inet_sock
+                  CASTName inet_sock
+               CASTDeclarator *inet = inet_sk(sk)
+                  CASTPointer *
+                  CASTName inet
+                  CASTEqualsInitializer = inet_sk(sk)
+                     CASTFunctionCallExpression inet_sk(sk)
+                        CASTIdExpression inet_sk
+                           CASTName inet_sk
+                        CASTIdExpression sk
+                           CASTName sk
+         CASTDeclarationStatement const struct ip_options_rcu *inet_opt;
+            CASTSimpleDeclaration const struct ip_options_rcu *inet_opt;
+               CASTElaboratedTypeSpecifier const struct ip_options_rcu
+                  CASTName ip_options_rcu
+               CASTDeclarator *inet_opt
+                  CASTPointer *
+                  CASTName inet_opt
+         CASTDeclarationStatement __be32 daddr = inet->inet_daddr;
+            CASTSimpleDeclaration __be32 daddr = inet->inet_daddr;
+               CASTTypedefNameSpecifier __be32
+                  CASTName __be32
+               CASTDeclarator daddr = inet->inet_daddr
+                  CASTName daddr
+                  CASTEqualsInitializer = inet->inet_daddr
+                     CASTFieldReference inet->inet_daddr
+                        CASTIdExpression inet
+                           CASTName inet
+                        CASTName inet_daddr
+         CASTDeclarationStatement struct dst_entry *dst;
+            CASTSimpleDeclaration struct dst_entry *dst;
+               CASTElaboratedTypeSpecifier struct dst_entry
+                  CASTName dst_entry
+               CASTDeclarator *dst
+                  CASTPointer *
+                  CASTName dst
+         CASTDeclarationStatement struct flowi4 fl4;
+            CASTSimpleDeclaration struct flowi4 fl4;
+               CASTElaboratedTypeSpecifier struct flowi4
+                  CASTName flowi4
+               CASTDeclarator fl4
+                  CASTName fl4
+         CASTDeclarationStatement struct rtable *rt;
+            CASTSimpleDeclaration struct rtable *rt;
+               CASTElaboratedTypeSpecifier struct rtable
+                  CASTName rtable
+               CASTDeclarator *rt
+                  CASTPointer *
+                  CASTName rt
+         CASTExpressionStatement rcu_read_lock();
+            CASTFunctionCallExpression rcu_read_lock()
+               CASTIdExpression rcu_read_lock
+                  CASTName rcu_read_lock
+         CASTExpressionStatement dst = __sk_dst_get(sk);
+            CASTBinaryExpression dst = __sk_dst_get(sk)
+               CASTIdExpression dst
+                  CASTName dst
+               CASTFunctionCallExpression __sk_dst_get(sk)
+                  CASTIdExpression __sk_dst_get
+                     CASTName __sk_dst_get
+                  CASTIdExpression sk
+                     CASTName sk
+         CASTIfStatement if (!dst || !dst->obsolete || dst->ops->check(dst, 0)) {
+		rcu_read_unlock();
+		return;
+	}
+            CASTBinaryExpression !dst || !dst->obsolete || dst->ops->check(dst, 0)
+               CASTBinaryExpression !dst || !dst->obsolete
+                  CASTUnaryExpression !dst
+                     CASTIdExpression dst
+                        CASTName dst
+                  CASTUnaryExpression !dst->obsolete
+                     CASTFieldReference dst->obsolete
+                        CASTIdExpression dst
+                           CASTName dst
+                        CASTName obsolete
+               CASTFunctionCallExpression dst->ops->check(dst, 0)
+                  CASTFieldReference dst->ops->check
+                     CASTFieldReference dst->ops
+                        CASTIdExpression dst
+                           CASTName dst
+                        CASTName ops
+                     CASTName check
+                  CASTIdExpression dst
+                     CASTName dst
+                  CASTLiteralExpression 0
+            CASTCompoundStatement {
+		rcu_read_unlock();
+		return;
+	}
+               CASTExpressionStatement rcu_read_unlock();
+                  CASTFunctionCallExpression rcu_read_unlock()
+                     CASTIdExpression rcu_read_unlock
+                        CASTName rcu_read_unlock
+               CASTReturnStatement return;
+         CASTExpressionStatement inet_opt = rcu_dereference(inet->inet_opt);
+            CASTBinaryExpression inet_opt = rcu_dereference(inet->inet_opt)
+               CASTIdExpression inet_opt
+                  CASTName inet_opt
+               CASTFunctionCallExpression rcu_dereference(inet->inet_opt)
+                  CASTIdExpression rcu_dereference
+                     CASTName rcu_dereference
+                  CASTFieldReference inet->inet_opt
+                     CASTIdExpression inet
+                        CASTName inet
+                     CASTName inet_opt
+         CASTIfStatement if (inet_opt && inet_opt->opt.srr)
+		daddr = inet_opt->opt.faddr;
+            CASTBinaryExpression inet_opt && inet_opt->opt.srr
+               CASTIdExpression inet_opt
+                  CASTName inet_opt
+               CASTFieldReference inet_opt->opt.srr
+                  CASTFieldReference inet_opt->opt
+                     CASTIdExpression inet_opt
+                        CASTName inet_opt
+                     CASTName opt
+                  CASTName srr
+            CASTExpressionStatement daddr = inet_opt->opt.faddr;
+               CASTBinaryExpression daddr = inet_opt->opt.faddr
+                  CASTIdExpression daddr
+                     CASTName daddr
+                  CASTFieldReference inet_opt->opt.faddr
+                     CASTFieldReference inet_opt->opt
+                        CASTIdExpression inet_opt
+                           CASTName inet_opt
+                        CASTName opt
+                     CASTName faddr
+         CASTExpressionStatement rt = ip_route_output_ports(sock_net(sk), &fl4, sk, daddr,
+				   inet->inet_saddr, inet->inet_dport,
+				   inet->inet_sport, sk->sk_protocol,
+				   RT_CONN_FLAGS(sk), sk->sk_bound_dev_if);
+            CASTBinaryExpression rt = ip_route_output_ports(sock_net(sk), &fl4, sk, daddr,
+				   inet->inet_saddr, inet->inet_dport,
+				   inet->inet_sport, sk->sk_protocol,
+				   RT_CONN_FLAGS(sk), sk->sk_bound_dev_if)
+               CASTIdExpression rt
+                  CASTName rt
+               CASTFunctionCallExpression ip_route_output_ports(sock_net(sk), &fl4, sk, daddr,
+				   inet->inet_saddr, inet->inet_dport,
+				   inet->inet_sport, sk->sk_protocol,
+				   RT_CONN_FLAGS(sk), sk->sk_bound_dev_if)
+                  CASTIdExpression ip_route_output_ports
+                     CASTName ip_route_output_ports
+                  CASTFunctionCallExpression sock_net(sk)
+                     CASTIdExpression sock_net
+                        CASTName sock_net
+                     CASTIdExpression sk
+                        CASTName sk
+                  CASTUnaryExpression &fl4
+                     CASTIdExpression fl4
+                        CASTName fl4
+                  CASTIdExpression sk
+                     CASTName sk
+                  CASTIdExpression daddr
+                     CASTName daddr
+                  CASTFieldReference inet->inet_saddr
+                     CASTIdExpression inet
+                        CASTName inet
+                     CASTName inet_saddr
+                  CASTFieldReference inet->inet_dport
+                     CASTIdExpression inet
+                        CASTName inet
+                     CASTName inet_dport
+                  CASTFieldReference inet->inet_sport
+                     CASTIdExpression inet
+                        CASTName inet
+                     CASTName inet_sport
+                  CASTFieldReference sk->sk_protocol
+                     CASTIdExpression sk
+                        CASTName sk
+                     CASTName sk_protocol
+                  CASTFunctionCallExpression RT_CONN_FLAGS(sk)
+                     CASTIdExpression RT_CONN_FLAGS
+                        CASTName RT_CONN_FLAGS
+                     CASTIdExpression sk
+                        CASTName sk
+                  CASTFieldReference sk->sk_bound_dev_if
+                     CASTIdExpression sk
+                        CASTName sk
+                     CASTName sk_bound_dev_if
+         CASTExpressionStatement dst = !IS_ERR(rt) ? &rt->dst : NULL;
+            CASTBinaryExpression dst = !IS_ERR(rt) ? &rt->dst : NULL
+               CASTIdExpression dst
+                  CASTName dst
+               CASTConditionalExpression !IS_ERR(rt) ? &rt->dst : NULL
+                  CASTUnaryExpression !IS_ERR(rt)
+                     CASTFunctionCallExpression IS_ERR(rt)
+                        CASTIdExpression IS_ERR
+                           CASTName IS_ERR
+                        CASTIdExpression rt
+                           CASTName rt
+                  CASTUnaryExpression &rt->dst
+                     CASTFieldReference rt->dst
+                        CASTIdExpression rt
+                           CASTName rt
+                        CASTName dst
+                  CASTIdExpression NULL
+                     CASTName NULL
+         CASTExpressionStatement sk_dst_set(sk, dst);
+            CASTFunctionCallExpression sk_dst_set(sk, dst)
+               CASTIdExpression sk_dst_set
+                  CASTName sk_dst_set
+               CASTIdExpression sk
+                  CASTName sk
+               CASTIdExpression dst
+                  CASTName dst
+         CASTExpressionStatement rcu_read_unlock();
+            CASTFunctionCallExpression rcu_read_unlock()
+               CASTIdExpression rcu_read_unlock
+                  CASTName rcu_read_unlock

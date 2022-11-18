@@ -1,0 +1,249 @@
+CASTTranslationUnit static int rdtgroup_rmdir_ctrl(struct kernfs_node *kn, struct rdtgroup *rdtgrp,
+			       cpumask_var_t tmpmask)
+{
+	int cpu;
+	/* Give any tasks back to the default group */
+	rdt_move_group_tasks(rdtgrp, &rdtgroup_default, tmpmask);
+	/* Give any CPUs back to the default group */
+	cpumask_or(&rdtgroup_default.cpu_mask,
+		   &rdtgroup_default.cpu_mask, &rdtgrp->cpu_mask);
+	/* Update per cpu closid and rmid of the moved CPUs first */
+	for_each_cpu(cpu, &rdtgrp->cpu_mask) {
+		per_cpu(pqr_state.default_closid, cpu) = rdtgroup_default.closid;
+		per_cpu(pqr_state.default_rmid, cpu) = rdtgroup_default.mon.rmid;
+	}
+	/*
+	 * Update the MSR on moved CPUs and CPUs which have moved
+	 * task running on them.
+	 */
+	cpumask_or(tmpmask, tmpmask, &rdtgrp->cpu_mask);
+	update_closid_rmid(tmpmask, NULL);
+	closid_free(rdtgrp->closid);
+	free_rmid(rdtgrp->mon.rmid);
+
+	rdtgroup_ctrl_remove(kn, rdtgrp);
+
+	/*
+	 * Free all the child monitor group rmids.
+	 */
+	free_all_child_rdtgrp(rdtgrp);
+
+	return 0;
+}
+   CASTFunctionDefinition static int rdtgroup_rmdir_ctrl(struct kernfs_node *kn, struct rdtgroup *rdtgrp,
+			       cpumask_var_t tmpmask)
+{
+	int cpu;
+	/* Give any tasks back to the default group */
+	rdt_move_group_tasks(rdtgrp, &rdtgroup_default, tmpmask);
+	/* Give any CPUs back to the default group */
+	cpumask_or(&rdtgroup_default.cpu_mask,
+		   &rdtgroup_default.cpu_mask, &rdtgrp->cpu_mask);
+	/* Update per cpu closid and rmid of the moved CPUs first */
+	for_each_cpu(cpu, &rdtgrp->cpu_mask) {
+		per_cpu(pqr_state.default_closid, cpu) = rdtgroup_default.closid;
+		per_cpu(pqr_state.default_rmid, cpu) = rdtgroup_default.mon.rmid;
+	}
+	/*
+	 * Update the MSR on moved CPUs and CPUs which have moved
+	 * task running on them.
+	 */
+	cpumask_or(tmpmask, tmpmask, &rdtgrp->cpu_mask);
+	update_closid_rmid(tmpmask, NULL);
+	closid_free(rdtgrp->closid);
+	free_rmid(rdtgrp->mon.rmid);
+
+	rdtgroup_ctrl_remove(kn, rdtgrp);
+
+	/*
+	 * Free all the child monitor group rmids.
+	 */
+	free_all_child_rdtgrp(rdtgrp);
+
+	return 0;
+}
+      CASTSimpleDeclSpecifier static int
+      CASTFunctionDeclarator rdtgroup_rmdir_ctrl(struct kernfs_node *kn, struct rdtgroup *rdtgrp,
+			       cpumask_var_t tmpmask)
+         CASTName rdtgroup_rmdir_ctrl
+         CASTParameterDeclaration struct kernfs_node *kn
+            CASTElaboratedTypeSpecifier struct kernfs_node
+               CASTName kernfs_node
+            CASTDeclarator *kn
+               CASTPointer *
+               CASTName kn
+         CASTParameterDeclaration struct rdtgroup *rdtgrp
+            CASTElaboratedTypeSpecifier struct rdtgroup
+               CASTName rdtgroup
+            CASTDeclarator *rdtgrp
+               CASTPointer *
+               CASTName rdtgrp
+         CASTParameterDeclaration cpumask_var_t tmpmask
+            CASTTypedefNameSpecifier cpumask_var_t
+               CASTName cpumask_var_t
+            CASTDeclarator tmpmask
+               CASTName tmpmask
+      CASTCompoundStatement {
+	int cpu;
+	/* Give any tasks back to the default group */
+	rdt_move_group_tasks(rdtgrp, &rdtgroup_default, tmpmask);
+	/* Give any CPUs back to the default group */
+	cpumask_or(&rdtgroup_default.cpu_mask,
+		   &rdtgroup_default.cpu_mask, &rdtgrp->cpu_mask);
+	/* Update per cpu closid and rmid of the moved CPUs first */
+	for_each_cpu(cpu, &rdtgrp->cpu_mask) {
+		per_cpu(pqr_state.default_closid, cpu) = rdtgroup_default.closid;
+		per_cpu(pqr_state.default_rmid, cpu) = rdtgroup_default.mon.rmid;
+	}
+	/*
+	 * Update the MSR on moved CPUs and CPUs which have moved
+	 * task running on them.
+	 */
+	cpumask_or(tmpmask, tmpmask, &rdtgrp->cpu_mask);
+	update_closid_rmid(tmpmask, NULL);
+	closid_free(rdtgrp->closid);
+	free_rmid(rdtgrp->mon.rmid);
+
+	rdtgroup_ctrl_remove(kn, rdtgrp);
+
+	/*
+	 * Free all the child monitor group rmids.
+	 */
+	free_all_child_rdtgrp(rdtgrp);
+
+	return 0;
+}
+         CASTDeclarationStatement int cpu;
+            CASTSimpleDeclaration int cpu;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator cpu
+                  CASTName cpu
+         CASTExpressionStatement rdt_move_group_tasks(rdtgrp, &rdtgroup_default, tmpmask);
+            CASTFunctionCallExpression rdt_move_group_tasks(rdtgrp, &rdtgroup_default, tmpmask)
+               CASTIdExpression rdt_move_group_tasks
+                  CASTName rdt_move_group_tasks
+               CASTIdExpression rdtgrp
+                  CASTName rdtgrp
+               CASTUnaryExpression &rdtgroup_default
+                  CASTIdExpression rdtgroup_default
+                     CASTName rdtgroup_default
+               CASTIdExpression tmpmask
+                  CASTName tmpmask
+         CASTExpressionStatement cpumask_or(&rdtgroup_default.cpu_mask,
+		   &rdtgroup_default.cpu_mask, &rdtgrp->cpu_mask);
+            CASTFunctionCallExpression cpumask_or(&rdtgroup_default.cpu_mask,
+		   &rdtgroup_default.cpu_mask, &rdtgrp->cpu_mask)
+               CASTIdExpression cpumask_or
+                  CASTName cpumask_or
+               CASTUnaryExpression &rdtgroup_default.cpu_mask
+                  CASTFieldReference rdtgroup_default.cpu_mask
+                     CASTIdExpression rdtgroup_default
+                        CASTName rdtgroup_default
+                     CASTName cpu_mask
+               CASTUnaryExpression &rdtgrp->cpu_mask
+                  CASTFieldReference rdtgrp->cpu_mask
+                     CASTIdExpression rdtgrp
+                        CASTName rdtgrp
+                     CASTName cpu_mask
+         CASTExpressionStatement for_each_cpu(cpu, &rdtgrp->cpu_mask)
+            CASTFunctionCallExpression for_each_cpu(cpu, &rdtgrp->cpu_mask)
+               CASTIdExpression for_each_cpu
+                  CASTName for_each_cpu
+               CASTIdExpression cpu
+                  CASTName cpu
+               CASTUnaryExpression &rdtgrp->cpu_mask
+                  CASTFieldReference rdtgrp->cpu_mask
+                     CASTIdExpression rdtgrp
+                        CASTName rdtgrp
+                     CASTName cpu_mask
+         CASTProblemStatement )
+            CASTProblem )
+         CASTCompoundStatement {
+		per_cpu(pqr_state.default_closid, cpu) = rdtgroup_default.closid;
+		per_cpu(pqr_state.default_rmid, cpu) = rdtgroup_default.mon.rmid;
+	}
+            CASTExpressionStatement per_cpu(pqr_state.default_closid, cpu) = rdtgroup_default.closid;
+               CASTBinaryExpression per_cpu(pqr_state.default_closid, cpu) = rdtgroup_default.closid
+                  CASTFunctionCallExpression per_cpu(pqr_state.default_closid, cpu)
+                     CASTIdExpression per_cpu
+                        CASTName per_cpu
+                     CASTFieldReference pqr_state.default_closid
+                        CASTIdExpression pqr_state
+                           CASTName pqr_state
+                        CASTName default_closid
+                     CASTIdExpression cpu
+                        CASTName cpu
+                  CASTFieldReference rdtgroup_default.closid
+                     CASTIdExpression rdtgroup_default
+                        CASTName rdtgroup_default
+                     CASTName closid
+            CASTExpressionStatement per_cpu(pqr_state.default_rmid, cpu) = rdtgroup_default.mon.rmid;
+               CASTBinaryExpression per_cpu(pqr_state.default_rmid, cpu) = rdtgroup_default.mon.rmid
+                  CASTFunctionCallExpression per_cpu(pqr_state.default_rmid, cpu)
+                     CASTIdExpression per_cpu
+                        CASTName per_cpu
+                     CASTFieldReference pqr_state.default_rmid
+                        CASTIdExpression pqr_state
+                           CASTName pqr_state
+                        CASTName default_rmid
+                     CASTIdExpression cpu
+                        CASTName cpu
+                  CASTFieldReference rdtgroup_default.mon.rmid
+                     CASTFieldReference rdtgroup_default.mon
+                        CASTIdExpression rdtgroup_default
+                           CASTName rdtgroup_default
+                        CASTName mon
+                     CASTName rmid
+         CASTExpressionStatement cpumask_or(tmpmask, tmpmask, &rdtgrp->cpu_mask);
+            CASTFunctionCallExpression cpumask_or(tmpmask, tmpmask, &rdtgrp->cpu_mask)
+               CASTIdExpression cpumask_or
+                  CASTName cpumask_or
+               CASTIdExpression tmpmask
+                  CASTName tmpmask
+               CASTUnaryExpression &rdtgrp->cpu_mask
+                  CASTFieldReference rdtgrp->cpu_mask
+                     CASTIdExpression rdtgrp
+                        CASTName rdtgrp
+                     CASTName cpu_mask
+         CASTExpressionStatement update_closid_rmid(tmpmask, NULL);
+            CASTFunctionCallExpression update_closid_rmid(tmpmask, NULL)
+               CASTIdExpression update_closid_rmid
+                  CASTName update_closid_rmid
+               CASTIdExpression tmpmask
+                  CASTName tmpmask
+               CASTIdExpression NULL
+                  CASTName NULL
+         CASTExpressionStatement closid_free(rdtgrp->closid);
+            CASTFunctionCallExpression closid_free(rdtgrp->closid)
+               CASTIdExpression closid_free
+                  CASTName closid_free
+               CASTFieldReference rdtgrp->closid
+                  CASTIdExpression rdtgrp
+                     CASTName rdtgrp
+                  CASTName closid
+         CASTExpressionStatement free_rmid(rdtgrp->mon.rmid);
+            CASTFunctionCallExpression free_rmid(rdtgrp->mon.rmid)
+               CASTIdExpression free_rmid
+                  CASTName free_rmid
+               CASTFieldReference rdtgrp->mon.rmid
+                  CASTFieldReference rdtgrp->mon
+                     CASTIdExpression rdtgrp
+                        CASTName rdtgrp
+                     CASTName mon
+                  CASTName rmid
+         CASTExpressionStatement rdtgroup_ctrl_remove(kn, rdtgrp);
+            CASTFunctionCallExpression rdtgroup_ctrl_remove(kn, rdtgrp)
+               CASTIdExpression rdtgroup_ctrl_remove
+                  CASTName rdtgroup_ctrl_remove
+               CASTIdExpression kn
+                  CASTName kn
+               CASTIdExpression rdtgrp
+                  CASTName rdtgrp
+         CASTExpressionStatement free_all_child_rdtgrp(rdtgrp);
+            CASTFunctionCallExpression free_all_child_rdtgrp(rdtgrp)
+               CASTIdExpression free_all_child_rdtgrp
+                  CASTName free_all_child_rdtgrp
+               CASTIdExpression rdtgrp
+                  CASTName rdtgrp
+         CASTReturnStatement return 0;
+            CASTLiteralExpression 0

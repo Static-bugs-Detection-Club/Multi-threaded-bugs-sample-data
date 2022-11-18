@@ -1,0 +1,215 @@
+CASTTranslationUnit static void __sock_release(struct socket *sock, struct inode *inode)
+{
+	if (sock->ops) {
+		struct module *owner = sock->ops->owner;
+		if (inode)
+			inode_lock(inode);
+		sock->ops->release(sock);
+		sock->sk = NULL;
+		if (inode)
+			inode_unlock(inode);
+		sock->ops = NULL;
+		module_put(owner);
+	}
+	if (sock->wq->fasync_list)
+		pr_err("%s: fasync list not empty!\n", __func__);
+	if (!sock->file) {
+		iput(SOCK_INODE(sock));
+		return;
+	}
+	sock->file = NULL;
+}
+   CASTFunctionDefinition static void __sock_release(struct socket *sock, struct inode *inode)
+{
+	if (sock->ops) {
+		struct module *owner = sock->ops->owner;
+		if (inode)
+			inode_lock(inode);
+		sock->ops->release(sock);
+		sock->sk = NULL;
+		if (inode)
+			inode_unlock(inode);
+		sock->ops = NULL;
+		module_put(owner);
+	}
+	if (sock->wq->fasync_list)
+		pr_err("%s: fasync list not empty!\n", __func__);
+	if (!sock->file) {
+		iput(SOCK_INODE(sock));
+		return;
+	}
+	sock->file = NULL;
+}
+      CASTSimpleDeclSpecifier static void
+      CASTFunctionDeclarator __sock_release(struct socket *sock, struct inode *inode)
+         CASTName __sock_release
+         CASTParameterDeclaration struct socket *sock
+            CASTElaboratedTypeSpecifier struct socket
+               CASTName socket
+            CASTDeclarator *sock
+               CASTPointer *
+               CASTName sock
+         CASTParameterDeclaration struct inode *inode
+            CASTElaboratedTypeSpecifier struct inode
+               CASTName inode
+            CASTDeclarator *inode
+               CASTPointer *
+               CASTName inode
+      CASTCompoundStatement {
+	if (sock->ops) {
+		struct module *owner = sock->ops->owner;
+		if (inode)
+			inode_lock(inode);
+		sock->ops->release(sock);
+		sock->sk = NULL;
+		if (inode)
+			inode_unlock(inode);
+		sock->ops = NULL;
+		module_put(owner);
+	}
+	if (sock->wq->fasync_list)
+		pr_err("%s: fasync list not empty!\n", __func__);
+	if (!sock->file) {
+		iput(SOCK_INODE(sock));
+		return;
+	}
+	sock->file = NULL;
+}
+         CASTIfStatement if (sock->ops) {
+		struct module *owner = sock->ops->owner;
+		if (inode)
+			inode_lock(inode);
+		sock->ops->release(sock);
+		sock->sk = NULL;
+		if (inode)
+			inode_unlock(inode);
+		sock->ops = NULL;
+		module_put(owner);
+	}
+            CASTFieldReference sock->ops
+               CASTIdExpression sock
+                  CASTName sock
+               CASTName ops
+            CASTCompoundStatement {
+		struct module *owner = sock->ops->owner;
+		if (inode)
+			inode_lock(inode);
+		sock->ops->release(sock);
+		sock->sk = NULL;
+		if (inode)
+			inode_unlock(inode);
+		sock->ops = NULL;
+		module_put(owner);
+	}
+               CASTDeclarationStatement struct module *owner = sock->ops->owner;
+                  CASTSimpleDeclaration struct module *owner = sock->ops->owner;
+                     CASTElaboratedTypeSpecifier struct module
+                        CASTName module
+                     CASTDeclarator *owner = sock->ops->owner
+                        CASTPointer *
+                        CASTName owner
+                        CASTEqualsInitializer = sock->ops->owner
+                           CASTFieldReference sock->ops->owner
+                              CASTFieldReference sock->ops
+                                 CASTIdExpression sock
+                                    CASTName sock
+                                 CASTName ops
+                              CASTName owner
+               CASTIfStatement if (inode)
+			inode_lock(inode);
+                  CASTIdExpression inode
+                     CASTName inode
+                  CASTExpressionStatement inode_lock(inode);
+                     CASTFunctionCallExpression inode_lock(inode)
+                        CASTIdExpression inode_lock
+                           CASTName inode_lock
+                        CASTIdExpression inode
+                           CASTName inode
+               CASTExpressionStatement sock->ops->release(sock);
+                  CASTFunctionCallExpression sock->ops->release(sock)
+                     CASTFieldReference sock->ops->release
+                        CASTFieldReference sock->ops
+                           CASTIdExpression sock
+                              CASTName sock
+                           CASTName ops
+                        CASTName release
+                     CASTIdExpression sock
+                        CASTName sock
+               CASTExpressionStatement sock->sk = NULL;
+                  CASTBinaryExpression sock->sk = NULL
+                     CASTFieldReference sock->sk
+                        CASTIdExpression sock
+                           CASTName sock
+                        CASTName sk
+                     CASTIdExpression NULL
+                        CASTName NULL
+               CASTIfStatement if (inode)
+			inode_unlock(inode);
+                  CASTIdExpression inode
+                     CASTName inode
+                  CASTExpressionStatement inode_unlock(inode);
+                     CASTFunctionCallExpression inode_unlock(inode)
+                        CASTIdExpression inode_unlock
+                           CASTName inode_unlock
+                        CASTIdExpression inode
+                           CASTName inode
+               CASTExpressionStatement sock->ops = NULL;
+                  CASTBinaryExpression sock->ops = NULL
+                     CASTFieldReference sock->ops
+                        CASTIdExpression sock
+                           CASTName sock
+                        CASTName ops
+                     CASTIdExpression NULL
+                        CASTName NULL
+               CASTExpressionStatement module_put(owner);
+                  CASTFunctionCallExpression module_put(owner)
+                     CASTIdExpression module_put
+                        CASTName module_put
+                     CASTIdExpression owner
+                        CASTName owner
+         CASTIfStatement if (sock->wq->fasync_list)
+		pr_err("%s: fasync list not empty!\n", __func__);
+            CASTFieldReference sock->wq->fasync_list
+               CASTFieldReference sock->wq
+                  CASTIdExpression sock
+                     CASTName sock
+                  CASTName wq
+               CASTName fasync_list
+            CASTExpressionStatement pr_err("%s: fasync list not empty!\n", __func__);
+               CASTFunctionCallExpression pr_err("%s: fasync list not empty!\n", __func__)
+                  CASTIdExpression pr_err
+                     CASTName pr_err
+                  CASTLiteralExpression "%s: fasync list not empty!\n"
+                  CASTIdExpression __func__
+                     CASTName __func__
+         CASTIfStatement if (!sock->file) {
+		iput(SOCK_INODE(sock));
+		return;
+	}
+            CASTUnaryExpression !sock->file
+               CASTFieldReference sock->file
+                  CASTIdExpression sock
+                     CASTName sock
+                  CASTName file
+            CASTCompoundStatement {
+		iput(SOCK_INODE(sock));
+		return;
+	}
+               CASTExpressionStatement iput(SOCK_INODE(sock));
+                  CASTFunctionCallExpression iput(SOCK_INODE(sock))
+                     CASTIdExpression iput
+                        CASTName iput
+                     CASTFunctionCallExpression SOCK_INODE(sock)
+                        CASTIdExpression SOCK_INODE
+                           CASTName SOCK_INODE
+                        CASTIdExpression sock
+                           CASTName sock
+               CASTReturnStatement return;
+         CASTExpressionStatement sock->file = NULL;
+            CASTBinaryExpression sock->file = NULL
+               CASTFieldReference sock->file
+                  CASTIdExpression sock
+                     CASTName sock
+                  CASTName file
+               CASTIdExpression NULL
+                  CASTName NULL

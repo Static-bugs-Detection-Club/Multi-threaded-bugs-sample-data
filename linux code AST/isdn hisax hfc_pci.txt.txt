@@ -1,0 +1,284 @@
+CASTTranslationUnit static void HFCPCI_l1hw(struct PStack *st, int pr, void *arg)
+{
+	u_long flags;
+	struct IsdnCardState *cs = (struct IsdnCardState *) st->l1.hardware;
+	struct sk_buff *skb = arg;
+	switch (pr) {
+	
+	case (PH_PULL | REQUEST):
+#ifdef L2FRAME_DEBUG		/* psa */
+		if (cs->debug & L1_DEB_LAPD)
+			debugl1(cs, "-> PH_REQUEST_PULL");
+#endif
+		spin_lock_irqsave(&cs->lock, flags);
+		if (!cs->tx_skb) {
+			test_and_clear_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+			st->l1.l1l2(st, PH_PULL | CONFIRM, NULL);
+		} else
+			test_and_set_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+		spin_unlock_irqrestore(&cs->lock, flags);
+		break;
+
+	default:
+		if (cs->debug & L1_DEB_WARN)
+			debugl1(cs, "hfcpci_l1hw unknown pr %4x", pr);
+		break;
+	}
+}
+   CASTFunctionDefinition static void HFCPCI_l1hw(struct PStack *st, int pr, void *arg)
+{
+	u_long flags;
+	struct IsdnCardState *cs = (struct IsdnCardState *) st->l1.hardware;
+	struct sk_buff *skb = arg;
+	switch (pr) {
+	
+	case (PH_PULL | REQUEST):
+#ifdef L2FRAME_DEBUG		/* psa */
+		if (cs->debug & L1_DEB_LAPD)
+			debugl1(cs, "-> PH_REQUEST_PULL");
+#endif
+		spin_lock_irqsave(&cs->lock, flags);
+		if (!cs->tx_skb) {
+			test_and_clear_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+			st->l1.l1l2(st, PH_PULL | CONFIRM, NULL);
+		} else
+			test_and_set_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+		spin_unlock_irqrestore(&cs->lock, flags);
+		break;
+
+	default:
+		if (cs->debug & L1_DEB_WARN)
+			debugl1(cs, "hfcpci_l1hw unknown pr %4x", pr);
+		break;
+	}
+}
+      CASTSimpleDeclSpecifier static void
+      CASTFunctionDeclarator HFCPCI_l1hw(struct PStack *st, int pr, void *arg)
+         CASTName HFCPCI_l1hw
+         CASTParameterDeclaration struct PStack *st
+            CASTElaboratedTypeSpecifier struct PStack
+               CASTName PStack
+            CASTDeclarator *st
+               CASTPointer *
+               CASTName st
+         CASTParameterDeclaration int pr
+            CASTSimpleDeclSpecifier int
+            CASTDeclarator pr
+               CASTName pr
+         CASTParameterDeclaration void *arg
+            CASTSimpleDeclSpecifier void
+            CASTDeclarator *arg
+               CASTPointer *
+               CASTName arg
+      CASTCompoundStatement {
+	u_long flags;
+	struct IsdnCardState *cs = (struct IsdnCardState *) st->l1.hardware;
+	struct sk_buff *skb = arg;
+	switch (pr) {
+	
+	case (PH_PULL | REQUEST):
+#ifdef L2FRAME_DEBUG		/* psa */
+		if (cs->debug & L1_DEB_LAPD)
+			debugl1(cs, "-> PH_REQUEST_PULL");
+#endif
+		spin_lock_irqsave(&cs->lock, flags);
+		if (!cs->tx_skb) {
+			test_and_clear_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+			st->l1.l1l2(st, PH_PULL | CONFIRM, NULL);
+		} else
+			test_and_set_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+		spin_unlock_irqrestore(&cs->lock, flags);
+		break;
+
+	default:
+		if (cs->debug & L1_DEB_WARN)
+			debugl1(cs, "hfcpci_l1hw unknown pr %4x", pr);
+		break;
+	}
+}
+         CASTDeclarationStatement u_long flags;
+            CASTSimpleDeclaration u_long flags;
+               CASTTypedefNameSpecifier u_long
+                  CASTName u_long
+               CASTDeclarator flags
+                  CASTName flags
+         CASTDeclarationStatement struct IsdnCardState *cs = (struct IsdnCardState *) st->l1.hardware;
+            CASTSimpleDeclaration struct IsdnCardState *cs = (struct IsdnCardState *) st->l1.hardware;
+               CASTElaboratedTypeSpecifier struct IsdnCardState
+                  CASTName IsdnCardState
+               CASTDeclarator *cs = (struct IsdnCardState *) st->l1.hardware
+                  CASTPointer *
+                  CASTName cs
+                  CASTEqualsInitializer = (struct IsdnCardState *) st->l1.hardware
+                     CASTCastExpression (struct IsdnCardState *) st->l1.hardware
+                        CASTTypeId struct IsdnCardState *
+                           CASTElaboratedTypeSpecifier struct IsdnCardState
+                              CASTName IsdnCardState
+                           CASTDeclarator *
+                              CASTPointer *
+                        CASTFieldReference st->l1.hardware
+                           CASTFieldReference st->l1
+                              CASTIdExpression st
+                                 CASTName st
+                              CASTName l1
+                           CASTName hardware
+         CASTDeclarationStatement struct sk_buff *skb = arg;
+            CASTSimpleDeclaration struct sk_buff *skb = arg;
+               CASTElaboratedTypeSpecifier struct sk_buff
+                  CASTName sk_buff
+               CASTDeclarator *skb = arg
+                  CASTPointer *
+                  CASTName skb
+                  CASTEqualsInitializer = arg
+                     CASTIdExpression arg
+                        CASTName arg
+         CASTSwitchStatement switch (pr) {
+	
+	case (PH_PULL | REQUEST):
+#ifdef L2FRAME_DEBUG		/* psa */
+		if (cs->debug & L1_DEB_LAPD)
+			debugl1(cs, "-> PH_REQUEST_PULL");
+#endif
+		spin_lock_irqsave(&cs->lock, flags);
+		if (!cs->tx_skb) {
+			test_and_clear_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+			st->l1.l1l2(st, PH_PULL | CONFIRM, NULL);
+		} else
+			test_and_set_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+		spin_unlock_irqrestore(&cs->lock, flags);
+		break;
+
+	default:
+		if (cs->debug & L1_DEB_WARN)
+			debugl1(cs, "hfcpci_l1hw unknown pr %4x", pr);
+		break;
+	}
+            CASTIdExpression pr
+               CASTName pr
+            CASTCompoundStatement {
+	
+	case (PH_PULL | REQUEST):
+#ifdef L2FRAME_DEBUG		/* psa */
+		if (cs->debug & L1_DEB_LAPD)
+			debugl1(cs, "-> PH_REQUEST_PULL");
+#endif
+		spin_lock_irqsave(&cs->lock, flags);
+		if (!cs->tx_skb) {
+			test_and_clear_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+			st->l1.l1l2(st, PH_PULL | CONFIRM, NULL);
+		} else
+			test_and_set_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+		spin_unlock_irqrestore(&cs->lock, flags);
+		break;
+
+	default:
+		if (cs->debug & L1_DEB_WARN)
+			debugl1(cs, "hfcpci_l1hw unknown pr %4x", pr);
+		break;
+	}
+               CASTCaseStatement case (PH_PULL | REQUEST):
+                  CASTUnaryExpression (PH_PULL | REQUEST)
+                     CASTBinaryExpression PH_PULL | REQUEST
+                        CASTIdExpression PH_PULL
+                           CASTName PH_PULL
+                        CASTIdExpression REQUEST
+                           CASTName REQUEST
+               CASTExpressionStatement spin_lock_irqsave(&cs->lock, flags);
+                  CASTFunctionCallExpression spin_lock_irqsave(&cs->lock, flags)
+                     CASTIdExpression spin_lock_irqsave
+                        CASTName spin_lock_irqsave
+                     CASTUnaryExpression &cs->lock
+                        CASTFieldReference cs->lock
+                           CASTIdExpression cs
+                              CASTName cs
+                           CASTName lock
+                     CASTIdExpression flags
+                        CASTName flags
+               CASTIfStatement if (!cs->tx_skb) {
+			test_and_clear_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+			st->l1.l1l2(st, PH_PULL | CONFIRM, NULL);
+		} else
+			test_and_set_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+                  CASTUnaryExpression !cs->tx_skb
+                     CASTFieldReference cs->tx_skb
+                        CASTIdExpression cs
+                           CASTName cs
+                        CASTName tx_skb
+                  CASTCompoundStatement {
+			test_and_clear_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+			st->l1.l1l2(st, PH_PULL | CONFIRM, NULL);
+		}
+                     CASTExpressionStatement test_and_clear_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+                        CASTFunctionCallExpression test_and_clear_bit(FLG_L1_PULL_REQ, &st->l1.Flags)
+                           CASTIdExpression test_and_clear_bit
+                              CASTName test_and_clear_bit
+                           CASTIdExpression FLG_L1_PULL_REQ
+                              CASTName FLG_L1_PULL_REQ
+                           CASTUnaryExpression &st->l1.Flags
+                              CASTFieldReference st->l1.Flags
+                                 CASTFieldReference st->l1
+                                    CASTIdExpression st
+                                       CASTName st
+                                    CASTName l1
+                                 CASTName Flags
+                     CASTExpressionStatement st->l1.l1l2(st, PH_PULL | CONFIRM, NULL);
+                        CASTFunctionCallExpression st->l1.l1l2(st, PH_PULL | CONFIRM, NULL)
+                           CASTFieldReference st->l1.l1l2
+                              CASTFieldReference st->l1
+                                 CASTIdExpression st
+                                    CASTName st
+                                 CASTName l1
+                              CASTName l1l2
+                           CASTIdExpression st
+                              CASTName st
+                           CASTBinaryExpression PH_PULL | CONFIRM
+                              CASTIdExpression PH_PULL
+                                 CASTName PH_PULL
+                              CASTIdExpression CONFIRM
+                                 CASTName CONFIRM
+                           CASTIdExpression NULL
+                              CASTName NULL
+                  CASTExpressionStatement test_and_set_bit(FLG_L1_PULL_REQ, &st->l1.Flags);
+                     CASTFunctionCallExpression test_and_set_bit(FLG_L1_PULL_REQ, &st->l1.Flags)
+                        CASTIdExpression test_and_set_bit
+                           CASTName test_and_set_bit
+                        CASTIdExpression FLG_L1_PULL_REQ
+                           CASTName FLG_L1_PULL_REQ
+                        CASTUnaryExpression &st->l1.Flags
+                           CASTFieldReference st->l1.Flags
+                              CASTFieldReference st->l1
+                                 CASTIdExpression st
+                                    CASTName st
+                                 CASTName l1
+                              CASTName Flags
+               CASTExpressionStatement spin_unlock_irqrestore(&cs->lock, flags);
+                  CASTFunctionCallExpression spin_unlock_irqrestore(&cs->lock, flags)
+                     CASTIdExpression spin_unlock_irqrestore
+                        CASTName spin_unlock_irqrestore
+                     CASTUnaryExpression &cs->lock
+                        CASTFieldReference cs->lock
+                           CASTIdExpression cs
+                              CASTName cs
+                           CASTName lock
+                     CASTIdExpression flags
+                        CASTName flags
+               CASTBreakStatement break;
+               CASTDefaultStatement default:
+               CASTIfStatement if (cs->debug & L1_DEB_WARN)
+			debugl1(cs, "hfcpci_l1hw unknown pr %4x", pr);
+                  CASTBinaryExpression cs->debug & L1_DEB_WARN
+                     CASTFieldReference cs->debug
+                        CASTIdExpression cs
+                           CASTName cs
+                        CASTName debug
+                     CASTIdExpression L1_DEB_WARN
+                        CASTName L1_DEB_WARN
+                  CASTExpressionStatement debugl1(cs, "hfcpci_l1hw unknown pr %4x", pr);
+                     CASTFunctionCallExpression debugl1(cs, "hfcpci_l1hw unknown pr %4x", pr)
+                        CASTIdExpression debugl1
+                           CASTName debugl1
+                        CASTIdExpression cs
+                           CASTName cs
+                        CASTLiteralExpression "hfcpci_l1hw unknown pr %4x"
+                        CASTIdExpression pr
+                           CASTName pr

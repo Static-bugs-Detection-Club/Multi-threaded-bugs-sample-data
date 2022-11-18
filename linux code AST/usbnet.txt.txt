@@ -1,0 +1,451 @@
+CASTTranslationUnit static void smsc95xx_unbind(struct usbnet *dev, struct usb_interface *intf)
+{
+	struct smsc95xx_priv *pdata = (struct smsc95xx_priv *)(dev->data[0]);
+
+	if (pdata) {
+		cancel_delayed_work_sync(&pdata->carrier_check);
+		netif_dbg(dev, ifdown, dev->net, "free pdata\n");
+		kfree(pdata);
+		pdata = NULL;
+		dev->data[0] = 0;
+	}
+}
+static u32 smsc_crc(const u8 *buffer, size_t len, int filter)
+{
+	u32 crc = bitrev16(crc16(0xFFFF, buffer, len));
+	return crc << ((filter % 2) * 16);
+}
+static int smsc95xx_enable_phy_wakeup_interrupts(struct usbnet *dev, u16 mask)
+{
+	struct mii_if_info *mii = &dev->mii;
+	int ret;
+	netdev_dbg(dev->net, "enabling PHY wakeup interrupts\n");
+	/* read to clear */
+	ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, PHY_INT_SRC);
+	if (ret < 0)
+		return ret;
+	/* enable interrupt source */
+	ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, PHY_INT_MASK);
+	if (ret < 0)
+		return ret;
+	ret |= mask;
+	smsc95xx_mdio_write_nopm(dev->net, mii->phy_id, PHY_INT_MASK, ret);
+	return 0;
+}
+static int smsc95xx_link_ok_nopm(struct usbnet *dev)
+{
+	struct mii_if_info *mii = &dev->mii;
+	int ret;
+	/* first, a dummy read, needed to latch some MII phys */
+	ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, MII_BMSR);
+	if (ret < 0)
+		return ret;
+	ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, MII_BMSR);
+	if (ret < 0)
+		return ret;
+	return !!(ret & BMSR_LSTATUS);
+}
+   CASTFunctionDefinition static void smsc95xx_unbind(struct usbnet *dev, struct usb_interface *intf)
+{
+	struct smsc95xx_priv *pdata = (struct smsc95xx_priv *)(dev->data[0]);
+
+	if (pdata) {
+		cancel_delayed_work_sync(&pdata->carrier_check);
+		netif_dbg(dev, ifdown, dev->net, "free pdata\n");
+		kfree(pdata);
+		pdata = NULL;
+		dev->data[0] = 0;
+	}
+}
+      CASTSimpleDeclSpecifier static void
+      CASTFunctionDeclarator smsc95xx_unbind(struct usbnet *dev, struct usb_interface *intf)
+         CASTName smsc95xx_unbind
+         CASTParameterDeclaration struct usbnet *dev
+            CASTElaboratedTypeSpecifier struct usbnet
+               CASTName usbnet
+            CASTDeclarator *dev
+               CASTPointer *
+               CASTName dev
+         CASTParameterDeclaration struct usb_interface *intf
+            CASTElaboratedTypeSpecifier struct usb_interface
+               CASTName usb_interface
+            CASTDeclarator *intf
+               CASTPointer *
+               CASTName intf
+      CASTCompoundStatement {
+	struct smsc95xx_priv *pdata = (struct smsc95xx_priv *)(dev->data[0]);
+
+	if (pdata) {
+		cancel_delayed_work_sync(&pdata->carrier_check);
+		netif_dbg(dev, ifdown, dev->net, "free pdata\n");
+		kfree(pdata);
+		pdata = NULL;
+		dev->data[0] = 0;
+	}
+}
+         CASTDeclarationStatement struct smsc95xx_priv *pdata = (struct smsc95xx_priv *)(dev->data[0]);
+            CASTSimpleDeclaration struct smsc95xx_priv *pdata = (struct smsc95xx_priv *)(dev->data[0]);
+               CASTElaboratedTypeSpecifier struct smsc95xx_priv
+                  CASTName smsc95xx_priv
+               CASTDeclarator *pdata = (struct smsc95xx_priv *)(dev->data[0])
+                  CASTPointer *
+                  CASTName pdata
+                  CASTEqualsInitializer = (struct smsc95xx_priv *)(dev->data[0])
+                     CASTCastExpression (struct smsc95xx_priv *)(dev->data[0])
+                        CASTTypeId struct smsc95xx_priv *
+                           CASTElaboratedTypeSpecifier struct smsc95xx_priv
+                              CASTName smsc95xx_priv
+                           CASTDeclarator *
+                              CASTPointer *
+                        CASTUnaryExpression (dev->data[0])
+                           CASTArraySubscriptExpression dev->data[0]
+                              CASTFieldReference dev->data
+                                 CASTIdExpression dev
+                                    CASTName dev
+                                 CASTName data
+                              CASTLiteralExpression 0
+         CASTIfStatement if (pdata) {
+		cancel_delayed_work_sync(&pdata->carrier_check);
+		netif_dbg(dev, ifdown, dev->net, "free pdata\n");
+		kfree(pdata);
+		pdata = NULL;
+		dev->data[0] = 0;
+	}
+            CASTIdExpression pdata
+               CASTName pdata
+            CASTCompoundStatement {
+		cancel_delayed_work_sync(&pdata->carrier_check);
+		netif_dbg(dev, ifdown, dev->net, "free pdata\n");
+		kfree(pdata);
+		pdata = NULL;
+		dev->data[0] = 0;
+	}
+               CASTExpressionStatement cancel_delayed_work_sync(&pdata->carrier_check);
+                  CASTFunctionCallExpression cancel_delayed_work_sync(&pdata->carrier_check)
+                     CASTIdExpression cancel_delayed_work_sync
+                        CASTName cancel_delayed_work_sync
+                     CASTUnaryExpression &pdata->carrier_check
+                        CASTFieldReference pdata->carrier_check
+                           CASTIdExpression pdata
+                              CASTName pdata
+                           CASTName carrier_check
+               CASTExpressionStatement netif_dbg(dev, ifdown, dev->net, "free pdata\n");
+                  CASTFunctionCallExpression netif_dbg(dev, ifdown, dev->net, "free pdata\n")
+                     CASTIdExpression netif_dbg
+                        CASTName netif_dbg
+                     CASTIdExpression dev
+                        CASTName dev
+                     CASTIdExpression ifdown
+                        CASTName ifdown
+                     CASTFieldReference dev->net
+                        CASTIdExpression dev
+                           CASTName dev
+                        CASTName net
+                     CASTLiteralExpression "free pdata\n"
+               CASTExpressionStatement kfree(pdata);
+                  CASTFunctionCallExpression kfree(pdata)
+                     CASTIdExpression kfree
+                        CASTName kfree
+                     CASTIdExpression pdata
+                        CASTName pdata
+               CASTExpressionStatement pdata = NULL;
+                  CASTBinaryExpression pdata = NULL
+                     CASTIdExpression pdata
+                        CASTName pdata
+                     CASTIdExpression NULL
+                        CASTName NULL
+               CASTExpressionStatement dev->data[0] = 0;
+                  CASTBinaryExpression dev->data[0] = 0
+                     CASTArraySubscriptExpression dev->data[0]
+                        CASTFieldReference dev->data
+                           CASTIdExpression dev
+                              CASTName dev
+                           CASTName data
+                        CASTLiteralExpression 0
+                     CASTLiteralExpression 0
+   CASTFunctionDefinition static u32 smsc_crc(const u8 *buffer, size_t len, int filter)
+{
+	u32 crc = bitrev16(crc16(0xFFFF, buffer, len));
+	return crc << ((filter % 2) * 16);
+}
+      CASTTypedefNameSpecifier static u32
+         CASTName u32
+      CASTFunctionDeclarator smsc_crc(const u8 *buffer, size_t len, int filter)
+         CASTName smsc_crc
+         CASTParameterDeclaration const u8 *buffer
+            CASTTypedefNameSpecifier const u8
+               CASTName u8
+            CASTDeclarator *buffer
+               CASTPointer *
+               CASTName buffer
+         CASTParameterDeclaration size_t len
+            CASTTypedefNameSpecifier size_t
+               CASTName size_t
+            CASTDeclarator len
+               CASTName len
+         CASTParameterDeclaration int filter
+            CASTSimpleDeclSpecifier int
+            CASTDeclarator filter
+               CASTName filter
+      CASTCompoundStatement {
+	u32 crc = bitrev16(crc16(0xFFFF, buffer, len));
+	return crc << ((filter % 2) * 16);
+}
+         CASTDeclarationStatement u32 crc = bitrev16(crc16(0xFFFF, buffer, len));
+            CASTSimpleDeclaration u32 crc = bitrev16(crc16(0xFFFF, buffer, len));
+               CASTTypedefNameSpecifier u32
+                  CASTName u32
+               CASTDeclarator crc = bitrev16(crc16(0xFFFF, buffer, len))
+                  CASTName crc
+                  CASTEqualsInitializer = bitrev16(crc16(0xFFFF, buffer, len))
+                     CASTFunctionCallExpression bitrev16(crc16(0xFFFF, buffer, len))
+                        CASTIdExpression bitrev16
+                           CASTName bitrev16
+                        CASTFunctionCallExpression crc16(0xFFFF, buffer, len)
+                           CASTIdExpression crc16
+                              CASTName crc16
+                           CASTLiteralExpression 0xFFFF
+                           CASTIdExpression buffer
+                              CASTName buffer
+                           CASTIdExpression len
+                              CASTName len
+         CASTReturnStatement return crc << ((filter % 2) * 16);
+            CASTBinaryExpression crc << ((filter % 2) * 16)
+               CASTIdExpression crc
+                  CASTName crc
+               CASTUnaryExpression ((filter % 2) * 16)
+                  CASTBinaryExpression (filter % 2) * 16
+                     CASTUnaryExpression (filter % 2)
+                        CASTBinaryExpression filter % 2
+                           CASTIdExpression filter
+                              CASTName filter
+                           CASTLiteralExpression 2
+                     CASTLiteralExpression 16
+   CASTFunctionDefinition static int smsc95xx_enable_phy_wakeup_interrupts(struct usbnet *dev, u16 mask)
+{
+	struct mii_if_info *mii = &dev->mii;
+	int ret;
+	netdev_dbg(dev->net, "enabling PHY wakeup interrupts\n");
+	/* read to clear */
+	ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, PHY_INT_SRC);
+	if (ret < 0)
+		return ret;
+	/* enable interrupt source */
+	ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, PHY_INT_MASK);
+	if (ret < 0)
+		return ret;
+	ret |= mask;
+	smsc95xx_mdio_write_nopm(dev->net, mii->phy_id, PHY_INT_MASK, ret);
+	return 0;
+}
+      CASTSimpleDeclSpecifier static int
+      CASTFunctionDeclarator smsc95xx_enable_phy_wakeup_interrupts(struct usbnet *dev, u16 mask)
+         CASTName smsc95xx_enable_phy_wakeup_interrupts
+         CASTParameterDeclaration struct usbnet *dev
+            CASTElaboratedTypeSpecifier struct usbnet
+               CASTName usbnet
+            CASTDeclarator *dev
+               CASTPointer *
+               CASTName dev
+         CASTParameterDeclaration u16 mask
+            CASTTypedefNameSpecifier u16
+               CASTName u16
+            CASTDeclarator mask
+               CASTName mask
+      CASTCompoundStatement {
+	struct mii_if_info *mii = &dev->mii;
+	int ret;
+	netdev_dbg(dev->net, "enabling PHY wakeup interrupts\n");
+	/* read to clear */
+	ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, PHY_INT_SRC);
+	if (ret < 0)
+		return ret;
+	/* enable interrupt source */
+	ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, PHY_INT_MASK);
+	if (ret < 0)
+		return ret;
+	ret |= mask;
+	smsc95xx_mdio_write_nopm(dev->net, mii->phy_id, PHY_INT_MASK, ret);
+	return 0;
+}
+         CASTDeclarationStatement struct mii_if_info *mii = &dev->mii;
+            CASTSimpleDeclaration struct mii_if_info *mii = &dev->mii;
+               CASTElaboratedTypeSpecifier struct mii_if_info
+                  CASTName mii_if_info
+               CASTDeclarator *mii = &dev->mii
+                  CASTPointer *
+                  CASTName mii
+                  CASTEqualsInitializer = &dev->mii
+                     CASTUnaryExpression &dev->mii
+                        CASTFieldReference dev->mii
+                           CASTIdExpression dev
+                              CASTName dev
+                           CASTName mii
+         CASTDeclarationStatement int ret;
+            CASTSimpleDeclaration int ret;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator ret
+                  CASTName ret
+         CASTExpressionStatement netdev_dbg(dev->net, "enabling PHY wakeup interrupts\n");
+            CASTFunctionCallExpression netdev_dbg(dev->net, "enabling PHY wakeup interrupts\n")
+               CASTIdExpression netdev_dbg
+                  CASTName netdev_dbg
+               CASTFieldReference dev->net
+                  CASTIdExpression dev
+                     CASTName dev
+                  CASTName net
+               CASTLiteralExpression "enabling PHY wakeup interrupts\n"
+         CASTExpressionStatement ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, PHY_INT_SRC);
+            CASTBinaryExpression ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, PHY_INT_SRC)
+               CASTIdExpression ret
+                  CASTName ret
+               CASTFunctionCallExpression smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, PHY_INT_SRC)
+                  CASTIdExpression smsc95xx_mdio_read_nopm
+                     CASTName smsc95xx_mdio_read_nopm
+                  CASTFieldReference dev->net
+                     CASTIdExpression dev
+                        CASTName dev
+                     CASTName net
+                  CASTFieldReference mii->phy_id
+                     CASTIdExpression mii
+                        CASTName mii
+                     CASTName phy_id
+                  CASTIdExpression PHY_INT_SRC
+                     CASTName PHY_INT_SRC
+         CASTIfStatement if (ret < 0)
+		return ret;
+            CASTBinaryExpression ret < 0
+               CASTIdExpression ret
+                  CASTName ret
+               CASTLiteralExpression 0
+            CASTReturnStatement return ret;
+               CASTIdExpression ret
+                  CASTName ret
+         CASTExpressionStatement ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, PHY_INT_MASK);
+            CASTBinaryExpression ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, PHY_INT_MASK)
+               CASTIdExpression ret
+                  CASTName ret
+               CASTFunctionCallExpression smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, PHY_INT_MASK)
+                  CASTIdExpression smsc95xx_mdio_read_nopm
+                     CASTName smsc95xx_mdio_read_nopm
+                  CASTFieldReference dev->net
+                     CASTIdExpression dev
+                        CASTName dev
+                     CASTName net
+                  CASTFieldReference mii->phy_id
+                     CASTIdExpression mii
+                        CASTName mii
+                     CASTName phy_id
+                  CASTIdExpression PHY_INT_MASK
+                     CASTName PHY_INT_MASK
+         CASTExpressionStatement ret |= mask;
+            CASTBinaryExpression ret |= mask
+               CASTIdExpression ret
+                  CASTName ret
+               CASTIdExpression mask
+                  CASTName mask
+         CASTExpressionStatement smsc95xx_mdio_write_nopm(dev->net, mii->phy_id, PHY_INT_MASK, ret);
+            CASTFunctionCallExpression smsc95xx_mdio_write_nopm(dev->net, mii->phy_id, PHY_INT_MASK, ret)
+               CASTIdExpression smsc95xx_mdio_write_nopm
+                  CASTName smsc95xx_mdio_write_nopm
+               CASTFieldReference dev->net
+                  CASTIdExpression dev
+                     CASTName dev
+                  CASTName net
+               CASTFieldReference mii->phy_id
+                  CASTIdExpression mii
+                     CASTName mii
+                  CASTName phy_id
+               CASTIdExpression PHY_INT_MASK
+                  CASTName PHY_INT_MASK
+               CASTIdExpression ret
+                  CASTName ret
+         CASTReturnStatement return 0;
+            CASTLiteralExpression 0
+   CASTFunctionDefinition static int smsc95xx_link_ok_nopm(struct usbnet *dev)
+{
+	struct mii_if_info *mii = &dev->mii;
+	int ret;
+	/* first, a dummy read, needed to latch some MII phys */
+	ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, MII_BMSR);
+	if (ret < 0)
+		return ret;
+	ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, MII_BMSR);
+	if (ret < 0)
+		return ret;
+	return !!(ret & BMSR_LSTATUS);
+}
+      CASTSimpleDeclSpecifier static int
+      CASTFunctionDeclarator smsc95xx_link_ok_nopm(struct usbnet *dev)
+         CASTName smsc95xx_link_ok_nopm
+         CASTParameterDeclaration struct usbnet *dev
+            CASTElaboratedTypeSpecifier struct usbnet
+               CASTName usbnet
+            CASTDeclarator *dev
+               CASTPointer *
+               CASTName dev
+      CASTCompoundStatement {
+	struct mii_if_info *mii = &dev->mii;
+	int ret;
+	/* first, a dummy read, needed to latch some MII phys */
+	ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, MII_BMSR);
+	if (ret < 0)
+		return ret;
+	ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, MII_BMSR);
+	if (ret < 0)
+		return ret;
+	return !!(ret & BMSR_LSTATUS);
+}
+         CASTDeclarationStatement struct mii_if_info *mii = &dev->mii;
+            CASTSimpleDeclaration struct mii_if_info *mii = &dev->mii;
+               CASTElaboratedTypeSpecifier struct mii_if_info
+                  CASTName mii_if_info
+               CASTDeclarator *mii = &dev->mii
+                  CASTPointer *
+                  CASTName mii
+                  CASTEqualsInitializer = &dev->mii
+                     CASTUnaryExpression &dev->mii
+                        CASTFieldReference dev->mii
+                           CASTIdExpression dev
+                              CASTName dev
+                           CASTName mii
+         CASTDeclarationStatement int ret;
+            CASTSimpleDeclaration int ret;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator ret
+                  CASTName ret
+         CASTExpressionStatement ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, MII_BMSR);
+            CASTBinaryExpression ret = smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, MII_BMSR)
+               CASTIdExpression ret
+                  CASTName ret
+               CASTFunctionCallExpression smsc95xx_mdio_read_nopm(dev->net, mii->phy_id, MII_BMSR)
+                  CASTIdExpression smsc95xx_mdio_read_nopm
+                     CASTName smsc95xx_mdio_read_nopm
+                  CASTFieldReference dev->net
+                     CASTIdExpression dev
+                        CASTName dev
+                     CASTName net
+                  CASTFieldReference mii->phy_id
+                     CASTIdExpression mii
+                        CASTName mii
+                     CASTName phy_id
+                  CASTIdExpression MII_BMSR
+                     CASTName MII_BMSR
+         CASTIfStatement if (ret < 0)
+		return ret;
+            CASTBinaryExpression ret < 0
+               CASTIdExpression ret
+                  CASTName ret
+               CASTLiteralExpression 0
+            CASTReturnStatement return ret;
+               CASTIdExpression ret
+                  CASTName ret
+         CASTReturnStatement return !!(ret & BMSR_LSTATUS);
+            CASTUnaryExpression !!(ret & BMSR_LSTATUS)
+               CASTUnaryExpression !(ret & BMSR_LSTATUS)
+                  CASTUnaryExpression (ret & BMSR_LSTATUS)
+                     CASTBinaryExpression ret & BMSR_LSTATUS
+                        CASTIdExpression ret
+                           CASTName ret
+                        CASTIdExpression BMSR_LSTATUS
+                           CASTName BMSR_LSTATUS

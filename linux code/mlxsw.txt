@@ -1,0 +1,17 @@
+static void mlxsw_emad_transmit_retry(struct mlxsw_core *mlxsw_core,
+				      struct mlxsw_reg_trans *trans)
+{
+	int err;
+	if (trans->retries < MLXSW_EMAD_MAX_RETRY) {
+		trans->retries++;
+		err = mlxsw_emad_transmit(trans->core, trans);
+		if (err == 0)
+			return;
+
+		if (!atomic_dec_and_test(&trans->active))
+			return;
+	} else {
+		err = -EIO;
+	}
+	mlxsw_emad_trans_finish(trans, err);
+}

@@ -1,0 +1,526 @@
+CASTTranslationUnit int cw1200_hw_scan(struct ieee80211_hw *hw,
+		   struct ieee80211_vif *vif,
+		   struct ieee80211_scan_request *hw_req)
+{
+	struct cw1200_common *priv = hw->priv;
+	struct cfg80211_scan_request *req = &hw_req->req;
+	struct wsm_template_frame frame = {
+		.frame_type = WSM_FRAME_TYPE_PROBE_REQUEST,
+	};
+	int i, ret;
+	if (!priv->vif)
+		return -EINVAL;
+	/* Scan when P2P_GO corrupt firmware MiniAP mode */
+	if (priv->join_status == CW1200_JOIN_STATUS_AP)
+		return -EOPNOTSUPP;
+	if (req->n_ssids == 1 && !req->ssids[0].ssid_len)
+		req->n_ssids = 0;
+	wiphy_dbg(hw->wiphy, "[SCAN] Scan request for %d SSIDs.\n",
+		  req->n_ssids);
+	if (req->n_ssids > WSM_SCAN_MAX_NUM_OF_SSIDS)
+		return -EINVAL;
+
+	/* will be unlocked in cw1200_scan_work() */
+	down(&priv->scan.lock);
+	mutex_lock(&priv->conf_mutex);
+
+	frame.skb = ieee80211_probereq_get(hw, priv->vif->addr, NULL, 0,
+		req->ie_len);
+	if (!frame.skb)
+		return -ENOMEM;
+	if (req->ie_len)
+		memcpy(skb_put(frame.skb, req->ie_len), req->ie, req->ie_len);
+
+	ret = wsm_set_template_frame(priv, &frame);
+	if (!ret) {
+		/* Host want to be the probe responder. */
+		ret = wsm_set_probe_responder(priv, true);
+	}
+	if (ret) {
+		dev_kfree_skb(frame.skb);
+		mutex_unlock(&priv->conf_mutex);
+		up(&priv->scan.lock);
+		return ret;
+	}
+
+	wsm_lock_tx(priv);
+	
+
+	if (frame.skb)
+		dev_kfree_skb(frame.skb);
+	mutex_unlock(&priv->conf_mutex);
+	queue_work(priv->workqueue, &priv->scan.work);
+	return 0;
+}
+   CASTFunctionDefinition int cw1200_hw_scan(struct ieee80211_hw *hw,
+		   struct ieee80211_vif *vif,
+		   struct ieee80211_scan_request *hw_req)
+{
+	struct cw1200_common *priv = hw->priv;
+	struct cfg80211_scan_request *req = &hw_req->req;
+	struct wsm_template_frame frame = {
+		.frame_type = WSM_FRAME_TYPE_PROBE_REQUEST,
+	};
+	int i, ret;
+	if (!priv->vif)
+		return -EINVAL;
+	/* Scan when P2P_GO corrupt firmware MiniAP mode */
+	if (priv->join_status == CW1200_JOIN_STATUS_AP)
+		return -EOPNOTSUPP;
+	if (req->n_ssids == 1 && !req->ssids[0].ssid_len)
+		req->n_ssids = 0;
+	wiphy_dbg(hw->wiphy, "[SCAN] Scan request for %d SSIDs.\n",
+		  req->n_ssids);
+	if (req->n_ssids > WSM_SCAN_MAX_NUM_OF_SSIDS)
+		return -EINVAL;
+
+	/* will be unlocked in cw1200_scan_work() */
+	down(&priv->scan.lock);
+	mutex_lock(&priv->conf_mutex);
+
+	frame.skb = ieee80211_probereq_get(hw, priv->vif->addr, NULL, 0,
+		req->ie_len);
+	if (!frame.skb)
+		return -ENOMEM;
+	if (req->ie_len)
+		memcpy(skb_put(frame.skb, req->ie_len), req->ie, req->ie_len);
+
+	ret = wsm_set_template_frame(priv, &frame);
+	if (!ret) {
+		/* Host want to be the probe responder. */
+		ret = wsm_set_probe_responder(priv, true);
+	}
+	if (ret) {
+		dev_kfree_skb(frame.skb);
+		mutex_unlock(&priv->conf_mutex);
+		up(&priv->scan.lock);
+		return ret;
+	}
+
+	wsm_lock_tx(priv);
+	
+
+	if (frame.skb)
+		dev_kfree_skb(frame.skb);
+	mutex_unlock(&priv->conf_mutex);
+	queue_work(priv->workqueue, &priv->scan.work);
+	return 0;
+}
+      CASTSimpleDeclSpecifier int
+      CASTFunctionDeclarator cw1200_hw_scan(struct ieee80211_hw *hw,
+		   struct ieee80211_vif *vif,
+		   struct ieee80211_scan_request *hw_req)
+         CASTName cw1200_hw_scan
+         CASTParameterDeclaration struct ieee80211_hw *hw
+            CASTElaboratedTypeSpecifier struct ieee80211_hw
+               CASTName ieee80211_hw
+            CASTDeclarator *hw
+               CASTPointer *
+               CASTName hw
+         CASTParameterDeclaration struct ieee80211_vif *vif
+            CASTElaboratedTypeSpecifier struct ieee80211_vif
+               CASTName ieee80211_vif
+            CASTDeclarator *vif
+               CASTPointer *
+               CASTName vif
+         CASTParameterDeclaration struct ieee80211_scan_request *hw_req
+            CASTElaboratedTypeSpecifier struct ieee80211_scan_request
+               CASTName ieee80211_scan_request
+            CASTDeclarator *hw_req
+               CASTPointer *
+               CASTName hw_req
+      CASTCompoundStatement {
+	struct cw1200_common *priv = hw->priv;
+	struct cfg80211_scan_request *req = &hw_req->req;
+	struct wsm_template_frame frame = {
+		.frame_type = WSM_FRAME_TYPE_PROBE_REQUEST,
+	};
+	int i, ret;
+	if (!priv->vif)
+		return -EINVAL;
+	/* Scan when P2P_GO corrupt firmware MiniAP mode */
+	if (priv->join_status == CW1200_JOIN_STATUS_AP)
+		return -EOPNOTSUPP;
+	if (req->n_ssids == 1 && !req->ssids[0].ssid_len)
+		req->n_ssids = 0;
+	wiphy_dbg(hw->wiphy, "[SCAN] Scan request for %d SSIDs.\n",
+		  req->n_ssids);
+	if (req->n_ssids > WSM_SCAN_MAX_NUM_OF_SSIDS)
+		return -EINVAL;
+
+	/* will be unlocked in cw1200_scan_work() */
+	down(&priv->scan.lock);
+	mutex_lock(&priv->conf_mutex);
+
+	frame.skb = ieee80211_probereq_get(hw, priv->vif->addr, NULL, 0,
+		req->ie_len);
+	if (!frame.skb)
+		return -ENOMEM;
+	if (req->ie_len)
+		memcpy(skb_put(frame.skb, req->ie_len), req->ie, req->ie_len);
+
+	ret = wsm_set_template_frame(priv, &frame);
+	if (!ret) {
+		/* Host want to be the probe responder. */
+		ret = wsm_set_probe_responder(priv, true);
+	}
+	if (ret) {
+		dev_kfree_skb(frame.skb);
+		mutex_unlock(&priv->conf_mutex);
+		up(&priv->scan.lock);
+		return ret;
+	}
+
+	wsm_lock_tx(priv);
+	
+
+	if (frame.skb)
+		dev_kfree_skb(frame.skb);
+	mutex_unlock(&priv->conf_mutex);
+	queue_work(priv->workqueue, &priv->scan.work);
+	return 0;
+}
+         CASTDeclarationStatement struct cw1200_common *priv = hw->priv;
+            CASTSimpleDeclaration struct cw1200_common *priv = hw->priv;
+               CASTElaboratedTypeSpecifier struct cw1200_common
+                  CASTName cw1200_common
+               CASTDeclarator *priv = hw->priv
+                  CASTPointer *
+                  CASTName priv
+                  CASTEqualsInitializer = hw->priv
+                     CASTFieldReference hw->priv
+                        CASTIdExpression hw
+                           CASTName hw
+                        CASTName priv
+         CASTDeclarationStatement struct cfg80211_scan_request *req = &hw_req->req;
+            CASTSimpleDeclaration struct cfg80211_scan_request *req = &hw_req->req;
+               CASTElaboratedTypeSpecifier struct cfg80211_scan_request
+                  CASTName cfg80211_scan_request
+               CASTDeclarator *req = &hw_req->req
+                  CASTPointer *
+                  CASTName req
+                  CASTEqualsInitializer = &hw_req->req
+                     CASTUnaryExpression &hw_req->req
+                        CASTFieldReference hw_req->req
+                           CASTIdExpression hw_req
+                              CASTName hw_req
+                           CASTName req
+         CASTDeclarationStatement struct wsm_template_frame frame = {
+		.frame_type = WSM_FRAME_TYPE_PROBE_REQUEST,
+	};
+            CASTSimpleDeclaration struct wsm_template_frame frame = {
+		.frame_type = WSM_FRAME_TYPE_PROBE_REQUEST,
+	};
+               CASTElaboratedTypeSpecifier struct wsm_template_frame
+                  CASTName wsm_template_frame
+               CASTDeclarator frame = {
+		.frame_type = WSM_FRAME_TYPE_PROBE_REQUEST,
+	}
+                  CASTName frame
+                  CASTEqualsInitializer = {
+		.frame_type = WSM_FRAME_TYPE_PROBE_REQUEST,
+	}
+                     CASTInitializerList {
+		.frame_type = WSM_FRAME_TYPE_PROBE_REQUEST,
+	}
+                        CASTDesignatedInitializer .frame_type = WSM_FRAME_TYPE_PROBE_REQUEST
+                           CASTFieldDesignator .frame_type
+                              CASTName frame_type
+                           CASTIdExpression WSM_FRAME_TYPE_PROBE_REQUEST
+                              CASTName WSM_FRAME_TYPE_PROBE_REQUEST
+         CASTDeclarationStatement int i, ret;
+            CASTSimpleDeclaration int i, ret;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator i
+                  CASTName i
+               CASTDeclarator ret
+                  CASTName ret
+         CASTIfStatement if (!priv->vif)
+		return -EINVAL;
+            CASTUnaryExpression !priv->vif
+               CASTFieldReference priv->vif
+                  CASTIdExpression priv
+                     CASTName priv
+                  CASTName vif
+            CASTReturnStatement return -EINVAL;
+               CASTUnaryExpression -EINVAL
+                  CASTIdExpression EINVAL
+                     CASTName EINVAL
+         CASTIfStatement if (priv->join_status == CW1200_JOIN_STATUS_AP)
+		return -EOPNOTSUPP;
+            CASTBinaryExpression priv->join_status == CW1200_JOIN_STATUS_AP
+               CASTFieldReference priv->join_status
+                  CASTIdExpression priv
+                     CASTName priv
+                  CASTName join_status
+               CASTIdExpression CW1200_JOIN_STATUS_AP
+                  CASTName CW1200_JOIN_STATUS_AP
+            CASTReturnStatement return -EOPNOTSUPP;
+               CASTUnaryExpression -EOPNOTSUPP
+                  CASTIdExpression EOPNOTSUPP
+                     CASTName EOPNOTSUPP
+         CASTIfStatement if (req->n_ssids == 1 && !req->ssids[0].ssid_len)
+		req->n_ssids = 0;
+            CASTBinaryExpression req->n_ssids == 1 && !req->ssids[0].ssid_len
+               CASTBinaryExpression req->n_ssids == 1
+                  CASTFieldReference req->n_ssids
+                     CASTIdExpression req
+                        CASTName req
+                     CASTName n_ssids
+                  CASTLiteralExpression 1
+               CASTUnaryExpression !req->ssids[0].ssid_len
+                  CASTFieldReference req->ssids[0].ssid_len
+                     CASTArraySubscriptExpression req->ssids[0]
+                        CASTFieldReference req->ssids
+                           CASTIdExpression req
+                              CASTName req
+                           CASTName ssids
+                        CASTLiteralExpression 0
+                     CASTName ssid_len
+            CASTExpressionStatement req->n_ssids = 0;
+               CASTBinaryExpression req->n_ssids = 0
+                  CASTFieldReference req->n_ssids
+                     CASTIdExpression req
+                        CASTName req
+                     CASTName n_ssids
+                  CASTLiteralExpression 0
+         CASTExpressionStatement wiphy_dbg(hw->wiphy, "[SCAN] Scan request for %d SSIDs.\n",
+		  req->n_ssids);
+            CASTFunctionCallExpression wiphy_dbg(hw->wiphy, "[SCAN] Scan request for %d SSIDs.\n",
+		  req->n_ssids)
+               CASTIdExpression wiphy_dbg
+                  CASTName wiphy_dbg
+               CASTFieldReference hw->wiphy
+                  CASTIdExpression hw
+                     CASTName hw
+                  CASTName wiphy
+               CASTLiteralExpression "[SCAN] Scan request for %d SSIDs.\n"
+               CASTFieldReference req->n_ssids
+                  CASTIdExpression req
+                     CASTName req
+                  CASTName n_ssids
+         CASTIfStatement if (req->n_ssids > WSM_SCAN_MAX_NUM_OF_SSIDS)
+		return -EINVAL;
+            CASTBinaryExpression req->n_ssids > WSM_SCAN_MAX_NUM_OF_SSIDS
+               CASTFieldReference req->n_ssids
+                  CASTIdExpression req
+                     CASTName req
+                  CASTName n_ssids
+               CASTIdExpression WSM_SCAN_MAX_NUM_OF_SSIDS
+                  CASTName WSM_SCAN_MAX_NUM_OF_SSIDS
+            CASTReturnStatement return -EINVAL;
+               CASTUnaryExpression -EINVAL
+                  CASTIdExpression EINVAL
+                     CASTName EINVAL
+         CASTExpressionStatement down(&priv->scan.lock);
+            CASTFunctionCallExpression down(&priv->scan.lock)
+               CASTIdExpression down
+                  CASTName down
+               CASTUnaryExpression &priv->scan.lock
+                  CASTFieldReference priv->scan.lock
+                     CASTFieldReference priv->scan
+                        CASTIdExpression priv
+                           CASTName priv
+                        CASTName scan
+                     CASTName lock
+         CASTExpressionStatement mutex_lock(&priv->conf_mutex);
+            CASTFunctionCallExpression mutex_lock(&priv->conf_mutex)
+               CASTIdExpression mutex_lock
+                  CASTName mutex_lock
+               CASTUnaryExpression &priv->conf_mutex
+                  CASTFieldReference priv->conf_mutex
+                     CASTIdExpression priv
+                        CASTName priv
+                     CASTName conf_mutex
+         CASTExpressionStatement frame.skb = ieee80211_probereq_get(hw, priv->vif->addr, NULL, 0,
+		req->ie_len);
+            CASTBinaryExpression frame.skb = ieee80211_probereq_get(hw, priv->vif->addr, NULL, 0,
+		req->ie_len)
+               CASTFieldReference frame.skb
+                  CASTIdExpression frame
+                     CASTName frame
+                  CASTName skb
+               CASTFunctionCallExpression ieee80211_probereq_get(hw, priv->vif->addr, NULL, 0,
+		req->ie_len)
+                  CASTIdExpression ieee80211_probereq_get
+                     CASTName ieee80211_probereq_get
+                  CASTIdExpression hw
+                     CASTName hw
+                  CASTFieldReference priv->vif->addr
+                     CASTFieldReference priv->vif
+                        CASTIdExpression priv
+                           CASTName priv
+                        CASTName vif
+                     CASTName addr
+                  CASTIdExpression NULL
+                     CASTName NULL
+                  CASTLiteralExpression 0
+                  CASTFieldReference req->ie_len
+                     CASTIdExpression req
+                        CASTName req
+                     CASTName ie_len
+         CASTIfStatement if (!frame.skb)
+		return -ENOMEM;
+            CASTUnaryExpression !frame.skb
+               CASTFieldReference frame.skb
+                  CASTIdExpression frame
+                     CASTName frame
+                  CASTName skb
+            CASTReturnStatement return -ENOMEM;
+               CASTUnaryExpression -ENOMEM
+                  CASTIdExpression ENOMEM
+                     CASTName ENOMEM
+         CASTIfStatement if (req->ie_len)
+		memcpy(skb_put(frame.skb, req->ie_len), req->ie, req->ie_len);
+            CASTFieldReference req->ie_len
+               CASTIdExpression req
+                  CASTName req
+               CASTName ie_len
+            CASTExpressionStatement memcpy(skb_put(frame.skb, req->ie_len), req->ie, req->ie_len);
+               CASTFunctionCallExpression memcpy(skb_put(frame.skb, req->ie_len), req->ie, req->ie_len)
+                  CASTIdExpression memcpy
+                     CASTName memcpy
+                  CASTFunctionCallExpression skb_put(frame.skb, req->ie_len)
+                     CASTIdExpression skb_put
+                        CASTName skb_put
+                     CASTFieldReference frame.skb
+                        CASTIdExpression frame
+                           CASTName frame
+                        CASTName skb
+                     CASTFieldReference req->ie_len
+                        CASTIdExpression req
+                           CASTName req
+                        CASTName ie_len
+                  CASTFieldReference req->ie
+                     CASTIdExpression req
+                        CASTName req
+                     CASTName ie
+                  CASTFieldReference req->ie_len
+                     CASTIdExpression req
+                        CASTName req
+                     CASTName ie_len
+         CASTExpressionStatement ret = wsm_set_template_frame(priv, &frame);
+            CASTBinaryExpression ret = wsm_set_template_frame(priv, &frame)
+               CASTIdExpression ret
+                  CASTName ret
+               CASTFunctionCallExpression wsm_set_template_frame(priv, &frame)
+                  CASTIdExpression wsm_set_template_frame
+                     CASTName wsm_set_template_frame
+                  CASTIdExpression priv
+                     CASTName priv
+                  CASTUnaryExpression &frame
+                     CASTIdExpression frame
+                        CASTName frame
+         CASTIfStatement if (!ret) {
+		/* Host want to be the probe responder. */
+		ret = wsm_set_probe_responder(priv, true);
+	}
+            CASTUnaryExpression !ret
+               CASTIdExpression ret
+                  CASTName ret
+            CASTCompoundStatement {
+		/* Host want to be the probe responder. */
+		ret = wsm_set_probe_responder(priv, true);
+	}
+               CASTExpressionStatement ret = wsm_set_probe_responder(priv, true);
+                  CASTBinaryExpression ret = wsm_set_probe_responder(priv, true)
+                     CASTIdExpression ret
+                        CASTName ret
+                     CASTFunctionCallExpression wsm_set_probe_responder(priv, true)
+                        CASTIdExpression wsm_set_probe_responder
+                           CASTName wsm_set_probe_responder
+                        CASTIdExpression priv
+                           CASTName priv
+                        CASTIdExpression true
+                           CASTName true
+         CASTIfStatement if (ret) {
+		dev_kfree_skb(frame.skb);
+		mutex_unlock(&priv->conf_mutex);
+		up(&priv->scan.lock);
+		return ret;
+	}
+            CASTIdExpression ret
+               CASTName ret
+            CASTCompoundStatement {
+		dev_kfree_skb(frame.skb);
+		mutex_unlock(&priv->conf_mutex);
+		up(&priv->scan.lock);
+		return ret;
+	}
+               CASTExpressionStatement dev_kfree_skb(frame.skb);
+                  CASTFunctionCallExpression dev_kfree_skb(frame.skb)
+                     CASTIdExpression dev_kfree_skb
+                        CASTName dev_kfree_skb
+                     CASTFieldReference frame.skb
+                        CASTIdExpression frame
+                           CASTName frame
+                        CASTName skb
+               CASTExpressionStatement mutex_unlock(&priv->conf_mutex);
+                  CASTFunctionCallExpression mutex_unlock(&priv->conf_mutex)
+                     CASTIdExpression mutex_unlock
+                        CASTName mutex_unlock
+                     CASTUnaryExpression &priv->conf_mutex
+                        CASTFieldReference priv->conf_mutex
+                           CASTIdExpression priv
+                              CASTName priv
+                           CASTName conf_mutex
+               CASTExpressionStatement up(&priv->scan.lock);
+                  CASTFunctionCallExpression up(&priv->scan.lock)
+                     CASTIdExpression up
+                        CASTName up
+                     CASTUnaryExpression &priv->scan.lock
+                        CASTFieldReference priv->scan.lock
+                           CASTFieldReference priv->scan
+                              CASTIdExpression priv
+                                 CASTName priv
+                              CASTName scan
+                           CASTName lock
+               CASTReturnStatement return ret;
+                  CASTIdExpression ret
+                     CASTName ret
+         CASTExpressionStatement wsm_lock_tx(priv);
+            CASTFunctionCallExpression wsm_lock_tx(priv)
+               CASTIdExpression wsm_lock_tx
+                  CASTName wsm_lock_tx
+               CASTIdExpression priv
+                  CASTName priv
+         CASTIfStatement if (frame.skb)
+		dev_kfree_skb(frame.skb);
+            CASTFieldReference frame.skb
+               CASTIdExpression frame
+                  CASTName frame
+               CASTName skb
+            CASTExpressionStatement dev_kfree_skb(frame.skb);
+               CASTFunctionCallExpression dev_kfree_skb(frame.skb)
+                  CASTIdExpression dev_kfree_skb
+                     CASTName dev_kfree_skb
+                  CASTFieldReference frame.skb
+                     CASTIdExpression frame
+                        CASTName frame
+                     CASTName skb
+         CASTExpressionStatement mutex_unlock(&priv->conf_mutex);
+            CASTFunctionCallExpression mutex_unlock(&priv->conf_mutex)
+               CASTIdExpression mutex_unlock
+                  CASTName mutex_unlock
+               CASTUnaryExpression &priv->conf_mutex
+                  CASTFieldReference priv->conf_mutex
+                     CASTIdExpression priv
+                        CASTName priv
+                     CASTName conf_mutex
+         CASTExpressionStatement queue_work(priv->workqueue, &priv->scan.work);
+            CASTFunctionCallExpression queue_work(priv->workqueue, &priv->scan.work)
+               CASTIdExpression queue_work
+                  CASTName queue_work
+               CASTFieldReference priv->workqueue
+                  CASTIdExpression priv
+                     CASTName priv
+                  CASTName workqueue
+               CASTUnaryExpression &priv->scan.work
+                  CASTFieldReference priv->scan.work
+                     CASTFieldReference priv->scan
+                        CASTIdExpression priv
+                           CASTName priv
+                        CASTName scan
+                     CASTName work
+         CASTReturnStatement return 0;
+            CASTLiteralExpression 0

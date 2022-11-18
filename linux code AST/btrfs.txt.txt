@@ -1,0 +1,265 @@
+CASTTranslationUnit void btrfs_dump_free_space(struct btrfs_block_group_cache *block_group,
+			   u64 bytes)
+{
+	struct btrfs_fs_info *fs_info = block_group->fs_info;
+	struct btrfs_free_space_ctl *ctl = block_group->free_space_ctl;
+	struct btrfs_free_space *info;
+	struct rb_node *n;
+	int count = 0;
+
+	spin_lock(&ctl->tree_lock);
+	for (n = rb_first(&ctl->free_space_offset); n; n = rb_next(n)) {
+		info = rb_entry(n, struct btrfs_free_space, offset_index);
+		if (info->bytes >= bytes && !block_group->ro)
+			count++;
+		btrfs_crit(fs_info, "entry offset %llu, bytes %llu, bitmap %s",
+			   info->offset, info->bytes,
+		       (info->bitmap) ? "yes" : "no");
+	}
+	spin_unlock(&ctl->tree_lock);
+	btrfs_info(fs_info, "block group has cluster?: %s",
+	       list_empty(&block_group->cluster_list) ? "no" : "yes");
+	btrfs_info(fs_info,
+		   "%d blocks of free space at or bigger than bytes is", count);
+}
+   CASTFunctionDefinition void btrfs_dump_free_space(struct btrfs_block_group_cache *block_group,
+			   u64 bytes)
+{
+	struct btrfs_fs_info *fs_info = block_group->fs_info;
+	struct btrfs_free_space_ctl *ctl = block_group->free_space_ctl;
+	struct btrfs_free_space *info;
+	struct rb_node *n;
+	int count = 0;
+
+	spin_lock(&ctl->tree_lock);
+	for (n = rb_first(&ctl->free_space_offset); n; n = rb_next(n)) {
+		info = rb_entry(n, struct btrfs_free_space, offset_index);
+		if (info->bytes >= bytes && !block_group->ro)
+			count++;
+		btrfs_crit(fs_info, "entry offset %llu, bytes %llu, bitmap %s",
+			   info->offset, info->bytes,
+		       (info->bitmap) ? "yes" : "no");
+	}
+	spin_unlock(&ctl->tree_lock);
+	btrfs_info(fs_info, "block group has cluster?: %s",
+	       list_empty(&block_group->cluster_list) ? "no" : "yes");
+	btrfs_info(fs_info,
+		   "%d blocks of free space at or bigger than bytes is", count);
+}
+      CASTSimpleDeclSpecifier void
+      CASTFunctionDeclarator btrfs_dump_free_space(struct btrfs_block_group_cache *block_group,
+			   u64 bytes)
+         CASTName btrfs_dump_free_space
+         CASTParameterDeclaration struct btrfs_block_group_cache *block_group
+            CASTElaboratedTypeSpecifier struct btrfs_block_group_cache
+               CASTName btrfs_block_group_cache
+            CASTDeclarator *block_group
+               CASTPointer *
+               CASTName block_group
+         CASTParameterDeclaration u64 bytes
+            CASTTypedefNameSpecifier u64
+               CASTName u64
+            CASTDeclarator bytes
+               CASTName bytes
+      CASTCompoundStatement {
+	struct btrfs_fs_info *fs_info = block_group->fs_info;
+	struct btrfs_free_space_ctl *ctl = block_group->free_space_ctl;
+	struct btrfs_free_space *info;
+	struct rb_node *n;
+	int count = 0;
+
+	spin_lock(&ctl->tree_lock);
+	for (n = rb_first(&ctl->free_space_offset); n; n = rb_next(n)) {
+		info = rb_entry(n, struct btrfs_free_space, offset_index);
+		if (info->bytes >= bytes && !block_group->ro)
+			count++;
+		btrfs_crit(fs_info, "entry offset %llu, bytes %llu, bitmap %s",
+			   info->offset, info->bytes,
+		       (info->bitmap) ? "yes" : "no");
+	}
+	spin_unlock(&ctl->tree_lock);
+	btrfs_info(fs_info, "block group has cluster?: %s",
+	       list_empty(&block_group->cluster_list) ? "no" : "yes");
+	btrfs_info(fs_info,
+		   "%d blocks of free space at or bigger than bytes is", count);
+}
+         CASTDeclarationStatement struct btrfs_fs_info *fs_info = block_group->fs_info;
+            CASTSimpleDeclaration struct btrfs_fs_info *fs_info = block_group->fs_info;
+               CASTElaboratedTypeSpecifier struct btrfs_fs_info
+                  CASTName btrfs_fs_info
+               CASTDeclarator *fs_info = block_group->fs_info
+                  CASTPointer *
+                  CASTName fs_info
+                  CASTEqualsInitializer = block_group->fs_info
+                     CASTFieldReference block_group->fs_info
+                        CASTIdExpression block_group
+                           CASTName block_group
+                        CASTName fs_info
+         CASTDeclarationStatement struct btrfs_free_space_ctl *ctl = block_group->free_space_ctl;
+            CASTSimpleDeclaration struct btrfs_free_space_ctl *ctl = block_group->free_space_ctl;
+               CASTElaboratedTypeSpecifier struct btrfs_free_space_ctl
+                  CASTName btrfs_free_space_ctl
+               CASTDeclarator *ctl = block_group->free_space_ctl
+                  CASTPointer *
+                  CASTName ctl
+                  CASTEqualsInitializer = block_group->free_space_ctl
+                     CASTFieldReference block_group->free_space_ctl
+                        CASTIdExpression block_group
+                           CASTName block_group
+                        CASTName free_space_ctl
+         CASTDeclarationStatement struct btrfs_free_space *info;
+            CASTSimpleDeclaration struct btrfs_free_space *info;
+               CASTElaboratedTypeSpecifier struct btrfs_free_space
+                  CASTName btrfs_free_space
+               CASTDeclarator *info
+                  CASTPointer *
+                  CASTName info
+         CASTDeclarationStatement struct rb_node *n;
+            CASTSimpleDeclaration struct rb_node *n;
+               CASTElaboratedTypeSpecifier struct rb_node
+                  CASTName rb_node
+               CASTDeclarator *n
+                  CASTPointer *
+                  CASTName n
+         CASTDeclarationStatement int count = 0;
+            CASTSimpleDeclaration int count = 0;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator count = 0
+                  CASTName count
+                  CASTEqualsInitializer = 0
+                     CASTLiteralExpression 0
+         CASTExpressionStatement spin_lock(&ctl->tree_lock);
+            CASTFunctionCallExpression spin_lock(&ctl->tree_lock)
+               CASTIdExpression spin_lock
+                  CASTName spin_lock
+               CASTUnaryExpression &ctl->tree_lock
+                  CASTFieldReference ctl->tree_lock
+                     CASTIdExpression ctl
+                        CASTName ctl
+                     CASTName tree_lock
+         CASTForStatement for (n = rb_first(&ctl->free_space_offset); n; n = rb_next(n)) {
+		info = rb_entry(n, struct btrfs_free_space, offset_index);
+		if (info->bytes >= bytes && !block_group->ro)
+			count++;
+		btrfs_crit(fs_info, "entry offset %llu, bytes %llu, bitmap %s",
+			   info->offset, info->bytes,
+		       (info->bitmap) ? "yes" : "no");
+	}
+            CASTExpressionStatement n = rb_first(&ctl->free_space_offset);
+               CASTBinaryExpression n = rb_first(&ctl->free_space_offset)
+                  CASTIdExpression n
+                     CASTName n
+                  CASTFunctionCallExpression rb_first(&ctl->free_space_offset)
+                     CASTIdExpression rb_first
+                        CASTName rb_first
+                     CASTUnaryExpression &ctl->free_space_offset
+                        CASTFieldReference ctl->free_space_offset
+                           CASTIdExpression ctl
+                              CASTName ctl
+                           CASTName free_space_offset
+            CASTIdExpression n
+               CASTName n
+            CASTBinaryExpression n = rb_next(n)
+               CASTIdExpression n
+                  CASTName n
+               CASTFunctionCallExpression rb_next(n)
+                  CASTIdExpression rb_next
+                     CASTName rb_next
+                  CASTIdExpression n
+                     CASTName n
+            CASTCompoundStatement {
+		info = rb_entry(n, struct btrfs_free_space, offset_index);
+		if (info->bytes >= bytes && !block_group->ro)
+			count++;
+		btrfs_crit(fs_info, "entry offset %llu, bytes %llu, bitmap %s",
+			   info->offset, info->bytes,
+		       (info->bitmap) ? "yes" : "no");
+	}
+               CASTProblemStatement info = rb_entry(n, struct btrfs_free_space, offset_index);
+                  CASTProblem info = rb_entry(n, struct btrfs_free_space, offset_index);
+               CASTIfStatement if (info->bytes >= bytes && !block_group->ro)
+			count++;
+                  CASTBinaryExpression info->bytes >= bytes && !block_group->ro
+                     CASTBinaryExpression info->bytes >= bytes
+                        CASTFieldReference info->bytes
+                           CASTIdExpression info
+                              CASTName info
+                           CASTName bytes
+                        CASTIdExpression bytes
+                           CASTName bytes
+                     CASTUnaryExpression !block_group->ro
+                        CASTFieldReference block_group->ro
+                           CASTIdExpression block_group
+                              CASTName block_group
+                           CASTName ro
+                  CASTExpressionStatement count++;
+                     CASTUnaryExpression count++
+                        CASTIdExpression count
+                           CASTName count
+               CASTExpressionStatement btrfs_crit(fs_info, "entry offset %llu, bytes %llu, bitmap %s",
+			   info->offset, info->bytes,
+		       (info->bitmap) ? "yes" : "no");
+                  CASTFunctionCallExpression btrfs_crit(fs_info, "entry offset %llu, bytes %llu, bitmap %s",
+			   info->offset, info->bytes,
+		       (info->bitmap) ? "yes" : "no")
+                     CASTIdExpression btrfs_crit
+                        CASTName btrfs_crit
+                     CASTIdExpression fs_info
+                        CASTName fs_info
+                     CASTLiteralExpression "entry offset %llu, bytes %llu, bitmap %s"
+                     CASTFieldReference info->offset
+                        CASTIdExpression info
+                           CASTName info
+                        CASTName offset
+                     CASTFieldReference info->bytes
+                        CASTIdExpression info
+                           CASTName info
+                        CASTName bytes
+                     CASTConditionalExpression (info->bitmap) ? "yes" : "no"
+                        CASTUnaryExpression (info->bitmap)
+                           CASTFieldReference info->bitmap
+                              CASTIdExpression info
+                                 CASTName info
+                              CASTName bitmap
+                        CASTLiteralExpression "yes"
+                        CASTLiteralExpression "no"
+         CASTExpressionStatement spin_unlock(&ctl->tree_lock);
+            CASTFunctionCallExpression spin_unlock(&ctl->tree_lock)
+               CASTIdExpression spin_unlock
+                  CASTName spin_unlock
+               CASTUnaryExpression &ctl->tree_lock
+                  CASTFieldReference ctl->tree_lock
+                     CASTIdExpression ctl
+                        CASTName ctl
+                     CASTName tree_lock
+         CASTExpressionStatement btrfs_info(fs_info, "block group has cluster?: %s",
+	       list_empty(&block_group->cluster_list) ? "no" : "yes");
+            CASTFunctionCallExpression btrfs_info(fs_info, "block group has cluster?: %s",
+	       list_empty(&block_group->cluster_list) ? "no" : "yes")
+               CASTIdExpression btrfs_info
+                  CASTName btrfs_info
+               CASTIdExpression fs_info
+                  CASTName fs_info
+               CASTLiteralExpression "block group has cluster?: %s"
+               CASTConditionalExpression list_empty(&block_group->cluster_list) ? "no" : "yes"
+                  CASTFunctionCallExpression list_empty(&block_group->cluster_list)
+                     CASTIdExpression list_empty
+                        CASTName list_empty
+                     CASTUnaryExpression &block_group->cluster_list
+                        CASTFieldReference block_group->cluster_list
+                           CASTIdExpression block_group
+                              CASTName block_group
+                           CASTName cluster_list
+                  CASTLiteralExpression "no"
+                  CASTLiteralExpression "yes"
+         CASTExpressionStatement btrfs_info(fs_info,
+		   "%d blocks of free space at or bigger than bytes is", count);
+            CASTFunctionCallExpression btrfs_info(fs_info,
+		   "%d blocks of free space at or bigger than bytes is", count)
+               CASTIdExpression btrfs_info
+                  CASTName btrfs_info
+               CASTIdExpression fs_info
+                  CASTName fs_info
+               CASTLiteralExpression "%d blocks of free space at or bigger than bytes is"
+               CASTIdExpression count
+                  CASTName count

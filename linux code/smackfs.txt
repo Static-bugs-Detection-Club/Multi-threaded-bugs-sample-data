@@ -1,0 +1,36 @@
+static void smk_set_cipso()
+{
+	struct netlbl_lsm_catmap *old_cat;
+	struct smack_known *skp;
+	struct netlbl_lsm_secattr ncats;
+	char mapcatset[SMK_CIPSOLEN];
+	int maplevel;
+	unsigned int cat;
+	int catlen;
+	ssize_t rc = -EINVAL;
+	char *data = NULL;
+	char *rule;
+	int ret;
+	int i;
+	/*
+	 * Must have privilege.
+	 * No partial writes.
+	 * Enough data must be present.
+	 */
+	
+
+	rc = smk_netlbl_mls(maplevel, mapcatset, &ncats, SMK_CIPSOLEN);
+	if (rc >= 0) {
+		old_cat = skp->smk_netlabel.attr.mls.cat;
+		skp->smk_netlabel.attr.mls.cat = ncats.attr.mls.cat;
+		skp->smk_netlabel.attr.mls.lvl = ncats.attr.mls.lvl;
+		synchronize_rcu();
+		netlbl_catmap_free(old_cat);
+		rc = count;
+	}
+
+	mutex_unlock(&smack_cipso_lock);
+
+	kfree(data);
+	return rc;
+}
