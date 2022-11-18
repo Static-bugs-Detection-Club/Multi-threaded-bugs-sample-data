@@ -1,0 +1,178 @@
+CASTTranslationUnit void CWE416_Use_After_Free__malloc_free_wchar_t_08_bad()
+{
+    wchar_t * data;
+    /* Initialize data */
+    data = NULL;
+    if(staticReturnsTrue())
+    {
+        data = (wchar_t *)malloc(100*sizeof(wchar_t));
+        if (data == NULL) {exit(-1);}
+        wmemset(data, L'A', 100-1);
+        data[100-1] = L'\0';
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+    if(staticReturnsTrue())
+    {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printWLine(data);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+}
+
+
+   CASTFunctionDefinition void CWE416_Use_After_Free__malloc_free_wchar_t_08_bad()
+{
+    wchar_t * data;
+    /* Initialize data */
+    data = NULL;
+    if(staticReturnsTrue())
+    {
+        data = (wchar_t *)malloc(100*sizeof(wchar_t));
+        if (data == NULL) {exit(-1);}
+        wmemset(data, L'A', 100-1);
+        data[100-1] = L'\0';
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+    if(staticReturnsTrue())
+    {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printWLine(data);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+}
+      CASTSimpleDeclSpecifier void
+      CASTFunctionDeclarator CWE416_Use_After_Free__malloc_free_wchar_t_08_bad()
+         CASTName CWE416_Use_After_Free__malloc_free_wchar_t_08_bad
+      CASTCompoundStatement {
+    wchar_t * data;
+    /* Initialize data */
+    data = NULL;
+    if(staticReturnsTrue())
+    {
+        data = (wchar_t *)malloc(100*sizeof(wchar_t));
+        if (data == NULL) {exit(-1);}
+        wmemset(data, L'A', 100-1);
+        data[100-1] = L'\0';
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+    if(staticReturnsTrue())
+    {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printWLine(data);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+}
+         CASTDeclarationStatement wchar_t * data;
+            CASTSimpleDeclaration wchar_t * data;
+               CASTTypedefNameSpecifier wchar_t
+                  CASTName wchar_t
+               CASTDeclarator * data
+                  CASTPointer *
+                  CASTName data
+         CASTExpressionStatement data = NULL;
+            CASTBinaryExpression data = NULL
+               CASTIdExpression data
+                  CASTName data
+               CASTIdExpression NULL
+                  CASTName NULL
+         CASTIfStatement if(staticReturnsTrue())
+    {
+        data = (wchar_t *)malloc(100*sizeof(wchar_t));
+        if (data == NULL) {exit(-1);}
+        wmemset(data, L'A', 100-1);
+        data[100-1] = L'\0';
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+            CASTFunctionCallExpression staticReturnsTrue()
+               CASTIdExpression staticReturnsTrue
+                  CASTName staticReturnsTrue
+            CASTCompoundStatement {
+        data = (wchar_t *)malloc(100*sizeof(wchar_t));
+        if (data == NULL) {exit(-1);}
+        wmemset(data, L'A', 100-1);
+        data[100-1] = L'\0';
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+               CASTExpressionStatement data = (wchar_t *)malloc(100*sizeof(wchar_t));
+                  CASTBinaryExpression data = (wchar_t *)malloc(100*sizeof(wchar_t))
+                     CASTIdExpression data
+                        CASTName data
+                     CASTCastExpression (wchar_t *)malloc(100*sizeof(wchar_t))
+                        CASTTypeId wchar_t *
+                           CASTTypedefNameSpecifier wchar_t
+                              CASTName wchar_t
+                           CASTDeclarator *
+                              CASTPointer *
+                        CASTFunctionCallExpression malloc(100*sizeof(wchar_t))
+                           CASTIdExpression malloc
+                              CASTName malloc
+                           CASTBinaryExpression 100*sizeof(wchar_t)
+                              CASTLiteralExpression 100
+                              CASTTypeIdExpression sizeof(wchar_t)
+                                 CASTTypeId wchar_t
+                                    CASTTypedefNameSpecifier wchar_t
+                                       CASTName wchar_t
+                                    CASTDeclarator 
+               CASTIfStatement if (data == NULL) {exit(-1);}
+                  CASTBinaryExpression data == NULL
+                     CASTIdExpression data
+                        CASTName data
+                     CASTIdExpression NULL
+                        CASTName NULL
+                  CASTCompoundStatement {exit(-1);}
+                     CASTExpressionStatement exit(-1);
+                        CASTFunctionCallExpression exit(-1)
+                           CASTIdExpression exit
+                              CASTName exit
+                           CASTUnaryExpression -1
+                              CASTLiteralExpression 1
+               CASTExpressionStatement wmemset(data, L'A', 100-1);
+                  CASTFunctionCallExpression wmemset(data, L'A', 100-1)
+                     CASTIdExpression wmemset
+                        CASTName wmemset
+                     CASTIdExpression data
+                        CASTName data
+                     CASTLiteralExpression L'A'
+                     CASTBinaryExpression 100-1
+                        CASTLiteralExpression 100
+                        CASTLiteralExpression 1
+               CASTExpressionStatement data[100-1] = L'\0';
+                  CASTBinaryExpression data[100-1] = L'\0'
+                     CASTArraySubscriptExpression data[100-1]
+                        CASTIdExpression data
+                           CASTName data
+                        CASTBinaryExpression 100-1
+                           CASTLiteralExpression 100
+                           CASTLiteralExpression 1
+                     CASTLiteralExpression L'\0'
+               CASTExpressionStatement free(data);
+                  CASTFunctionCallExpression free(data)
+                     CASTIdExpression free
+                        CASTName free
+                     CASTIdExpression data
+                        CASTName data
+         CASTIfStatement if(staticReturnsTrue())
+    {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printWLine(data);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+            CASTFunctionCallExpression staticReturnsTrue()
+               CASTIdExpression staticReturnsTrue
+                  CASTName staticReturnsTrue
+            CASTCompoundStatement {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printWLine(data);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+               CASTExpressionStatement printWLine(data);
+                  CASTFunctionCallExpression printWLine(data)
+                     CASTIdExpression printWLine
+                        CASTName printWLine
+                     CASTIdExpression data
+                        CASTName data

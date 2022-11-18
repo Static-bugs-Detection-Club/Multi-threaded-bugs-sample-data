@@ -1,0 +1,239 @@
+CASTTranslationUnit static char * helperBad(char * aString)
+{
+    size_t i = 0;
+    size_t j;
+    char * reversedString = NULL;
+    if (aString != NULL)
+    {
+        i = strlen(aString);
+        reversedString = (char *) malloc(i+1);
+        if (reversedString == NULL) {exit(-1);}
+        for (j = 0; j < i; j++)
+        {
+            reversedString[j] = aString[i-j-1];
+        }
+        reversedString[i] = '\0';
+        /* FLAW: Freeing a memory block and then returning a pointer to the freed memory */
+        free(reversedString);
+        return reversedString;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+
+   CASTFunctionDefinition static char * helperBad(char * aString)
+{
+    size_t i = 0;
+    size_t j;
+    char * reversedString = NULL;
+    if (aString != NULL)
+    {
+        i = strlen(aString);
+        reversedString = (char *) malloc(i+1);
+        if (reversedString == NULL) {exit(-1);}
+        for (j = 0; j < i; j++)
+        {
+            reversedString[j] = aString[i-j-1];
+        }
+        reversedString[i] = '\0';
+        /* FLAW: Freeing a memory block and then returning a pointer to the freed memory */
+        free(reversedString);
+        return reversedString;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+      CASTSimpleDeclSpecifier static char
+      CASTFunctionDeclarator * helperBad(char * aString)
+         CASTPointer *
+         CASTName helperBad
+         CASTParameterDeclaration char * aString
+            CASTSimpleDeclSpecifier char
+            CASTDeclarator * aString
+               CASTPointer *
+               CASTName aString
+      CASTCompoundStatement {
+    size_t i = 0;
+    size_t j;
+    char * reversedString = NULL;
+    if (aString != NULL)
+    {
+        i = strlen(aString);
+        reversedString = (char *) malloc(i+1);
+        if (reversedString == NULL) {exit(-1);}
+        for (j = 0; j < i; j++)
+        {
+            reversedString[j] = aString[i-j-1];
+        }
+        reversedString[i] = '\0';
+        /* FLAW: Freeing a memory block and then returning a pointer to the freed memory */
+        free(reversedString);
+        return reversedString;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+         CASTDeclarationStatement size_t i = 0;
+            CASTSimpleDeclaration size_t i = 0;
+               CASTTypedefNameSpecifier size_t
+                  CASTName size_t
+               CASTDeclarator i = 0
+                  CASTName i
+                  CASTEqualsInitializer = 0
+                     CASTLiteralExpression 0
+         CASTDeclarationStatement size_t j;
+            CASTSimpleDeclaration size_t j;
+               CASTTypedefNameSpecifier size_t
+                  CASTName size_t
+               CASTDeclarator j
+                  CASTName j
+         CASTDeclarationStatement char * reversedString = NULL;
+            CASTSimpleDeclaration char * reversedString = NULL;
+               CASTSimpleDeclSpecifier char
+               CASTDeclarator * reversedString = NULL
+                  CASTPointer *
+                  CASTName reversedString
+                  CASTEqualsInitializer = NULL
+                     CASTIdExpression NULL
+                        CASTName NULL
+         CASTIfStatement if (aString != NULL)
+    {
+        i = strlen(aString);
+        reversedString = (char *) malloc(i+1);
+        if (reversedString == NULL) {exit(-1);}
+        for (j = 0; j < i; j++)
+        {
+            reversedString[j] = aString[i-j-1];
+        }
+        reversedString[i] = '\0';
+        /* FLAW: Freeing a memory block and then returning a pointer to the freed memory */
+        free(reversedString);
+        return reversedString;
+    }
+    else
+    {
+        return NULL;
+    }
+            CASTBinaryExpression aString != NULL
+               CASTIdExpression aString
+                  CASTName aString
+               CASTIdExpression NULL
+                  CASTName NULL
+            CASTCompoundStatement {
+        i = strlen(aString);
+        reversedString = (char *) malloc(i+1);
+        if (reversedString == NULL) {exit(-1);}
+        for (j = 0; j < i; j++)
+        {
+            reversedString[j] = aString[i-j-1];
+        }
+        reversedString[i] = '\0';
+        /* FLAW: Freeing a memory block and then returning a pointer to the freed memory */
+        free(reversedString);
+        return reversedString;
+    }
+               CASTExpressionStatement i = strlen(aString);
+                  CASTBinaryExpression i = strlen(aString)
+                     CASTIdExpression i
+                        CASTName i
+                     CASTFunctionCallExpression strlen(aString)
+                        CASTIdExpression strlen
+                           CASTName strlen
+                        CASTIdExpression aString
+                           CASTName aString
+               CASTExpressionStatement reversedString = (char *) malloc(i+1);
+                  CASTBinaryExpression reversedString = (char *) malloc(i+1)
+                     CASTIdExpression reversedString
+                        CASTName reversedString
+                     CASTCastExpression (char *) malloc(i+1)
+                        CASTTypeId char *
+                           CASTSimpleDeclSpecifier char
+                           CASTDeclarator *
+                              CASTPointer *
+                        CASTFunctionCallExpression malloc(i+1)
+                           CASTIdExpression malloc
+                              CASTName malloc
+                           CASTBinaryExpression i+1
+                              CASTIdExpression i
+                                 CASTName i
+                              CASTLiteralExpression 1
+               CASTIfStatement if (reversedString == NULL) {exit(-1);}
+                  CASTBinaryExpression reversedString == NULL
+                     CASTIdExpression reversedString
+                        CASTName reversedString
+                     CASTIdExpression NULL
+                        CASTName NULL
+                  CASTCompoundStatement {exit(-1);}
+                     CASTExpressionStatement exit(-1);
+                        CASTFunctionCallExpression exit(-1)
+                           CASTIdExpression exit
+                              CASTName exit
+                           CASTUnaryExpression -1
+                              CASTLiteralExpression 1
+               CASTForStatement for (j = 0; j < i; j++)
+        {
+            reversedString[j] = aString[i-j-1];
+        }
+                  CASTExpressionStatement j = 0;
+                     CASTBinaryExpression j = 0
+                        CASTIdExpression j
+                           CASTName j
+                        CASTLiteralExpression 0
+                  CASTBinaryExpression j < i
+                     CASTIdExpression j
+                        CASTName j
+                     CASTIdExpression i
+                        CASTName i
+                  CASTUnaryExpression j++
+                     CASTIdExpression j
+                        CASTName j
+                  CASTCompoundStatement {
+            reversedString[j] = aString[i-j-1];
+        }
+                     CASTExpressionStatement reversedString[j] = aString[i-j-1];
+                        CASTBinaryExpression reversedString[j] = aString[i-j-1]
+                           CASTArraySubscriptExpression reversedString[j]
+                              CASTIdExpression reversedString
+                                 CASTName reversedString
+                              CASTIdExpression j
+                                 CASTName j
+                           CASTArraySubscriptExpression aString[i-j-1]
+                              CASTIdExpression aString
+                                 CASTName aString
+                              CASTBinaryExpression i-j-1
+                                 CASTBinaryExpression i-j
+                                    CASTIdExpression i
+                                       CASTName i
+                                    CASTIdExpression j
+                                       CASTName j
+                                 CASTLiteralExpression 1
+               CASTExpressionStatement reversedString[i] = '\0';
+                  CASTBinaryExpression reversedString[i] = '\0'
+                     CASTArraySubscriptExpression reversedString[i]
+                        CASTIdExpression reversedString
+                           CASTName reversedString
+                        CASTIdExpression i
+                           CASTName i
+                     CASTLiteralExpression '\0'
+               CASTExpressionStatement free(reversedString);
+                  CASTFunctionCallExpression free(reversedString)
+                     CASTIdExpression free
+                        CASTName free
+                     CASTIdExpression reversedString
+                        CASTName reversedString
+               CASTReturnStatement return reversedString;
+                  CASTIdExpression reversedString
+                     CASTName reversedString
+            CASTCompoundStatement {
+        return NULL;
+    }
+               CASTReturnStatement return NULL;
+                  CASTIdExpression NULL
+                     CASTName NULL
