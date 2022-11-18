@@ -1,0 +1,223 @@
+CASTTranslationUnit void CWE416_Use_After_Free__malloc_free_int_11_bad()
+{
+    int * data;
+    /* Initialize data */
+    data = NULL;
+    if(globalReturnsTrue())
+    {
+        data = (int *)malloc(100*sizeof(int));
+        if (data == NULL) {exit(-1);}
+        {
+            size_t i;
+            for(i = 0; i < 100; i++)
+            {
+                data[i] = 5;
+            }
+        }
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+    if(globalReturnsTrue())
+    {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printIntLine(data[0]);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+}
+
+
+   CASTFunctionDefinition void CWE416_Use_After_Free__malloc_free_int_11_bad()
+{
+    int * data;
+    /* Initialize data */
+    data = NULL;
+    if(globalReturnsTrue())
+    {
+        data = (int *)malloc(100*sizeof(int));
+        if (data == NULL) {exit(-1);}
+        {
+            size_t i;
+            for(i = 0; i < 100; i++)
+            {
+                data[i] = 5;
+            }
+        }
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+    if(globalReturnsTrue())
+    {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printIntLine(data[0]);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+}
+      CASTSimpleDeclSpecifier void
+      CASTFunctionDeclarator CWE416_Use_After_Free__malloc_free_int_11_bad()
+         CASTName CWE416_Use_After_Free__malloc_free_int_11_bad
+      CASTCompoundStatement {
+    int * data;
+    /* Initialize data */
+    data = NULL;
+    if(globalReturnsTrue())
+    {
+        data = (int *)malloc(100*sizeof(int));
+        if (data == NULL) {exit(-1);}
+        {
+            size_t i;
+            for(i = 0; i < 100; i++)
+            {
+                data[i] = 5;
+            }
+        }
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+    if(globalReturnsTrue())
+    {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printIntLine(data[0]);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+}
+         CASTDeclarationStatement int * data;
+            CASTSimpleDeclaration int * data;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator * data
+                  CASTPointer *
+                  CASTName data
+         CASTExpressionStatement data = NULL;
+            CASTBinaryExpression data = NULL
+               CASTIdExpression data
+                  CASTName data
+               CASTIdExpression NULL
+                  CASTName NULL
+         CASTIfStatement if(globalReturnsTrue())
+    {
+        data = (int *)malloc(100*sizeof(int));
+        if (data == NULL) {exit(-1);}
+        {
+            size_t i;
+            for(i = 0; i < 100; i++)
+            {
+                data[i] = 5;
+            }
+        }
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+            CASTFunctionCallExpression globalReturnsTrue()
+               CASTIdExpression globalReturnsTrue
+                  CASTName globalReturnsTrue
+            CASTCompoundStatement {
+        data = (int *)malloc(100*sizeof(int));
+        if (data == NULL) {exit(-1);}
+        {
+            size_t i;
+            for(i = 0; i < 100; i++)
+            {
+                data[i] = 5;
+            }
+        }
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+               CASTExpressionStatement data = (int *)malloc(100*sizeof(int));
+                  CASTBinaryExpression data = (int *)malloc(100*sizeof(int))
+                     CASTIdExpression data
+                        CASTName data
+                     CASTCastExpression (int *)malloc(100*sizeof(int))
+                        CASTTypeId int *
+                           CASTSimpleDeclSpecifier int
+                           CASTDeclarator *
+                              CASTPointer *
+                        CASTFunctionCallExpression malloc(100*sizeof(int))
+                           CASTIdExpression malloc
+                              CASTName malloc
+                           CASTBinaryExpression 100*sizeof(int)
+                              CASTLiteralExpression 100
+                              CASTTypeIdExpression sizeof(int)
+                                 CASTTypeId int
+                                    CASTSimpleDeclSpecifier int
+                                    CASTDeclarator 
+               CASTIfStatement if (data == NULL) {exit(-1);}
+                  CASTBinaryExpression data == NULL
+                     CASTIdExpression data
+                        CASTName data
+                     CASTIdExpression NULL
+                        CASTName NULL
+                  CASTCompoundStatement {exit(-1);}
+                     CASTExpressionStatement exit(-1);
+                        CASTFunctionCallExpression exit(-1)
+                           CASTIdExpression exit
+                              CASTName exit
+                           CASTUnaryExpression -1
+                              CASTLiteralExpression 1
+               CASTCompoundStatement {
+            size_t i;
+            for(i = 0; i < 100; i++)
+            {
+                data[i] = 5;
+            }
+        }
+                  CASTDeclarationStatement size_t i;
+                     CASTSimpleDeclaration size_t i;
+                        CASTTypedefNameSpecifier size_t
+                           CASTName size_t
+                        CASTDeclarator i
+                           CASTName i
+                  CASTForStatement for(i = 0; i < 100; i++)
+            {
+                data[i] = 5;
+            }
+                     CASTExpressionStatement i = 0;
+                        CASTBinaryExpression i = 0
+                           CASTIdExpression i
+                              CASTName i
+                           CASTLiteralExpression 0
+                     CASTBinaryExpression i < 100
+                        CASTIdExpression i
+                           CASTName i
+                        CASTLiteralExpression 100
+                     CASTUnaryExpression i++
+                        CASTIdExpression i
+                           CASTName i
+                     CASTCompoundStatement {
+                data[i] = 5;
+            }
+                        CASTExpressionStatement data[i] = 5;
+                           CASTBinaryExpression data[i] = 5
+                              CASTArraySubscriptExpression data[i]
+                                 CASTIdExpression data
+                                    CASTName data
+                                 CASTIdExpression i
+                                    CASTName i
+                              CASTLiteralExpression 5
+               CASTExpressionStatement free(data);
+                  CASTFunctionCallExpression free(data)
+                     CASTIdExpression free
+                        CASTName free
+                     CASTIdExpression data
+                        CASTName data
+         CASTIfStatement if(globalReturnsTrue())
+    {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printIntLine(data[0]);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+            CASTFunctionCallExpression globalReturnsTrue()
+               CASTIdExpression globalReturnsTrue
+                  CASTName globalReturnsTrue
+            CASTCompoundStatement {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printIntLine(data[0]);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+               CASTExpressionStatement printIntLine(data[0]);
+                  CASTFunctionCallExpression printIntLine(data[0])
+                     CASTIdExpression printIntLine
+                        CASTName printIntLine
+                     CASTArraySubscriptExpression data[0]
+                        CASTIdExpression data
+                           CASTName data
+                        CASTLiteralExpression 0

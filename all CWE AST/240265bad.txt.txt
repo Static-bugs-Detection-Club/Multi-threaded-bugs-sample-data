@@ -1,0 +1,173 @@
+CASTTranslationUnit void CWE416_Use_After_Free__malloc_free_char_03_bad()
+{
+    char * data;
+    /* Initialize data */
+    data = NULL;
+    if(5==5)
+    {
+        data = (char *)malloc(100*sizeof(char));
+        if (data == NULL) {exit(-1);}
+        memset(data, 'A', 100-1);
+        data[100-1] = '\0';
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+    if(5==5)
+    {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printLine(data);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+}
+
+
+   CASTFunctionDefinition void CWE416_Use_After_Free__malloc_free_char_03_bad()
+{
+    char * data;
+    /* Initialize data */
+    data = NULL;
+    if(5==5)
+    {
+        data = (char *)malloc(100*sizeof(char));
+        if (data == NULL) {exit(-1);}
+        memset(data, 'A', 100-1);
+        data[100-1] = '\0';
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+    if(5==5)
+    {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printLine(data);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+}
+      CASTSimpleDeclSpecifier void
+      CASTFunctionDeclarator CWE416_Use_After_Free__malloc_free_char_03_bad()
+         CASTName CWE416_Use_After_Free__malloc_free_char_03_bad
+      CASTCompoundStatement {
+    char * data;
+    /* Initialize data */
+    data = NULL;
+    if(5==5)
+    {
+        data = (char *)malloc(100*sizeof(char));
+        if (data == NULL) {exit(-1);}
+        memset(data, 'A', 100-1);
+        data[100-1] = '\0';
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+    if(5==5)
+    {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printLine(data);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+}
+         CASTDeclarationStatement char * data;
+            CASTSimpleDeclaration char * data;
+               CASTSimpleDeclSpecifier char
+               CASTDeclarator * data
+                  CASTPointer *
+                  CASTName data
+         CASTExpressionStatement data = NULL;
+            CASTBinaryExpression data = NULL
+               CASTIdExpression data
+                  CASTName data
+               CASTIdExpression NULL
+                  CASTName NULL
+         CASTIfStatement if(5==5)
+    {
+        data = (char *)malloc(100*sizeof(char));
+        if (data == NULL) {exit(-1);}
+        memset(data, 'A', 100-1);
+        data[100-1] = '\0';
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+            CASTBinaryExpression 5==5
+               CASTLiteralExpression 5
+            CASTCompoundStatement {
+        data = (char *)malloc(100*sizeof(char));
+        if (data == NULL) {exit(-1);}
+        memset(data, 'A', 100-1);
+        data[100-1] = '\0';
+        /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+        free(data);
+    }
+               CASTExpressionStatement data = (char *)malloc(100*sizeof(char));
+                  CASTBinaryExpression data = (char *)malloc(100*sizeof(char))
+                     CASTIdExpression data
+                        CASTName data
+                     CASTCastExpression (char *)malloc(100*sizeof(char))
+                        CASTTypeId char *
+                           CASTSimpleDeclSpecifier char
+                           CASTDeclarator *
+                              CASTPointer *
+                        CASTFunctionCallExpression malloc(100*sizeof(char))
+                           CASTIdExpression malloc
+                              CASTName malloc
+                           CASTBinaryExpression 100*sizeof(char)
+                              CASTLiteralExpression 100
+                              CASTTypeIdExpression sizeof(char)
+                                 CASTTypeId char
+                                    CASTSimpleDeclSpecifier char
+                                    CASTDeclarator 
+               CASTIfStatement if (data == NULL) {exit(-1);}
+                  CASTBinaryExpression data == NULL
+                     CASTIdExpression data
+                        CASTName data
+                     CASTIdExpression NULL
+                        CASTName NULL
+                  CASTCompoundStatement {exit(-1);}
+                     CASTExpressionStatement exit(-1);
+                        CASTFunctionCallExpression exit(-1)
+                           CASTIdExpression exit
+                              CASTName exit
+                           CASTUnaryExpression -1
+                              CASTLiteralExpression 1
+               CASTExpressionStatement memset(data, 'A', 100-1);
+                  CASTFunctionCallExpression memset(data, 'A', 100-1)
+                     CASTIdExpression memset
+                        CASTName memset
+                     CASTIdExpression data
+                        CASTName data
+                     CASTLiteralExpression 'A'
+                     CASTBinaryExpression 100-1
+                        CASTLiteralExpression 100
+                        CASTLiteralExpression 1
+               CASTExpressionStatement data[100-1] = '\0';
+                  CASTBinaryExpression data[100-1] = '\0'
+                     CASTArraySubscriptExpression data[100-1]
+                        CASTIdExpression data
+                           CASTName data
+                        CASTBinaryExpression 100-1
+                           CASTLiteralExpression 100
+                           CASTLiteralExpression 1
+                     CASTLiteralExpression '\0'
+               CASTExpressionStatement free(data);
+                  CASTFunctionCallExpression free(data)
+                     CASTIdExpression free
+                        CASTName free
+                     CASTIdExpression data
+                        CASTName data
+         CASTIfStatement if(5==5)
+    {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printLine(data);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+            CASTBinaryExpression 5==5
+               CASTLiteralExpression 5
+            CASTCompoundStatement {
+        /* POTENTIAL FLAW: Use of data that may have been freed */
+        printLine(data);
+        /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+    }
+               CASTExpressionStatement printLine(data);
+                  CASTFunctionCallExpression printLine(data)
+                     CASTIdExpression printLine
+                        CASTName printLine
+                     CASTIdExpression data
+                        CASTName data

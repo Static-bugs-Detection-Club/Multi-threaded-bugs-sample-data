@@ -1,0 +1,190 @@
+CASTTranslationUnit void CWE416_Use_After_Free__malloc_free_int64_t_63_bad()
+{
+    int64_t * data;
+    /* Initialize data */
+    data = NULL;
+    data = (int64_t *)malloc(100*sizeof(int64_t));
+    {
+        size_t i;
+        for(i = 0; i < 100; i++)
+        {
+            data[i] = 5LL;
+        }
+    }
+    /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+    free(data);
+    CWE416_Use_After_Free__malloc_free_int64_t_63b_badSink(&data);
+}
+
+void CWE416_Use_After_Free__malloc_free_int64_t_63b_badSink(int64_t * * dataPtr)
+{
+    int64_t * data = *dataPtr;
+    /* POTENTIAL FLAW: Use of data that may have been freed */
+    printLongLongLine(data[0]);
+    /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+}
+
+
+   CASTFunctionDefinition void CWE416_Use_After_Free__malloc_free_int64_t_63_bad()
+{
+    int64_t * data;
+    /* Initialize data */
+    data = NULL;
+    data = (int64_t *)malloc(100*sizeof(int64_t));
+    {
+        size_t i;
+        for(i = 0; i < 100; i++)
+        {
+            data[i] = 5LL;
+        }
+    }
+    /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+    free(data);
+    CWE416_Use_After_Free__malloc_free_int64_t_63b_badSink(&data);
+}
+      CASTSimpleDeclSpecifier void
+      CASTFunctionDeclarator CWE416_Use_After_Free__malloc_free_int64_t_63_bad()
+         CASTName CWE416_Use_After_Free__malloc_free_int64_t_63_bad
+      CASTCompoundStatement {
+    int64_t * data;
+    /* Initialize data */
+    data = NULL;
+    data = (int64_t *)malloc(100*sizeof(int64_t));
+    {
+        size_t i;
+        for(i = 0; i < 100; i++)
+        {
+            data[i] = 5LL;
+        }
+    }
+    /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+    free(data);
+    CWE416_Use_After_Free__malloc_free_int64_t_63b_badSink(&data);
+}
+         CASTDeclarationStatement int64_t * data;
+            CASTSimpleDeclaration int64_t * data;
+               CASTTypedefNameSpecifier int64_t
+                  CASTName int64_t
+               CASTDeclarator * data
+                  CASTPointer *
+                  CASTName data
+         CASTExpressionStatement data = NULL;
+            CASTBinaryExpression data = NULL
+               CASTIdExpression data
+                  CASTName data
+               CASTIdExpression NULL
+                  CASTName NULL
+         CASTExpressionStatement data = (int64_t *)malloc(100*sizeof(int64_t));
+            CASTBinaryExpression data = (int64_t *)malloc(100*sizeof(int64_t))
+               CASTIdExpression data
+                  CASTName data
+               CASTCastExpression (int64_t *)malloc(100*sizeof(int64_t))
+                  CASTTypeId int64_t *
+                     CASTTypedefNameSpecifier int64_t
+                        CASTName int64_t
+                     CASTDeclarator *
+                        CASTPointer *
+                  CASTFunctionCallExpression malloc(100*sizeof(int64_t))
+                     CASTIdExpression malloc
+                        CASTName malloc
+                     CASTBinaryExpression 100*sizeof(int64_t)
+                        CASTLiteralExpression 100
+                        CASTTypeIdExpression sizeof(int64_t)
+                           CASTTypeId int64_t
+                              CASTTypedefNameSpecifier int64_t
+                                 CASTName int64_t
+                              CASTDeclarator 
+         CASTCompoundStatement {
+        size_t i;
+        for(i = 0; i < 100; i++)
+        {
+            data[i] = 5LL;
+        }
+    }
+            CASTDeclarationStatement size_t i;
+               CASTSimpleDeclaration size_t i;
+                  CASTTypedefNameSpecifier size_t
+                     CASTName size_t
+                  CASTDeclarator i
+                     CASTName i
+            CASTForStatement for(i = 0; i < 100; i++)
+        {
+            data[i] = 5LL;
+        }
+               CASTExpressionStatement i = 0;
+                  CASTBinaryExpression i = 0
+                     CASTIdExpression i
+                        CASTName i
+                     CASTLiteralExpression 0
+               CASTBinaryExpression i < 100
+                  CASTIdExpression i
+                     CASTName i
+                  CASTLiteralExpression 100
+               CASTUnaryExpression i++
+                  CASTIdExpression i
+                     CASTName i
+               CASTCompoundStatement {
+            data[i] = 5LL;
+        }
+                  CASTExpressionStatement data[i] = 5LL;
+                     CASTBinaryExpression data[i] = 5LL
+                        CASTArraySubscriptExpression data[i]
+                           CASTIdExpression data
+                              CASTName data
+                           CASTIdExpression i
+                              CASTName i
+                        CASTLiteralExpression 5LL
+         CASTExpressionStatement free(data);
+            CASTFunctionCallExpression free(data)
+               CASTIdExpression free
+                  CASTName free
+               CASTIdExpression data
+                  CASTName data
+         CASTExpressionStatement CWE416_Use_After_Free__malloc_free_int64_t_63b_badSink(&data);
+            CASTFunctionCallExpression CWE416_Use_After_Free__malloc_free_int64_t_63b_badSink(&data)
+               CASTIdExpression CWE416_Use_After_Free__malloc_free_int64_t_63b_badSink
+                  CASTName CWE416_Use_After_Free__malloc_free_int64_t_63b_badSink
+               CASTUnaryExpression &data
+                  CASTIdExpression data
+                     CASTName data
+   CASTFunctionDefinition void CWE416_Use_After_Free__malloc_free_int64_t_63b_badSink(int64_t * * dataPtr)
+{
+    int64_t * data = *dataPtr;
+    /* POTENTIAL FLAW: Use of data that may have been freed */
+    printLongLongLine(data[0]);
+    /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+}
+      CASTSimpleDeclSpecifier void
+      CASTFunctionDeclarator CWE416_Use_After_Free__malloc_free_int64_t_63b_badSink(int64_t * * dataPtr)
+         CASTName CWE416_Use_After_Free__malloc_free_int64_t_63b_badSink
+         CASTParameterDeclaration int64_t * * dataPtr
+            CASTTypedefNameSpecifier int64_t
+               CASTName int64_t
+            CASTDeclarator * * dataPtr
+               CASTPointer *
+               CASTName dataPtr
+      CASTCompoundStatement {
+    int64_t * data = *dataPtr;
+    /* POTENTIAL FLAW: Use of data that may have been freed */
+    printLongLongLine(data[0]);
+    /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+}
+         CASTDeclarationStatement int64_t * data = *dataPtr;
+            CASTSimpleDeclaration int64_t * data = *dataPtr;
+               CASTTypedefNameSpecifier int64_t
+                  CASTName int64_t
+               CASTDeclarator * data = *dataPtr
+                  CASTPointer *
+                  CASTName data
+                  CASTEqualsInitializer = *dataPtr
+                     CASTUnaryExpression *dataPtr
+                        CASTIdExpression dataPtr
+                           CASTName dataPtr
+         CASTExpressionStatement printLongLongLine(data[0]);
+            CASTFunctionCallExpression printLongLongLine(data[0])
+               CASTIdExpression printLongLongLine
+                  CASTName printLongLongLine
+               CASTArraySubscriptExpression data[0]
+                  CASTIdExpression data
+                     CASTName data
+                  CASTLiteralExpression 0

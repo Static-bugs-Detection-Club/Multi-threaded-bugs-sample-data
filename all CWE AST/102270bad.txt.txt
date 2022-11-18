@@ -1,0 +1,209 @@
+CASTTranslationUnit void CWE416_Use_After_Free__malloc_free_int_64_bad()
+{
+    int * data;
+    /* Initialize data */
+    data = NULL;
+    data = (int *)malloc(100*sizeof(int));
+    {
+        size_t i;
+        for(i = 0; i < 100; i++)
+        {
+            data[i] = 5;
+        }
+    }
+    /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+    free(data);
+    CWE416_Use_After_Free__malloc_free_int_64b_badSink(&data);
+}
+
+void CWE416_Use_After_Free__malloc_free_int_64b_badSink(void * dataVoidPtr)
+{
+    /* cast void pointer to a pointer of the appropriate type */
+    int * * dataPtr = (int * *)dataVoidPtr;
+    /* dereference dataPtr into data */
+    int * data = (*dataPtr);
+    /* POTENTIAL FLAW: Use of data that may have been freed */
+    printIntLine(data[0]);
+    /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+}
+
+
+   CASTFunctionDefinition void CWE416_Use_After_Free__malloc_free_int_64_bad()
+{
+    int * data;
+    /* Initialize data */
+    data = NULL;
+    data = (int *)malloc(100*sizeof(int));
+    {
+        size_t i;
+        for(i = 0; i < 100; i++)
+        {
+            data[i] = 5;
+        }
+    }
+    /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+    free(data);
+    CWE416_Use_After_Free__malloc_free_int_64b_badSink(&data);
+}
+      CASTSimpleDeclSpecifier void
+      CASTFunctionDeclarator CWE416_Use_After_Free__malloc_free_int_64_bad()
+         CASTName CWE416_Use_After_Free__malloc_free_int_64_bad
+      CASTCompoundStatement {
+    int * data;
+    /* Initialize data */
+    data = NULL;
+    data = (int *)malloc(100*sizeof(int));
+    {
+        size_t i;
+        for(i = 0; i < 100; i++)
+        {
+            data[i] = 5;
+        }
+    }
+    /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+    free(data);
+    CWE416_Use_After_Free__malloc_free_int_64b_badSink(&data);
+}
+         CASTDeclarationStatement int * data;
+            CASTSimpleDeclaration int * data;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator * data
+                  CASTPointer *
+                  CASTName data
+         CASTExpressionStatement data = NULL;
+            CASTBinaryExpression data = NULL
+               CASTIdExpression data
+                  CASTName data
+               CASTIdExpression NULL
+                  CASTName NULL
+         CASTExpressionStatement data = (int *)malloc(100*sizeof(int));
+            CASTBinaryExpression data = (int *)malloc(100*sizeof(int))
+               CASTIdExpression data
+                  CASTName data
+               CASTCastExpression (int *)malloc(100*sizeof(int))
+                  CASTTypeId int *
+                     CASTSimpleDeclSpecifier int
+                     CASTDeclarator *
+                        CASTPointer *
+                  CASTFunctionCallExpression malloc(100*sizeof(int))
+                     CASTIdExpression malloc
+                        CASTName malloc
+                     CASTBinaryExpression 100*sizeof(int)
+                        CASTLiteralExpression 100
+                        CASTTypeIdExpression sizeof(int)
+                           CASTTypeId int
+                              CASTSimpleDeclSpecifier int
+                              CASTDeclarator 
+         CASTCompoundStatement {
+        size_t i;
+        for(i = 0; i < 100; i++)
+        {
+            data[i] = 5;
+        }
+    }
+            CASTDeclarationStatement size_t i;
+               CASTSimpleDeclaration size_t i;
+                  CASTTypedefNameSpecifier size_t
+                     CASTName size_t
+                  CASTDeclarator i
+                     CASTName i
+            CASTForStatement for(i = 0; i < 100; i++)
+        {
+            data[i] = 5;
+        }
+               CASTExpressionStatement i = 0;
+                  CASTBinaryExpression i = 0
+                     CASTIdExpression i
+                        CASTName i
+                     CASTLiteralExpression 0
+               CASTBinaryExpression i < 100
+                  CASTIdExpression i
+                     CASTName i
+                  CASTLiteralExpression 100
+               CASTUnaryExpression i++
+                  CASTIdExpression i
+                     CASTName i
+               CASTCompoundStatement {
+            data[i] = 5;
+        }
+                  CASTExpressionStatement data[i] = 5;
+                     CASTBinaryExpression data[i] = 5
+                        CASTArraySubscriptExpression data[i]
+                           CASTIdExpression data
+                              CASTName data
+                           CASTIdExpression i
+                              CASTName i
+                        CASTLiteralExpression 5
+         CASTExpressionStatement free(data);
+            CASTFunctionCallExpression free(data)
+               CASTIdExpression free
+                  CASTName free
+               CASTIdExpression data
+                  CASTName data
+         CASTExpressionStatement CWE416_Use_After_Free__malloc_free_int_64b_badSink(&data);
+            CASTFunctionCallExpression CWE416_Use_After_Free__malloc_free_int_64b_badSink(&data)
+               CASTIdExpression CWE416_Use_After_Free__malloc_free_int_64b_badSink
+                  CASTName CWE416_Use_After_Free__malloc_free_int_64b_badSink
+               CASTUnaryExpression &data
+                  CASTIdExpression data
+                     CASTName data
+   CASTFunctionDefinition void CWE416_Use_After_Free__malloc_free_int_64b_badSink(void * dataVoidPtr)
+{
+    /* cast void pointer to a pointer of the appropriate type */
+    int * * dataPtr = (int * *)dataVoidPtr;
+    /* dereference dataPtr into data */
+    int * data = (*dataPtr);
+    /* POTENTIAL FLAW: Use of data that may have been freed */
+    printIntLine(data[0]);
+    /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+}
+      CASTSimpleDeclSpecifier void
+      CASTFunctionDeclarator CWE416_Use_After_Free__malloc_free_int_64b_badSink(void * dataVoidPtr)
+         CASTName CWE416_Use_After_Free__malloc_free_int_64b_badSink
+         CASTParameterDeclaration void * dataVoidPtr
+            CASTSimpleDeclSpecifier void
+            CASTDeclarator * dataVoidPtr
+               CASTPointer *
+               CASTName dataVoidPtr
+      CASTCompoundStatement {
+    /* cast void pointer to a pointer of the appropriate type */
+    int * * dataPtr = (int * *)dataVoidPtr;
+    /* dereference dataPtr into data */
+    int * data = (*dataPtr);
+    /* POTENTIAL FLAW: Use of data that may have been freed */
+    printIntLine(data[0]);
+    /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+}
+         CASTDeclarationStatement int * * dataPtr = (int * *)dataVoidPtr;
+            CASTSimpleDeclaration int * * dataPtr = (int * *)dataVoidPtr;
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator * * dataPtr = (int * *)dataVoidPtr
+                  CASTPointer *
+                  CASTName dataPtr
+                  CASTEqualsInitializer = (int * *)dataVoidPtr
+                     CASTCastExpression (int * *)dataVoidPtr
+                        CASTTypeId int * *
+                           CASTSimpleDeclSpecifier int
+                           CASTDeclarator * *
+                              CASTPointer *
+                        CASTIdExpression dataVoidPtr
+                           CASTName dataVoidPtr
+         CASTDeclarationStatement int * data = (*dataPtr);
+            CASTSimpleDeclaration int * data = (*dataPtr);
+               CASTSimpleDeclSpecifier int
+               CASTDeclarator * data = (*dataPtr)
+                  CASTPointer *
+                  CASTName data
+                  CASTEqualsInitializer = (*dataPtr)
+                     CASTUnaryExpression (*dataPtr)
+                        CASTUnaryExpression *dataPtr
+                           CASTIdExpression dataPtr
+                              CASTName dataPtr
+         CASTExpressionStatement printIntLine(data[0]);
+            CASTFunctionCallExpression printIntLine(data[0])
+               CASTIdExpression printIntLine
+                  CASTName printIntLine
+               CASTArraySubscriptExpression data[0]
+                  CASTIdExpression data
+                     CASTName data
+                  CASTLiteralExpression 0

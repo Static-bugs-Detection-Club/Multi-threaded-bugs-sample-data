@@ -1,0 +1,158 @@
+CASTTranslationUnit int a;
+int b;
+
+void CWE416_Use_After_Free__malloc_free_char_63_bad()
+{
+    char * data;
+    /* Initialize data */
+    data = NULL;
+    data = (char *)malloc(100*sizeof(char));
+    memset(data, 'A', 100-1);
+    data[100-1] = '\0';
+    /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+    free(data);
+    CWE416_Use_After_Free__malloc_free_char_63b_badSink(&data);
+}
+
+void CWE416_Use_After_Free__malloc_free_char_63b_badSink(char * * dataPtr)
+{
+    char * data = *dataPtr;
+    /* POTENTIAL FLAW: Use of data that may have been freed */
+    printLine(data);
+    /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+}
+
+
+   CASTSimpleDeclaration int a;
+      CASTSimpleDeclSpecifier int
+      CASTDeclarator a
+         CASTName a
+   CASTSimpleDeclaration int b;
+      CASTSimpleDeclSpecifier int
+      CASTDeclarator b
+         CASTName b
+   CASTFunctionDefinition void CWE416_Use_After_Free__malloc_free_char_63_bad()
+{
+    char * data;
+    /* Initialize data */
+    data = NULL;
+    data = (char *)malloc(100*sizeof(char));
+    memset(data, 'A', 100-1);
+    data[100-1] = '\0';
+    /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+    free(data);
+    CWE416_Use_After_Free__malloc_free_char_63b_badSink(&data);
+}
+      CASTSimpleDeclSpecifier void
+      CASTFunctionDeclarator CWE416_Use_After_Free__malloc_free_char_63_bad()
+         CASTName CWE416_Use_After_Free__malloc_free_char_63_bad
+      CASTCompoundStatement {
+    char * data;
+    /* Initialize data */
+    data = NULL;
+    data = (char *)malloc(100*sizeof(char));
+    memset(data, 'A', 100-1);
+    data[100-1] = '\0';
+    /* POTENTIAL FLAW: Free data in the source - the bad sink attempts to use data */
+    free(data);
+    CWE416_Use_After_Free__malloc_free_char_63b_badSink(&data);
+}
+         CASTDeclarationStatement char * data;
+            CASTSimpleDeclaration char * data;
+               CASTSimpleDeclSpecifier char
+               CASTDeclarator * data
+                  CASTPointer *
+                  CASTName data
+         CASTExpressionStatement data = NULL;
+            CASTBinaryExpression data = NULL
+               CASTIdExpression data
+                  CASTName data
+               CASTIdExpression NULL
+                  CASTName NULL
+         CASTExpressionStatement data = (char *)malloc(100*sizeof(char));
+            CASTBinaryExpression data = (char *)malloc(100*sizeof(char))
+               CASTIdExpression data
+                  CASTName data
+               CASTCastExpression (char *)malloc(100*sizeof(char))
+                  CASTTypeId char *
+                     CASTSimpleDeclSpecifier char
+                     CASTDeclarator *
+                        CASTPointer *
+                  CASTFunctionCallExpression malloc(100*sizeof(char))
+                     CASTIdExpression malloc
+                        CASTName malloc
+                     CASTBinaryExpression 100*sizeof(char)
+                        CASTLiteralExpression 100
+                        CASTTypeIdExpression sizeof(char)
+                           CASTTypeId char
+                              CASTSimpleDeclSpecifier char
+                              CASTDeclarator 
+         CASTExpressionStatement memset(data, 'A', 100-1);
+            CASTFunctionCallExpression memset(data, 'A', 100-1)
+               CASTIdExpression memset
+                  CASTName memset
+               CASTIdExpression data
+                  CASTName data
+               CASTLiteralExpression 'A'
+               CASTBinaryExpression 100-1
+                  CASTLiteralExpression 100
+                  CASTLiteralExpression 1
+         CASTExpressionStatement data[100-1] = '\0';
+            CASTBinaryExpression data[100-1] = '\0'
+               CASTArraySubscriptExpression data[100-1]
+                  CASTIdExpression data
+                     CASTName data
+                  CASTBinaryExpression 100-1
+                     CASTLiteralExpression 100
+                     CASTLiteralExpression 1
+               CASTLiteralExpression '\0'
+         CASTExpressionStatement free(data);
+            CASTFunctionCallExpression free(data)
+               CASTIdExpression free
+                  CASTName free
+               CASTIdExpression data
+                  CASTName data
+         CASTExpressionStatement CWE416_Use_After_Free__malloc_free_char_63b_badSink(&data);
+            CASTFunctionCallExpression CWE416_Use_After_Free__malloc_free_char_63b_badSink(&data)
+               CASTIdExpression CWE416_Use_After_Free__malloc_free_char_63b_badSink
+                  CASTName CWE416_Use_After_Free__malloc_free_char_63b_badSink
+               CASTUnaryExpression &data
+                  CASTIdExpression data
+                     CASTName data
+   CASTFunctionDefinition void CWE416_Use_After_Free__malloc_free_char_63b_badSink(char * * dataPtr)
+{
+    char * data = *dataPtr;
+    /* POTENTIAL FLAW: Use of data that may have been freed */
+    printLine(data);
+    /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+}
+      CASTSimpleDeclSpecifier void
+      CASTFunctionDeclarator CWE416_Use_After_Free__malloc_free_char_63b_badSink(char * * dataPtr)
+         CASTName CWE416_Use_After_Free__malloc_free_char_63b_badSink
+         CASTParameterDeclaration char * * dataPtr
+            CASTSimpleDeclSpecifier char
+            CASTDeclarator * * dataPtr
+               CASTPointer *
+               CASTName dataPtr
+      CASTCompoundStatement {
+    char * data = *dataPtr;
+    /* POTENTIAL FLAW: Use of data that may have been freed */
+    printLine(data);
+    /* POTENTIAL INCIDENTAL - Possible memory leak here if data was not freed */
+}
+         CASTDeclarationStatement char * data = *dataPtr;
+            CASTSimpleDeclaration char * data = *dataPtr;
+               CASTSimpleDeclSpecifier char
+               CASTDeclarator * data = *dataPtr
+                  CASTPointer *
+                  CASTName data
+                  CASTEqualsInitializer = *dataPtr
+                     CASTUnaryExpression *dataPtr
+                        CASTIdExpression dataPtr
+                           CASTName dataPtr
+         CASTExpressionStatement printLine(data);
+            CASTFunctionCallExpression printLine(data)
+               CASTIdExpression printLine
+                  CASTName printLine
+               CASTIdExpression data
+                  CASTName data
